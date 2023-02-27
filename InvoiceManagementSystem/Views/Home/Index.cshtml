@@ -4,9 +4,13 @@
     ViewBag.ActionName = "Home";
 }
 <style>
-    #box {
-        box-shadow: 10px 10px 5px grey;
+    .box {
+        transition: box-shadow .3s;
     }
+
+        .box:hover {
+            box-shadow: 0 0 11px rgba(33,33,33,.2);
+        }
 </style>
 <!-- Navbar -->
 <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl " id="navbarBlur" data-scroll="false">
@@ -25,21 +29,23 @@
                 @{if (Model.LSTDashBoardList != null && Model.LSTDashBoardList.Count > 0)
 
                     {
-                        <div class="card">
-                            <div class="card-body p-3">
-                                <div class="row">
-                                    <div class="col-8">
-                                        <div class="numbers">
-                                            <p class="text-sm mb-0 text-uppercase font-weight-bold">Total ClassRoom</p>
+                        <div class="box">
+                            <div class="card">
+                                <div class="card-body p-3">
+                                    <div class="row">
+                                        <div class="col-8">
+                                            <div class="numbers">
+                                                <p class="text-sm mb-0 text-uppercase font-weight-bold">Total ClassRoom</p>
 
-                                            <a href="/ClassRoom/ClassRoom">
-                                                <h5 class="font-weight-bolder">@(Model.LSTDashBoardList[0].TotalClassRoom == 0 ? 0 : Model.LSTDashBoardList[0].TotalClassRoom)</h5>
-                                            </a>
+                                                <a href="/ClassRoom/ClassRoom">
+                                                    <h5 class="font-weight-bolder">@(Model.LSTDashBoardList[0].TotalClassRoom == 0 ? 0 : Model.LSTDashBoardList[0].TotalClassRoom)</h5>
+                                                </a>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-4 text-end">
-                                        <div class="icon icon-shape bg-gradient-primary shadow-primary text-center rounded-circle">
-                                            <i class="ni ni-money-coins text-lg opacity-10" aria-hidden="true"></i>
+                                        <div class="col-4 text-end">
+                                            <div class="icon icon-shape bg-gradient-primary shadow-primary text-center rounded-circle">
+                                                <i class="ni ni-money-coins text-lg opacity-10" aria-hidden="true"></i>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -49,7 +55,7 @@
                 }
             </div>
             <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
-                <div class="card">
+                <div class="card" id="box">
                     <div class="card-body p-3">
                         <div class="row">
                             <div class="col-8">
@@ -70,7 +76,7 @@
                 </div>
             </div>
             <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
-                <div class="card">
+                <div class="card" id="box">
                     <div class="card-body p-3">
                         <div class="row">
                             <div class="col-8">
@@ -91,7 +97,7 @@
                 </div>
             </div>
             <div class="col-xl-3 col-sm-6">
-                <div class="card">
+                <div class="card" id="box">
                     <div class="card-body p-3">
                         <div class="row">
                             <div class="col-8">

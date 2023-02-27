@@ -10,12 +10,12 @@ using System.Web.Mvc;
 
 namespace InvoiceManagementSystem.Controllers
 {
-    public class TeacherAttandenceController : Controller
+    public class StudentAttandenceController : Controller
     {
         clsCommon objCommon = new clsCommon();
 
-        // GET: TeacherAttandence
-        public ActionResult TeacherAttandence()
+        // GET: StudentSubject
+        public ActionResult StudentAttandence()
         {
             if (objCommon.getUserIdFromSession() != 0)
             {
@@ -29,28 +29,29 @@ namespace InvoiceManagementSystem.Controllers
 
         [HttpPost]
 
-        public ActionResult InsertTeacherAttandence(TeacherAttandenceModel model)
+        public ActionResult InsertStudentAttandence(StudentAttandenceModel model)
         {
-            model = model.addTeacherAttandence(model);
+            model = model.addStudentAttandence(model);
             return Json(model.Response, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult GetTeacherAttandence(TeacherAttandenceModel cls)
+        public ActionResult GetStudentAttandence(StudentAttandenceModel cls)
         {
             try
             {
                 int TotalEntries = 0;
                 int showingEntries = 0;
                 int startentries = 0;
-                List<TeacherAttandenceModel> lstTeacherAttandenceList = new List<TeacherAttandenceModel>();
+                List<StudentAttandenceModel> lstStudentAttandenceList = new List<StudentAttandenceModel>();
                 SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString);
                 conn.Open();
-                SqlCommand cmd = new SqlCommand("Sp_GetTeacherAttandenceList", conn);
+                SqlCommand cmd = new SqlCommand("Sp_GetStudentAttandenceList", conn);
                 cmd.Parameters.AddWithValue("@PageSize", cls.PageSize);
                 cmd.Parameters.AddWithValue("@PageIndex", cls.PageIndex);
                 cmd.Parameters.AddWithValue("@Search", cls.SearchText);
                 cmd.Parameters.AddWithValue("@intActive", cls.intActive); 
-                cmd.Parameters.AddWithValue("@TeacherId", objCommon.getTeacherIdFromSession());
+                cmd.Parameters.AddWithValue("@StudentId", objCommon.getStudentIdFromSession());
+                cmd.Parameters.AddWithValue("@ClassId", objCommon.getClassIdFromSession());
                 cmd.Parameters.AddWithValue("@UserId", objCommon.getUserIdFromSession());
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandTimeout = 0;
@@ -65,35 +66,35 @@ namespace InvoiceManagementSystem.Controllers
 
                     for (var i = 0; i < dt.Rows.Count; i++)
                     {
-                        TeacherAttandenceModel obj = new TeacherAttandenceModel();
+                        StudentAttandenceModel obj = new StudentAttandenceModel();
                         obj.Id = Convert.ToInt32(dt.Rows[i]["Id"] == null || dt.Rows[i]["Id"].ToString().Trim() == "" ? null : dt.Rows[i]["Id"].ToString());
-                        obj.TeacherId = Convert.ToInt32(dt.Rows[i]["TeacherId"] == null || dt.Rows[i]["TeacherId"].ToString().Trim() == "" ? null : dt.Rows[i]["TeacherId"].ToString());
-                        obj.TeacherName = dt.Rows[i]["FullName"] == null || dt.Rows[i]["FullName"].ToString().Trim() == "" ? null : dt.Rows[i]["FullName"].ToString();
+                        obj.StudentId = Convert.ToInt32(dt.Rows[i]["StudentId"] == null || dt.Rows[i]["StudentId"].ToString().Trim() == "" ? null : dt.Rows[i]["StudentId"].ToString());
+                        obj.ClassId = Convert.ToInt32(dt.Rows[i]["ClassId"] == null || dt.Rows[i]["ClassId"].ToString().Trim() == "" ? null : dt.Rows[i]["ClassId"].ToString());
+                        //obj.ClassNo = dt.Rows[i]["ClassNo"] == null || dt.Rows[i]["ClassNo"].ToString().Trim() == "" ? null : dt.Rows[i]["ClassNo"].ToString();
+                        obj.StudentName = dt.Rows[i]["FullName"] == null || dt.Rows[i]["FullName"].ToString().Trim() == "" ? null : dt.Rows[i]["FullName"].ToString();
                         obj.Status = Convert.ToBoolean(dt.Rows[i]["Status"] == null || dt.Rows[i]["Status"].ToString().Trim() == "" ? null : dt.Rows[i]["Status"].ToString());
                         obj.Date = dt.Rows[i]["Date"] == null || dt.Rows[i]["Date"].ToString().Trim() == "" ? null : Convert.ToDateTime(dt.Rows[i]["Date"]).ToString("dd/MM/yyyy");
-                        obj.LeaveType = Convert.ToInt32(dt.Rows[i]["LeaveType"] == null || dt.Rows[i]["LeaveType"].ToString().Trim() == "" ? null : dt.Rows[i]["LeaveType"].ToString());
-                        obj.Reason = dt.Rows[i]["Reason"] == null || dt.Rows[i]["Reason"].ToString().Trim() == "" ? null : dt.Rows[i]["Reason"].ToString();
                         obj.ROWNUMBER = Convert.ToInt32(dt.Rows[i]["ROWNUMBER"] == null || dt.Rows[i]["ROWNUMBER"].ToString().Trim() == "" ? null : dt.Rows[i]["ROWNUMBER"].ToString());
                         obj.PageCount = Convert.ToInt32(dt.Rows[i]["PageCount"] == null || dt.Rows[i]["PageCount"].ToString().Trim() == "" ? null : dt.Rows[i]["PageCount"].ToString());
                         obj.PageSize = Convert.ToInt32(dt.Rows[i]["PageSize"] == null || dt.Rows[i]["PageSize"].ToString().Trim() == "" ? null : dt.Rows[i]["PageSize"].ToString());
                         obj.PageIndex = Convert.ToInt32(dt.Rows[i]["PageIndex"] == null || dt.Rows[i]["PageIndex"].ToString().Trim() == "" ? null : dt.Rows[i]["PageIndex"].ToString());
                         obj.TotalRecord = Convert.ToInt32(dt.Rows[i]["TotalRecord"] == null || dt.Rows[i]["TotalRecord"].ToString().Trim() == "" ? null : dt.Rows[i]["TotalRecord"].ToString());
-                        lstTeacherAttandenceList.Add(obj);
+                        lstStudentAttandenceList.Add(obj);
                     }
                 }
-                cls.LSTTeacherAttandenceList = lstTeacherAttandenceList;
-                if (cls.LSTTeacherAttandenceList.Count > 0)
+                cls.LSTStudentAttandenceList = lstStudentAttandenceList;
+                if (cls.LSTStudentAttandenceList.Count > 0)
                 {
-                    var pager = new Models.Pager((int)cls.LSTTeacherAttandenceList[0].TotalRecord, cls.PageIndex, (int)cls.PageSize);
+                    var pager = new Models.Pager((int)cls.LSTStudentAttandenceList[0].TotalRecord, cls.PageIndex, (int)cls.PageSize);
 
                     cls.Pager = pager;
                 }
                 cls.TotalEntries = TotalEntries;
                 cls.ShowingEntries = showingEntries;
                 cls.fromEntries = startentries;
-                cls.LSTTeacherAttandenceList = lstTeacherAttandenceList;
+                cls.LSTStudentAttandenceList = lstStudentAttandenceList;
 
-                return PartialView("_TeacherAttandenceListPartial", cls);
+                return PartialView("_StudentAttandenceListPartial", cls);
 
             }
             catch (Exception ex)
@@ -102,11 +103,11 @@ namespace InvoiceManagementSystem.Controllers
             }
         }
 
-        public ActionResult GetSingleTeacherAttandenceData(TeacherAttandenceModel cls)
+        public ActionResult GetSingleStudentAttandenceData(StudentAttandenceModel cls)
         {
             try
             {
-                cls = cls.GetTeacherAttandence(cls);
+                cls = cls.GetStudentAttandence(cls);
                 return Json(cls, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
@@ -115,11 +116,11 @@ namespace InvoiceManagementSystem.Controllers
             }
         }
 
-        public ActionResult deleteTeacherAttandence(TeacherAttandenceModel cls)
+        public ActionResult deleteStudentAttandence(StudentAttandenceModel cls)
         {
             try
             {
-                cls = cls.deleteTeacherAttandence(cls);
+                cls = cls.deleteStudentAttandence(cls);
                 return Json(cls, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
@@ -128,14 +129,14 @@ namespace InvoiceManagementSystem.Controllers
             }
         }
 
-        public ActionResult GetTeacher(TeacherModel cls)
+        public ActionResult GetStudent(StudentModel cls)
         {
             try
             {
-                List<TeacherModel> lstClientList = new List<TeacherModel>();
+                List<StudentModel> lstClientList = new List<StudentModel>();
                 SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString);
                 conn.Open();
-                SqlCommand cmd = new SqlCommand("sp_GetTeacherList", conn);
+                SqlCommand cmd = new SqlCommand("sp_GetStudentList", conn);
                 cmd.Parameters.AddWithValue("@UserId", objCommon.getUserIdFromSession());
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandTimeout = 0;
@@ -150,7 +151,7 @@ namespace InvoiceManagementSystem.Controllers
 
                     for (var i = 0; i < dt.Rows.Count; i++)
                     {
-                        TeacherModel obj = new TeacherModel();
+                        StudentModel obj = new StudentModel();
 
                         obj.Id = Convert.ToInt32(dt.Rows[i]["Id"] == null || dt.Rows[i]["Id"].ToString().Trim() == "" ? null : dt.Rows[i]["Id"].ToString());
                         obj.FullName = dt.Rows[i]["FullName"] == null || dt.Rows[i]["FullName"].ToString().Trim() == "" ? null : dt.Rows[i]["FullName"].ToString();
@@ -158,7 +159,7 @@ namespace InvoiceManagementSystem.Controllers
                         lstClientList.Add(obj);
                     }
                 }
-                cls.LSTTeacherList = lstClientList;
+                cls.LSTStudentList = lstClientList;
 
                 return Json(cls, JsonRequestBehavior.AllowGet);
 

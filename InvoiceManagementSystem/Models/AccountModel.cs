@@ -23,6 +23,9 @@ namespace InvoiceManagementSystem.Models
 
         public int UserId { get; set; }
         public int TeacherId { get; set; }
+        public int StudentId { get; set; }
+        public int ClassId { get; set; }
+        public string ClassNo { get; set; }
         public HttpPostedFileBase[] strFile { get; set; }
         public string Response { get; set; }
 
@@ -107,6 +110,8 @@ namespace InvoiceManagementSystem.Models
                     obj.Password = dt.Rows[0]["Password"] == null || dt.Rows[0]["Password"].ToString().Trim() == "" ? "" : dt.Rows[0]["Password"].ToString();
                     obj.RoleId = Convert.ToInt32(dt.Rows[0]["RoleId"] == null || dt.Rows[0]["RoleId"].ToString().Trim() == "" ? "0" : dt.Rows[0]["RoleId"].ToString());
                     obj.TeacherId = Convert.ToInt32(dt.Rows[0]["TeacherId"] == null || dt.Rows[0]["TeacherId"].ToString().Trim() == "" ? "0" : dt.Rows[0]["TeacherId"].ToString());
+                    obj.ClassId = Convert.ToInt32(dt.Rows[0]["ClassId"] == null || dt.Rows[0]["ClassId"].ToString().Trim() == "" ? "0" : dt.Rows[0]["ClassId"].ToString());
+                    obj.StudentId = Convert.ToInt32(dt.Rows[0]["StudentId"] == null || dt.Rows[0]["StudentId"].ToString().Trim() == "" ? "0" : dt.Rows[0]["StudentId"].ToString());
                     obj.Response = "Success";
                 }
                 else

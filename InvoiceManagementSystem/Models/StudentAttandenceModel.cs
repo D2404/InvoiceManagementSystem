@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
@@ -9,19 +10,23 @@ using System.Web;
 
 namespace InvoiceManagementSystem.Models
 {
-    public class TeacherSubjectModel
+    public class StudentAttandenceModel
     {
         clsCommon objCommon = new clsCommon();
         SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString);
         public int Id { get; set; }
-        public int SubjectId { get; set; }
-        public string SubjectName { get; set; }
-        public string ClassNo { get; set; }
+        public string Name { get; set; }
+        public string StudentName { get; set; }
+        public int StudentId { get; set; }
         public int ClassId { get; set; }
-        public int TeacherId { get; set; }
-        public string TeacherName { get; set; }
-        public bool IsActive { get; set; }
+        public string ClassNo { get; set; }
+        public string RollNo { get; set; }
+        public int LeaveType { get; set; }
+        public string Reason { get; set; }
+        public bool Status { get; set; }
         public int intActive { get; set; }
+        
+        public string Date { get; set; }
         public string Response { get; set; }
         public string SearchText { get; set; }
         public int? PageIndex { get; set; }
@@ -33,23 +38,24 @@ namespace InvoiceManagementSystem.Models
         public string CreatedDate { get; set; }
         public int ShowingEntries { get; set; }
         public int fromEntries { get; set; }
-
         public Pager Pager { get; set; }
 
-        public List<TeacherSubjectModel> LSTTeacherSubjectList { get; set; }
-
-        public TeacherSubjectModel addTeacherSubject(TeacherSubjectModel cls)
+        public List<StudentAttandenceModel> LSTStudentAttandenceList { get; set; }
+        public StudentAttandenceModel addStudentAttandence(StudentAttandenceModel cls)
         {
             try
             {
                 conn.Open();
-                SqlCommand cmd = new SqlCommand("AddUpdateTeacherSubject", conn);
+                SqlCommand cmd = new SqlCommand("AddUpdateStudentAttandence", conn);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add("@Id", SqlDbType.Int).Value = cls.Id;
-                cmd.Parameters.AddWithValue("@ClassId", cls.ClassId);
-                cmd.Parameters.AddWithValue("@TeacherId", cls.TeacherId);
-                cmd.Parameters.AddWithValue("@SubjectId", cls.SubjectId);
-                cmd.Parameters.AddWithValue("@UserId", objCommon.getUserIdFromSession());
+                cmd.Parameters.AddWithValue("@StudentId", cls.StudentId);
+                cmd.Parameters.Add("@Date", SqlDbType.DateTime).Value = cls.Date;
+                cmd.Parameters.Add("@Status", SqlDbType.Bit).Value = cls.Status;
+                cmd.Parameters.Add("@RollNo", SqlDbType.NVarChar).Value = cls.RollNo;
+                cmd.Parameters.Add("@LeaveType", SqlDbType.Int).Value = cls.LeaveType;
+                cmd.Parameters.Add("@Reason", SqlDbType.NVarChar).Value = cls.Reason;
+                //cmd.Parameters.AddWithValue("@UserId", objCommon.getUserIdFromSession());
 
 
                 SqlDataAdapter da = new SqlDataAdapter(cmd);
@@ -85,14 +91,13 @@ namespace InvoiceManagementSystem.Models
 
             return cls;
         }
-
-        public TeacherSubjectModel GetTeacherSubject(TeacherSubjectModel cls)
+        public StudentAttandenceModel GetStudentAttandence(StudentAttandenceModel cls)
         {
             try
             {
-                List<TeacherSubjectModel> LSTList = new List<TeacherSubjectModel>();
+                List<StudentAttandenceModel> LSTList = new List<StudentAttandenceModel>();
                 conn.Open();
-                SqlCommand cmd = new SqlCommand("sp_GetSingleTeacherSubject", conn);
+                SqlCommand cmd = new SqlCommand("sp_GetSingleStudentAttandence", conn);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@Id", cls.Id);
                 SqlDataAdapter da = new SqlDataAdapter(cmd);
@@ -103,15 +108,15 @@ namespace InvoiceManagementSystem.Models
                 {
                     for (var i = 0; i < dt.Rows.Count; i++)
                     {
-                        TeacherSubjectModel obj = new TeacherSubjectModel();
+                        StudentAttandenceModel obj = new StudentAttandenceModel();
                         obj.Id = Convert.ToInt32(dt.Rows[i]["Id"] == null || dt.Rows[i]["Id"].ToString().Trim() == "" ? null : dt.Rows[i]["Id"].ToString());
-                        obj.ClassId = Convert.ToInt32(dt.Rows[i]["ClassId"] == null || dt.Rows[i]["ClassId"].ToString().Trim() == "" ? null : dt.Rows[i]["ClassId"].ToString());
-                        obj.SubjectId = Convert.ToInt32(dt.Rows[i]["SubjectId"] == null || dt.Rows[i]["SubjectId"].ToString().Trim() == "" ? null : dt.Rows[i]["SubjectId"].ToString());
-                        obj.TeacherId = Convert.ToInt32(dt.Rows[i]["TeacherId"] == null || dt.Rows[i]["TeacherId"].ToString().Trim() == "" ? null : dt.Rows[i]["TeacherId"].ToString());
+                        obj.StudentId = Convert.ToInt32(dt.Rows[i]["StudentId"] == null || dt.Rows[i]["StudentId"].ToString().Trim() == "" ? null : dt.Rows[i]["StudentId"].ToString());
+                        obj.Status = Convert.ToBoolean(dt.Rows[i]["Status"] == null || dt.Rows[i]["Status"].ToString().Trim() == "" ? null : dt.Rows[i]["Status"].ToString());
+                        obj.Date = dt.Rows[i]["Date"] == null || dt.Rows[i]["Date"].ToString().Trim() == "" ? null : Convert.ToDateTime(dt.Rows[i]["Date"]).ToString("dd/MM/yyyy");
                         LSTList.Add(obj);
                     }
                 }
-                cls.LSTTeacherSubjectList = LSTList;
+                cls.LSTStudentAttandenceList = LSTList;
                 return cls;
             }
             catch (Exception ex)
@@ -123,14 +128,12 @@ namespace InvoiceManagementSystem.Models
                 throw ex;
             }
         }
-
-     
-        public TeacherSubjectModel deleteTeacherSubject(TeacherSubjectModel cls)
+        public StudentAttandenceModel deleteStudentAttandence(StudentAttandenceModel cls)
         {
             try
             {
                 conn.Open();
-                SqlCommand cmd = new SqlCommand("sp_DeleteTeacherSubject", conn);
+                SqlCommand cmd = new SqlCommand("sp_DeleteStudentAttandence", conn);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add("@Id", cls.Id);
                 SqlDataAdapter da = new SqlDataAdapter(cmd);
@@ -156,34 +159,6 @@ namespace InvoiceManagementSystem.Models
                 }
             }
             return cls;
-        }
-
-        public string UpdateStatus(TeacherSubjectModel cls)
-        {
-            var Status = "";
-            try
-            {
-                SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString);
-                conn.Open();
-                SqlCommand cmd = new SqlCommand("sp_UpdateTeacherSubjectStatus", conn);
-                cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("@Id", cls.Id);
-                cmd.Parameters.AddWithValue("@TeacherId", objCommon.getTeacherIdFromSession());
-                //cmd.Parameters.Add("@intLoginUser", SqlDbType.Int).Value = LoginUser;
-                SqlDataAdapter da = new SqlDataAdapter(cmd);
-                cmd.CommandTimeout = 0;
-                da.ReturnProviderSpecificTypes = true;
-                System.Data.DataTable dt = new System.Data.DataTable();
-                da.Fill(dt);
-                conn.Close();
-                Status = dt.Rows[0][0].ToString();
-            }
-            catch (Exception ex)
-            {
-                //throw ex;
-                Status = "error";
-            }
-            return Status;
         }
     }
 }

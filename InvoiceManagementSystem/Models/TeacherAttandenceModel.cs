@@ -17,6 +17,8 @@ namespace InvoiceManagementSystem.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public string TeacherName { get; set; }
+        public int LeaveType { get; set; }
+        public string Reason { get; set; }
         public int TeacherId { get; set; }
         public bool Status { get; set; }
         public int intActive { get; set; }
@@ -47,6 +49,8 @@ namespace InvoiceManagementSystem.Models
                 cmd.Parameters.AddWithValue("@TeacherId", cls.TeacherId);
                 cmd.Parameters.Add("@Date", SqlDbType.DateTime).Value = cls.Date;
                 cmd.Parameters.Add("@Status", SqlDbType.Bit).Value = cls.Status;
+                cmd.Parameters.Add("@LeaveType", SqlDbType.NVarChar).Value = cls.LeaveType;
+                cmd.Parameters.Add("@Reason", SqlDbType.NVarChar).Value = cls.Reason;
                 //cmd.Parameters.AddWithValue("@UserId", objCommon.getUserIdFromSession());
 
 
@@ -105,6 +109,8 @@ namespace InvoiceManagementSystem.Models
                         obj.TeacherId = Convert.ToInt32(dt.Rows[i]["TeacherId"] == null || dt.Rows[i]["TeacherId"].ToString().Trim() == "" ? null : dt.Rows[i]["TeacherId"].ToString());
                         obj.Status = Convert.ToBoolean(dt.Rows[i]["Status"] == null || dt.Rows[i]["Status"].ToString().Trim() == "" ? null : dt.Rows[i]["Status"].ToString());
                         obj.Date = dt.Rows[i]["Date"] == null || dt.Rows[i]["Date"].ToString().Trim() == "" ? null : Convert.ToDateTime(dt.Rows[i]["Date"]).ToString("dd/MM/yyyy");
+                        obj.LeaveType = Convert.ToInt32(dt.Rows[i]["LeaveType"] == null || dt.Rows[i]["LeaveType"].ToString().Trim() == "" ? null : dt.Rows[i]["LeaveType"].ToString());
+                        obj.Reason = dt.Rows[i]["Reason"] == null || dt.Rows[i]["Reason"].ToString().Trim() == "" ? null : dt.Rows[i]["Reason"].ToString();
                         LSTList.Add(obj);
                     }
                 }

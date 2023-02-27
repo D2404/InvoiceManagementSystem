@@ -88,6 +88,24 @@ namespace InvoiceManagementSystem.Models
             }
             return Id;
         }
+        public int? getStudentIdFromSession()
+        {
+            int? Id = 0;
+            if (HttpContext.Current.Session["StudentId"] != null && HttpContext.Current.Session["StudentId"] != "")
+            {
+                Id = Convert.ToInt32(HttpContext.Current.Session["StudentId"]);
+            }
+            return Id;
+        }
+        public int? getClassIdFromSession()
+        {
+            int? Id = 0;
+            if (HttpContext.Current.Session["ClassId"] != null && HttpContext.Current.Session["ClassId"] != "")
+            {
+                Id = Convert.ToInt32(HttpContext.Current.Session["ClassId"]);
+            }
+            return Id;
+        }
         public int? getComapanyUserIdFromSession()
         {
             int? intid = 0;

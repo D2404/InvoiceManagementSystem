@@ -1,4 +1,4 @@
-﻿
+﻿@model InvoiceManagementSystem.Models.TeacherModel
 @{
     ViewBag.Title = "Teacher";
 }
@@ -119,7 +119,7 @@
     </div>
 </div>
 <div class="modal fade" id="Teacher" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered " role="document">
+    <div class="modal-dialog modal-dialog-scrollable modal-md" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" style="margin-left:173px"><span id="PopupTitle">Add Teacher</span></h5>
@@ -129,6 +129,7 @@
             </div>
             <div class="modal-body">
                 <div class="row">
+
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="example-text-input" class="form-control-label">Full Name <span class="text-danger">*</span></label>
@@ -205,6 +206,7 @@
                                 <input type="hidden" id="hdnfile" />
                                 <label for="basicinput"><b>Profile pic</b><span style="color: red">*</span></label>
                                 <input type="file" class="form-control" name="Profile" id="Profile" accept="image/*">
+                                <span id="errProfile" class="text-xs font-weight-bold mb-0" style="color:red"></span>
                             </div>
                         </div>
                         <div class="form-group" id="divFile" style="display:none">
@@ -302,7 +304,7 @@
         })
     });
     function InsertData() {
-
+        
         var val = true;
         var Id = $('#hdnintId').val();
         var SearchText = $('#SearchText').val();
@@ -368,7 +370,7 @@
         if (hdnfile == null || hdnfile == "") {
             var Profile = document.getElementById('Profile').value;
             if (Profile == null || Profile == "") {
-                alert('Please select image.');
+                $("#errProfile").html("Please select Profile.");
                 return;
             }
             if (fileCount > 0) {
@@ -506,13 +508,18 @@
                 cls: cls
             }),
             success: function (data) {
-                
+                debugger
                 if (data != null) {
                     document.getElementById('hdnintId').value = data.LSTTeacherList[0].Id;
                     document.getElementById('FullName').value = data.LSTTeacherList[0].FullName;
                     document.getElementById('UserName').value = data.LSTTeacherList[0].UserName;
                     document.getElementById('Email').value = data.LSTTeacherList[0].Email;
-                    document.getElementById('Password').value = data.LSTTeacherList[0].Password;
+                    if (data.LSTTeacherList[0].Id != 0) {
+                        document.getElementById('Password').value = data.LSTTeacherList[0].Password;
+                    }
+                    else {
+                        document.getElementById('Password').style.display = "none";
+                    }
                     document.getElementById('MobileNo').value = data.LSTTeacherList[0].MobileNo;
                     document.getElementById('Address').value = data.LSTTeacherList[0].Address;
                     document.getElementById('Education').value = data.LSTTeacherList[0].Education;
@@ -526,7 +533,7 @@
                         $("input[name=web][value=" + 1 + "]").prop('checked', true);
                     }
                     if (data.ProfileImg != null && data.ProfileImg != "") {
-                        document.getElementById('hdnFile').value = data.ProfileImg;
+                        document.getElementById('hdnfile').value = data.ProfileImg;
 
                         document.getElementById('divUploadFile').style.display = "none";
                         document.getElementById('divFile').style.display = "block";

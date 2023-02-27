@@ -59,6 +59,8 @@ namespace InvoiceManagementSystem.Controllers
                     Session["UserName"] = cls.UserName;
                     Session["RoleId"] = cls.RoleId;
                     Session["TeacherId"] = cls.TeacherId;
+                    Session["StudentId"] = cls.StudentId;
+                    Session["ClassId"] = cls.ClassId;
                     
                     //  Session["strPassword"] = res.strPassword;
                     //Session["UserId"] = .intId;

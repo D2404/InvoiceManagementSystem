@@ -126,6 +126,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ClassRoomController.cs" />
     <Compile Include="Controllers\ExamController.cs" />
+    <Compile Include="Controllers\StudentAttandenceController.cs" />
     <Compile Include="Controllers\TeacherSubjectController.cs" />
     <Compile Include="Controllers\TeacherAttandenceController.cs" />
     <Compile Include="Controllers\SubjectController.cs" />
@@ -140,6 +141,7 @@
     <Compile Include="Models\DashboardModel.cs" />
     <Compile Include="Models\SessionModel.cs" />
     <Compile Include="Models\ExamModel.cs" />
+    <Compile Include="Models\StudentAttandenceModel.cs" />
     <Compile Include="Models\TeacherSubjectModel.cs" />
     <Compile Include="Models\TeacherAttandenceModel.cs" />
     <Compile Include="Models\SubjectModel.cs" />
@@ -272,6 +274,16 @@
     <Content Include="Data\assets\js\plugins\perfect-scrollbar.min.js" />
     <Content Include="Data\assets\js\plugins\smooth-scrollbar.min.js" />
     <Content Include="Data\Profile\noimage.jpg" />
+    <Content Include="Data\Profile\Profile_0_638118821277851663.png" />
+    <Content Include="Data\Profile\Profile_0_638118821402273183.png" />
+    <Content Include="Data\Profile\Profile_0_638118825699135664.png" />
+    <Content Include="Data\Profile\Profile_0_638118827746192996.png" />
+    <Content Include="Data\Profile\Profile_0_638118827788137942.png" />
+    <Content Include="Data\Profile\Profile_0_638118850411182338.png" />
+    <Content Include="Data\Profile\Profile_0_638120867346353184.jpg" />
+    <Content Include="Data\Profile\Profile_0_638120867412446720.jpg" />
+    <Content Include="Data\Profile\Profile_3_638118862056537368.png" />
+    <Content Include="Data\Profile\Profile_3_638118864925974936.png" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -497,6 +509,8 @@
     <Content Include="Views\Exam\Exam.cshtml" />
     <Content Include="Views\TeacherSubject\TeacherSubject.cshtml" />
     <Content Include="Views\TeacherSubject\_TeacherSubjectListPartial.cshtml" />
+    <Content Include="Views\StudentAttandence\_StudentAttandenceListPartial.cshtml" />
+    <Content Include="Views\StudentAttandence\StudentAttandence.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -13,6 +13,7 @@ namespace InvoiceManagementSystem.Controllers
     public class StudentController : Controller
     {
         clsCommon objCommon = new clsCommon();
+        SessionModel objSession = new SessionModel();
 
         // GET: Student
         public ActionResult Student()
@@ -98,7 +99,48 @@ namespace InvoiceManagementSystem.Controllers
                 throw ex;
             }
         }
+        public ActionResult GetClassRoom(ClassRoomModel cls)
+        {
+            try
+            {
+                List<ClassRoomModel> lstClientList = new List<ClassRoomModel>();
+                SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString);
+                conn.Open();
+                SqlCommand cmd = new SqlCommand("sp_GetStudentClassRoomList", conn); 
+                cmd.Parameters.AddWithValue("@ClassId", SessionModel.ClassId);
+                cmd.Parameters.AddWithValue("@UserId", objCommon.getUserIdFromSession());
+                
+                cmd.CommandTimeout = 0;
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                System.Data.DataTable dt = new System.Data.DataTable();
+                da.Fill(dt);
+                conn.Close();
 
+
+                if (dt != null && dt.Rows.Count > 0)
+                {
+
+                    for (var i = 0; i < dt.Rows.Count; i++)
+                    {
+                        ClassRoomModel obj = new ClassRoomModel();
+
+                        obj.Id = Convert.ToInt32(dt.Rows[i]["Id"] == null || dt.Rows[i]["Id"].ToString().Trim() == "" ? null : dt.Rows[i]["Id"].ToString());
+                        obj.ClassNo = dt.Rows[i]["ClassNo"] == null || dt.Rows[i]["ClassNo"].ToString().Trim() == "" ? null : dt.Rows[i]["ClassNo"].ToString();
+
+                        lstClientList.Add(obj);
+                    }
+                }
+                cls.LSTClassRoomList = lstClientList;
+
+                return Json(cls, JsonRequestBehavior.AllowGet);
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+
+            }
+        }
         public ActionResult GetSingleStudentData(StudentModel cls)
         {
             try
