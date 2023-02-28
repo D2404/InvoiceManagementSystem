@@ -138,7 +138,7 @@ namespace InvoiceManagementSystem.Models
                 {
                     cls.Response = "Success";
                 }
-                else if (dt.Rows[0][0].ToString() == "2")
+                else if (dt.Rows[0][0].ToString() == "-1")
                 {
                     cls.Response = "dependency";
                 }

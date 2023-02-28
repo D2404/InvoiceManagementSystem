@@ -163,13 +163,13 @@
                         <div class="form-group">
                             <label for="example-text-input" class="form-control-label">Password <span class="text-danger">*</span></label>
                             <input class="form-control" type="text" id="Password" placeholder="Enter Email">
-                            <span id="errEmail" class="text-xs font-weight-bold mb-0" style="color:red"></span>
+                            <span id="errPassword" class="text-xs font-weight-bold mb-0" style="color:red"></span>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="example-text-input" class="form-control-label">Mobile <span class="text-danger">*</span></label>
-                            <input class="form-control" type="text" id="MobileNo" placeholder="Enter Mobile">
+                            <input class="form-control" type="text" id="MobileNo" placeholder="Enter Mobile" onkeypress = "return isNumber(event);">
                             <span id="errMobile" class="text-xs font-weight-bold mb-0" style="color:red"></span>
                         </div>
                     </div>
@@ -186,12 +186,14 @@
                         <div class="form-group">
                             <label for="example-text-input" class="form-control-label">Education</label>
                             <input class="form-control" type="text" id="Education" placeholder="Enter Education">
+                            <span id="errEducation" class="text-xs font-weight-bold mb-0" style="color:red"></span>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="example-text-input" class="form-control-label">Salary</label>
-                            <input class="form-control" type="text" id="Salary" placeholder="Enter Salary">
+                            <input class="form-control" type="text" id="Salary" placeholder="Enter Salary" onkeypress="return isNumber(event);">
+                            <span id="errSalary" class="text-xs font-weight-bold mb-0" style="color:red"></span>
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -293,6 +295,14 @@
     function myFunction() {
         document.getElementById("myDropdown").classList.toggle("show");
     }
+    function isNumber(evt) {
+        evt = (evt) ? evt : window.event;
+        var charCode = (evt.which) ? evt.which : evt.keyCode;
+        if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+            return false;
+        }
+        return true;
+    }
 
 
     $(function () {
@@ -346,12 +356,22 @@
                 $("#errFullName").html("");
             }
         }
-        if (Email == "" || /\S/.test(Email) == false) {
-            $("#errEmail").html("Please enter email.");
+        
+       
+        if (MobileNo == "" || MobileNo.trim() == '') {
+            $("#errMobile").html("Please enter mobile.");
             val = false;
         }
-        if (MobileNo == "" || /\S/.test(MobileNo) == false) {
-            $("#errMobile").html("Please enter mobile.");
+        if (Password == "" || Password.trim() == '') {
+            $("#errPassword").html("Please enter password.");
+            val = false;
+        }
+        if (Education == "" || Education.trim() == '') {
+            $("#errEducation").html("Please enter education.");
+            val = false;
+        }
+        if (Salary == "" || Salary.trim() == '') {
+            $("#errSalary").html("Please enter salary.");
             val = false;
         }
         var Gender = false;
@@ -362,7 +382,16 @@
         else {
             Gender = false;
         }
-
+        if (Email == '' || Email.trim() == '') {
+            $("#errEmail").html('Please enter email id.');
+            return;
+        }
+        var atpos = Email.indexOf("@@");
+        var dotpos = Email.lastIndexOf(".");
+        if (atpos < 1 || dotpos < atpos + 2 || dotpos + 2 >= Email.length) {
+            $("#errEmail").html("Please enter valid email id.");
+            return false;
+        }
         var formData = new FormData();
         var fileCount = document.getElementById("Profile").files.length;
         var hdnfile = document.getElementById("hdnfile").value;
@@ -508,7 +537,7 @@
                 cls: cls
             }),
             success: function (data) {
-                debugger
+                
                 if (data != null) {
                     document.getElementById('hdnintId').value = data.LSTTeacherList[0].Id;
                     document.getElementById('FullName').value = data.LSTTeacherList[0].FullName;
@@ -620,9 +649,15 @@
         $('#errEmail').html("");
         document.getElementById('MobileNo').value = "";
         $('#errMobile').html("");
+        document.getElementById('Password').value = "";
+        $('#errPassword').html("");
+        document.getElementById('Password').value = "";
+        $('#errPassword').html("");
         $('#Address').val('');
         document.getElementById('Education').value = "";
+        $('#errEducation').html("");
         document.getElementById('Salary').value = "";
+        $('#errSalary').html("");
         document.getElementById('btnAdd').innerHTML = "Add";
         $("#btnAdd").attr('title', 'Upload');
         document.getElementById('PopupTitle').innerHTML = "Add Teacher";
@@ -640,9 +675,13 @@
             $('#errEmail').html("");
             document.getElementById('MobileNo').value = "";
             $('#errMobile').html("");
+            document.getElementById('Password').value = "";
+            $('#errPassword').html("");
             $('#Address').val('');
             document.getElementById('Education').value = "";
+            $('#errEducation').html("");
             document.getElementById('Salary').value = "";
+            $('#errSalary').html("");
             if (Id == "0") {
 
                 document.getElementById('hdnintId').value = "0";

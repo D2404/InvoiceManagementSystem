@@ -233,6 +233,7 @@
 <script>
     $(document).ready(function () {
         GetClassRoom();
+        GetTeacher();
         GetTeacherSubjectList(1);
     });
     function myFunction() {
@@ -301,7 +302,30 @@
             }
         });
     }
-   
+    function GetTeacher() {
+        var cls = {
+        }
+        $.ajax({
+            url: '/TeacherAttandence/GetTeacher',
+            contentType: "application/json; charset=utf-8",
+            type: "GET",
+            data: JSON.stringify({
+                cls: cls
+            }),
+            success: function (data) {
+
+                var html = "";
+                html = html + ' <option value="0" selected>Select Teacher</option>';
+                for (var i = 0; i < data.LSTTeacherList.length; i++) {
+                    html = html + '<option value="' + data.LSTTeacherList[i].Id + '">' + data.LSTTeacherList[i].FullName + '</option>';
+                    $("#TeacherId").empty();
+                    $("#TeacherId").append(html);
+                    $("#ddlTeacherId").empty();
+                    $("#ddlTeacherId").append(html);
+                }
+            }
+        });
+    }
     function GetClassRoom() {
         var cls = {
         }

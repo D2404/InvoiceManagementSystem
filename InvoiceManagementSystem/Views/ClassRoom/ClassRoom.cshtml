@@ -372,36 +372,22 @@
                 cls: cls
             }),
             success: function (data) {
-
-                if (data.Response == 'Success' && Id > 0) {
-                    //alert('ClassRoom deleted successfully.');
+                if (data.Response == 'Success') {
                     toastr.success('ClassRoom deleted successfully');
-                    //swal(
-                    //    'Good job!',
-                    //    'ClassRoom deleted successfully',
-                    //    'success'
-                    //)
-                    //  toastr.success(data.Response, 'ClassRoom deleted successfully.', new { timeOut: 300 });
-                    document.getElementById('hdnintId').value = "0";
-                    GetClassRoomList();
-                    $('#delete_ClassRoom').click();
                 }
-                //else if (data.Response == 'dependency') {
-                //    alert('ClassRoom already used in system.');
-                //    document.getElementById('hdnintId').value = "0";
-                //    GetClassRoomList();
-                //    $('#delete_ClassRoom').click();
-                //}
-
+                else if (data.Response == 'dependency') {
+                    toastr.warning('This ClassRoom already used in system.');
+                }
                 else {
                     alert('error');
                 }
+                GetClassRoomList();
+                $('#delete_ClassRoom').click();
                 HideWait();
             },
             error: function (xhr) {
                 HideWait();
                 alert('errors');
-
             }
         });
     }
