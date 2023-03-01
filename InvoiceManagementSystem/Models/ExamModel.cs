@@ -38,12 +38,12 @@ namespace InvoiceManagementSystem.Models
 
         public Pager Pager { get; set; }
         public List<ExamModel> LSTExamList { get; set; }
-        public ExamModel addExam(ExamModel cls)
+        public ExamModel addExamMarks(ExamModel cls)
         {
             try
             {
                 conn.Open();
-                SqlCommand cmd = new SqlCommand("AddUpdateExam", conn);
+                SqlCommand cmd = new SqlCommand("AddUpdateExamMarks", conn);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add("@Id", SqlDbType.Int).Value = cls.Id;
                 cmd.Parameters.AddWithValue("@ClassId", cls.ClassId);
@@ -86,13 +86,13 @@ namespace InvoiceManagementSystem.Models
 
             return cls;
         }
-        public ExamModel GetExam(ExamModel cls)
+        public ExamModel GetExamMarks(ExamModel cls)
         {
             try
             {
                 List<ExamModel> LSTList = new List<ExamModel>();
                 conn.Open();
-                SqlCommand cmd = new SqlCommand("sp_GetSingleExam", conn);
+                SqlCommand cmd = new SqlCommand("sp_GetSingleExamMarks", conn);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@Id", cls.Id);
                 SqlDataAdapter da = new SqlDataAdapter(cmd);
@@ -125,12 +125,12 @@ namespace InvoiceManagementSystem.Models
                 throw ex;
             }
         }
-        public ExamModel deleteExam(ExamModel cls)
+        public ExamModel deleteExamMarks(ExamModel cls)
         {
             try
             {
                 conn.Open();
-                SqlCommand cmd = new SqlCommand("sp_DeleteExam", conn);
+                SqlCommand cmd = new SqlCommand("sp_DeleteExamMarks", conn);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add("@Id", cls.Id);
                 SqlDataAdapter da = new SqlDataAdapter(cmd);

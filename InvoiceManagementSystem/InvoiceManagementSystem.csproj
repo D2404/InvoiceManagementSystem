@@ -125,6 +125,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ClassRoomController.cs" />
+    <Compile Include="Controllers\FeesController.cs" />
     <Compile Include="Controllers\ExamController.cs" />
     <Compile Include="Controllers\StudentAttandenceController.cs" />
     <Compile Include="Controllers\TeacherSubjectController.cs" />
@@ -139,6 +140,7 @@
     <Compile Include="Models\AccountModel.cs" />
     <Compile Include="Models\ClassRoomModel.cs" />
     <Compile Include="Models\DashboardModel.cs" />
+    <Compile Include="Models\FeesModel.cs" />
     <Compile Include="Models\SessionModel.cs" />
     <Compile Include="Models\ExamModel.cs" />
     <Compile Include="Models\StudentAttandenceModel.cs" />
@@ -505,12 +507,16 @@
     <Content Include="Views\Teacher\Teacher.cshtml" />
     <Content Include="Views\TeacherAttandence\_TeacherAttandenceListPartial.cshtml" />
     <Content Include="Views\TeacherAttandence\TeacherAttandence.cshtml" />
-    <Content Include="Views\Exam\_ExamListPartial.cshtml" />
-    <Content Include="Views\Exam\Exam.cshtml" />
+    <Content Include="Views\Exam\_ExamMarksListPartial.cshtml" />
+    <Content Include="Views\Exam\ExamMarks.cshtml" />
     <Content Include="Views\TeacherSubject\TeacherSubject.cshtml" />
     <Content Include="Views\TeacherSubject\_TeacherSubjectListPartial.cshtml" />
     <Content Include="Views\StudentAttandence\_StudentAttandenceListPartial.cshtml" />
     <Content Include="Views\StudentAttandence\StudentAttandence.cshtml" />
+    <Content Include="Views\Fees\_FeesListPartial.cshtml" />
+    <Content Include="Views\Fees\ClassWiseFees.cshtml" />
+    <Content Include="Views\Fees\Fees.cshtml" />
+    <Content Include="Views\Fees\_ClassWiseFeesListPartial - Copy.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -16,7 +16,7 @@ namespace InvoiceManagementSystem.Controllers
         clsCommon objCommon = new clsCommon();
 
         // GET: Exam
-        public ActionResult Exam()
+        public ActionResult ExamMarks()
         {
 
             return View();
@@ -24,13 +24,13 @@ namespace InvoiceManagementSystem.Controllers
 
         [HttpPost]
 
-        public ActionResult InsertExam(ExamModel model)
+        public ActionResult InsertExamMarks(ExamModel model)
         {
-            model = model.addExam(model);
+            model = model.addExamMarks(model);
             return Json(model.Response, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult GetExam(ExamModel cls)
+        public ActionResult GetExamMarks(ExamModel cls)
         {
             try
             {
@@ -40,7 +40,7 @@ namespace InvoiceManagementSystem.Controllers
                 List<ExamModel> lstExamList = new List<ExamModel>();
                 SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString);
                 conn.Open();
-                SqlCommand cmd = new SqlCommand("sp_GetExamList", conn);
+                SqlCommand cmd = new SqlCommand("sp_GetExamMarksList", conn);
                 cmd.Parameters.AddWithValue("@PageSize", cls.PageSize);
                 cmd.Parameters.AddWithValue("@PageIndex", cls.PageIndex);
                 cmd.Parameters.AddWithValue("@Search", cls.SearchText);
@@ -90,7 +90,7 @@ namespace InvoiceManagementSystem.Controllers
                 cls.fromEntries = startentries;
                 cls.LSTExamList = lstExamList;
 
-                return PartialView("_ExamListPartial", cls);
+                return PartialView("_ExamMarksListPartial", cls);
 
             }
             catch (Exception ex)
@@ -99,11 +99,11 @@ namespace InvoiceManagementSystem.Controllers
             }
         }
 
-        public ActionResult GetSingleExamData(ExamModel cls)
+        public ActionResult GetSingleExamMarksData(ExamModel cls)
         {
             try
             {
-                cls = cls.GetExam(cls);
+                cls = cls.GetExamMarks(cls);
                 return Json(cls, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
@@ -112,11 +112,11 @@ namespace InvoiceManagementSystem.Controllers
             }
         }
 
-        public ActionResult deleteExam(ExamModel cls)
+        public ActionResult deleteExamMarks(ExamModel cls)
         {
             try
             {
-                cls = cls.deleteExam(cls);
+                cls = cls.deleteExamMarks(cls);
                 return Json(cls, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)

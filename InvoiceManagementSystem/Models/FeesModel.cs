@@ -9,16 +9,26 @@ using System.Web;
 
 namespace InvoiceManagementSystem.Models
 {
-    public class SubjectModel
+    public class FeesModel
     {
         clsCommon objCommon = new clsCommon();
         SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString);
         public int Id { get; set; }
-        public string SubjectName { get; set; }
+       
+        public int Monthly { get; set; }
+        public int Yearly { get; set; }
+        public int FeesAmount { get; set; }
+        public int RollNo { get; set; }
         public string ClassNo { get; set; }
+        public string StudentName { get; set; }
+       
         public int ClassId { get; set; }
-        public bool IsActive { get; set; }
+        public int TotalPay { get; set; }
+        public int TotalPending { get; set; }
+        public int StudentId { get; set; }
+        public int UserId { get; set; }
         public int intActive { get; set; }
+        public bool IsActive { get; set; }
         public string Response { get; set; }
         public string SearchText { get; set; }
         public int? PageIndex { get; set; }
@@ -32,21 +42,19 @@ namespace InvoiceManagementSystem.Models
         public int fromEntries { get; set; }
 
         public Pager Pager { get; set; }
-
-        public List<SubjectModel> LSTSubjectList { get; set; }
-
-        public SubjectModel addSubject(SubjectModel cls)
+        public List<FeesModel> LSTFeesList { get; set; }
+        public FeesModel addClassWiseFees(FeesModel cls)
         {
             try
             {
                 conn.Open();
-                SqlCommand cmd = new SqlCommand("AddUpdateSubject", conn);
+                SqlCommand cmd = new SqlCommand("AddUpdateClassRoomWiseFees", conn);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add("@Id", SqlDbType.Int).Value = cls.Id;
                 cmd.Parameters.AddWithValue("@ClassId", cls.ClassId);
-                cmd.Parameters.Add("@Name", SqlDbType.VarChar).Value = cls.SubjectName;
+                cmd.Parameters.AddWithValue("@Monthly", cls.Monthly);
+                cmd.Parameters.AddWithValue("@Yearly", cls.Yearly);
                 cmd.Parameters.AddWithValue("@UserId", objCommon.getUserIdFromSession());
-
 
                 SqlDataAdapter da = new SqlDataAdapter(cmd);
                 cmd.CommandTimeout = 0;
@@ -81,14 +89,13 @@ namespace InvoiceManagementSystem.Models
 
             return cls;
         }
-
-        public SubjectModel GetSubject(SubjectModel cls)
+        public FeesModel GetClassWiseFees(FeesModel cls)
         {
             try
             {
-                List<SubjectModel> LSTList = new List<SubjectModel>();
+                List<FeesModel> LSTList = new List<FeesModel>();
                 conn.Open();
-                SqlCommand cmd = new SqlCommand("sp_GetSingleSubject", conn);
+                SqlCommand cmd = new SqlCommand("sp_GetSingleClassRoomWiseFees", conn);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@Id", cls.Id);
                 SqlDataAdapter da = new SqlDataAdapter(cmd);
@@ -99,14 +106,15 @@ namespace InvoiceManagementSystem.Models
                 {
                     for (var i = 0; i < dt.Rows.Count; i++)
                     {
-                        SubjectModel obj = new SubjectModel();
+                        FeesModel obj = new FeesModel();
                         obj.Id = Convert.ToInt32(dt.Rows[i]["Id"] == null || dt.Rows[i]["Id"].ToString().Trim() == "" ? null : dt.Rows[i]["Id"].ToString());
                         obj.ClassId = Convert.ToInt32(dt.Rows[i]["ClassId"] == null || dt.Rows[i]["ClassId"].ToString().Trim() == "" ? null : dt.Rows[i]["ClassId"].ToString());
-                        obj.SubjectName = dt.Rows[i]["SubjectName"] == null || dt.Rows[i]["SubjectName"].ToString().Trim() == "" ? null : dt.Rows[i]["SubjectName"].ToString();
+                        obj.Monthly = Convert.ToInt32(dt.Rows[i]["Monthly"] == null || dt.Rows[i]["Monthly"].ToString().Trim() == "" ? null : dt.Rows[i]["Monthly"].ToString());
+                        obj.Yearly = Convert.ToInt32(dt.Rows[i]["Yearly"] == null || dt.Rows[i]["Yearly"].ToString().Trim() == "" ? null : dt.Rows[i]["Yearly"].ToString());
                         LSTList.Add(obj);
                     }
                 }
-                cls.LSTSubjectList = LSTList;
+                cls.LSTFeesList = LSTList;
                 return cls;
             }
             catch (Exception ex)
@@ -118,14 +126,12 @@ namespace InvoiceManagementSystem.Models
                 throw ex;
             }
         }
-
-     
-        public SubjectModel deleteSubject(SubjectModel cls)
+        public FeesModel deleteClassWiseFees(FeesModel cls)
         {
             try
             {
                 conn.Open();
-                SqlCommand cmd = new SqlCommand("sp_DeleteSubject", conn);
+                SqlCommand cmd = new SqlCommand("sp_DeleteClassRoomWiseFees", conn);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add("@Id", cls.Id);
                 SqlDataAdapter da = new SqlDataAdapter(cmd);
@@ -153,7 +159,7 @@ namespace InvoiceManagementSystem.Models
             return cls;
         }
 
-        public string UpdateStatus(SubjectModel cls)
+        public string UpdateStatus(FeesModel cls)
         {
             var Status = "";
             try
@@ -178,6 +184,55 @@ namespace InvoiceManagementSystem.Models
                 Status = "error";
             }
             return Status;
+        }
+
+
+        public FeesModel addFees(FeesModel cls)
+        {
+            try
+            {
+                conn.Open();
+                SqlCommand cmd = new SqlCommand("AddUpdateFees", conn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@Id", SqlDbType.Int).Value = cls.Id;
+                cmd.Parameters.AddWithValue("@StudentId", cls.StudentId);
+                cmd.Parameters.AddWithValue("@ClassId", cls.ClassId);
+                cmd.Parameters.AddWithValue("@RollNo", cls.RollNo);
+                cmd.Parameters.AddWithValue("@FeesAmount", cls.FeesAmount);
+                cmd.Parameters.AddWithValue("@UserId", objCommon.getUserIdFromSession());
+
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                cmd.CommandTimeout = 0;
+                da.ReturnProviderSpecificTypes = true;
+                DataTable dt = new DataTable();
+                da.Fill(dt);
+                conn.Close();
+                if (dt.Rows.Count > 0)
+                {
+                    string intRefId = dt.Rows[0][0].ToString();
+                    if (intRefId == "1")
+                    {
+                        cls.Response = "Success";
+                    }
+                    else if (intRefId == "2")
+                    {
+                        cls.Response = "Updated";
+                    }
+                    else if (intRefId == "-1")
+                    {
+                        cls.Response = "Exists";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                if (conn.State == ConnectionState.Open)
+                {
+                    conn.Close();
+                }
+            }
+
+            return cls;
         }
     }
 }
