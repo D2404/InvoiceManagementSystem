@@ -15,7 +15,7 @@ namespace InvoiceManagementSystem.Models
         clsCommon objCommon = new clsCommon();
 
         SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString);
-        public int Id { get; set; }
+        public int Id { get; set; }    
         public int RoleId { get; set; }
         public string ClassNo { get; set; }
 

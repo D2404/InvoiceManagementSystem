@@ -141,6 +141,7 @@
     <Compile Include="Models\ClassRoomModel.cs" />
     <Compile Include="Models\DashboardModel.cs" />
     <Compile Include="Models\FeesModel.cs" />
+    <Compile Include="Models\MonthModel.cs" />
     <Compile Include="Models\SessionModel.cs" />
     <Compile Include="Models\ExamModel.cs" />
     <Compile Include="Models\StudentAttandenceModel.cs" />
@@ -153,6 +154,7 @@
     <Compile Include="Models\TeacherModel.cs" />
     <Compile Include="Models\StudentModel.cs" />
     <Compile Include="Models\PagerModel.cs" />
+    <Compile Include="Models\YearModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -516,7 +518,7 @@
     <Content Include="Views\Fees\_FeesListPartial.cshtml" />
     <Content Include="Views\Fees\ClassWiseFees.cshtml" />
     <Content Include="Views\Fees\Fees.cshtml" />
-    <Content Include="Views\Fees\_ClassWiseFeesListPartial - Copy.cshtml" />
+    <Content Include="Views\Fees\_ClassWiseFeesListPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

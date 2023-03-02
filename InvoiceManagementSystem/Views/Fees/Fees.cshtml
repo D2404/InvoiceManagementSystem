@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewBag.Title = "Fees";
+    ViewBag.Title = "Fees Collection";
 }
 <style>
     .dropbtn {
@@ -135,7 +135,7 @@
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label for="basicinput"><b>Student</b></label>
-                            <select class="form-control js-example-basic-single" id="StudentId"  onchange="onStudent();">
+                            <select class="form-control js-example-basic-single" id="StudentId" onchange="onStudent();">
                                 <option value="0">Select here..</option>
                             </select>
                         </div>
@@ -143,7 +143,23 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="example-text-input" class="form-control-label">Roll No </label><br />
-                            <span class="form-control" id="RollNo" name ="RollNo"></span>
+                            <span class="form-control" id="RollNo" name="RollNo"></span>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="basicinput"><b>Month</b></label>
+                            <select class="form-control" id="MonthId">
+                                <option value="0">Select here..</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="basicinput"><b>Year</b></label>
+                            <select class="form-control" id="YearId">
+                                <option value="0">Select here..</option>
+                            </select>
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -153,18 +169,21 @@
                             <span id="errFeesAmount" class="text-xs font-weight-bold mb-0" style="color:red"></span>
                         </div>
                     </div>
+                    <hr />
+                    <h6 style="color:green">For your Information </h6>
+
                     <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="example-text-input" class="form-control-label">Monthly </label>
-                            <label for="example-text-input" class="form-control-label" id="Monthly"></label>
+                            <div class="form-group">
+                                <label for="example-text-input" class="form-control-label">Monthly Fees</label>
+                                <span class="form-control" id="Monthly"></span>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="example-text-input" class="form-control-label">Yearly </label>
-                            <label for="example-text-input" class="form-control-label" id="Yearly"></label>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="example-text-input" class="form-control-label">Yearly Fees</label>
+                                <span contenteditable="false" class="form-control" id="Yearly" ></span>
+                            </div>
                         </div>
-                    </div>
                 </div>
             </div>
             <div class="modal-footer">
@@ -175,7 +194,7 @@
         </div>
     </div>
 </div>
-<div class="modal fade" id="delete_Exam" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="delete_Fees" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -190,7 +209,7 @@
 
             <div class="modal-footer" style="padding-right: 166px">
 
-                <button type="button" id="btnAdd" class="btn bg-gradient-danger" onclick="deleteExam()">Delete</button>
+                <button type="button" id="btnAdd" class="btn bg-gradient-danger" onclick="deleteFees()">Delete</button>
                 <button type="button" class="btn bg-gradient-dark" data-bs-dismiss="modal">Cancel</button>
                 <input type="hidden" id="hdnintId" value="0" />
             </div>
@@ -223,12 +242,26 @@
 <script>
     $(document).ready(function () {
         GetClassRoom();
+        GetMonth();
+        GetYear();
         GetFeesList(1);
     });
     function myFunction() {
         document.getElementById("myDropdown").classList.toggle("show");
     }
+    $("#FeesAmount").keyup(function () {
+        debugger
+        var amt = $('#FeesAmount').val();
+       
 
+        var Yearly = $('#Yearly').text();
+        if (amt > Number(Yearly)) {
+            $('#errFeesAmount').html('Fees must be less than YearlyFees.');
+            $('#FeesAmount').val(0);
+            return false;
+        }
+
+    });
 
     $(function () {
         $("#Dob").datetimepicker({
@@ -244,8 +277,10 @@
         var Id = $('#hdnintId').val();
         var ClassId = $('#ClassId').val();
         var StudentId = $('#StudentId').val();
+        var MonthId = $('#MonthId').val();
+        var YearId = $('#YearId').val();
         var SearchText = $('#SearchText').val();
-        var RollNo = $('#RollNo').val();
+        var RollNo = $('#RollNo').text();
         var FeesAmount = $('#FeesAmount').val();
         if (FeesAmount == "" || /\S/.test(FeesAmount) == false) {
             $("#errFeesAmount").html("Please enter fees amount.");
@@ -259,6 +294,8 @@
         formData.append('Id', Id);
         formData.append('ClassId', ClassId);
         formData.append('StudentId', StudentId);
+        formData.append('MonthId', MonthId);
+        formData.append('YearId', YearId);
         formData.append('RollNo', RollNo);
         formData.append('FeesAmount', FeesAmount);
         formData.append('SearchText', SearchText);
@@ -318,6 +355,56 @@
                     $("#ClassId").append(html);
                     $("#ddlClassId").empty();
                     $("#ddlClassId").append(html);
+                }
+            }
+        });
+    }
+
+    function GetMonth() {
+        var cls = {
+        }
+        $.ajax({
+            url: '/Fees/GetMonth',
+            contentType: "application/json; charset=utf-8",
+            type: "GET",
+            data: JSON.stringify({
+                cls: cls
+            }),
+            success: function (data) {
+
+                var html = "";
+                html = html + ' <option value="0" selected>Select Month</option>';
+                for (var i = 0; i < data.LSTMonthList.length; i++) {
+                    html = html + '<option value="' + data.LSTMonthList[i].Id + '">' + data.LSTMonthList[i].MonthName + '</option>';
+                    $("#MonthId").empty();
+                    $("#MonthId").append(html);
+                    //$("#ddlClassId").empty();
+                    //$("#ddlClassId").append(html);
+                }
+            }
+        });
+    }
+
+    function GetYear() {
+        var cls = {
+        }
+        $.ajax({
+            url: '/Fees/GetYear',
+            contentType: "application/json; charset=utf-8",
+            type: "GET",
+            data: JSON.stringify({
+                cls: cls
+            }),
+            success: function (data) {
+
+                var html = "";
+                html = html + ' <option value="0" selected>Select Year</option>';
+                for (var i = 0; i < data.LSTYearList.length; i++) {
+                    html = html + '<option value="' + data.LSTYearList[i].Id + '">' + data.LSTYearList[i].Year + '</option>';
+                    $("#YearId").empty();
+                    $("#YearId").append(html);
+                    //$("#ddlClassId").empty();
+                    //$("#ddlClassId").append(html);
                 }
             }
         });
@@ -384,7 +471,8 @@
         debugger
         var Id = 0;
         var SearchText = document.getElementById('SearchText').value;
-        var ClassId = document.getElementById('ClassId').value;
+        //var ClassId = document.getElementById('ClassId').value;
+        //var StudentId = document.getElementById('StudentId').value;
         if (document.getElementById('PageSize') != null) {
             PageSize = document.getElementById('PageSize').value;
         }
@@ -400,7 +488,8 @@
         var cls = {
             Id: Id,
             SearchText: SearchText,
-            ClassId: ClassId,
+            //ClassId: ClassId,
+            //StudentId: StudentId,
             PageSize: PageSize,
             PageIndex: PageIndex,
         }
@@ -424,7 +513,7 @@
         });
     }
 
-    function GetSingleExamData(id) {
+    function GetSingleFeesData(id) {
         debugger
         document.getElementById('btnAdd').innerHTML = "Update";
         $("#btnAdd").attr('title', 'Update');
@@ -434,7 +523,7 @@
         }
 
         $.ajax({
-            url: '/Fees/GetSingleExamMarksData',
+            url: '/Fees/GetSingleFeesData',
             contentType: "application/json; charset=utf-8",
             type: "POST",
             data: JSON.stringify({
@@ -443,12 +532,13 @@
             success: function (data) {
                 debugger
                 if (data != null) {
-                    document.getElementById('hdnintId').value = data.LSTExamList[0].Id;
-                    $('#ClassId').val(data.LSTExamList[0].ClassId).trigger("change");
-                    $('#SubjectId').val(data.LSTExamList[0].SubjectId).trigger("change");
-                    document.getElementById('RollNo').value = data.LSTExamList[0].RollNo;
-                    document.getElementById('Outofmarks').value = data.LSTExamList[0].OutOfMarks;
-                    document.getElementById('Totalmarks').value = data.LSTExamList[0].TotalMarks;
+                    document.getElementById('hdnintId').value = data.LSTFeesList[0].Id;
+                    $('#ClassId').val(data.LSTFeesList[0].ClassId).trigger("change");
+                    $('#StudentId').val(data.LSTFeesList[0].StudentId).trigger("change");
+                    $('#MonthId').val(data.LSTFeesList[0].MonthId).trigger("change");
+                    $('#YearId').val(data.LSTFeesList[0].YearId).trigger("change");
+                    document.getElementById('RollNo').value = data.LSTFeesList[0].RollNo;
+                    document.getElementById('FeesAmount').value = data.LSTFeesList[0].FeesAmount;
                 }
                 else {
                     alert('error');
@@ -462,14 +552,14 @@
         });
     }
 
-    function deleteExam() {
+    function deleteFees() {
         var Id = document.getElementById('hdnintId').value;
         var cls = {
             Id: Id
         }
         ShowWait();
         $.ajax({
-            url: '/Fees/deleteExamMarks',
+            url: '/Fees/deleteFees',
             contentType: "application/json; charset=utf-8",
             type: "POST",
             data: JSON.stringify({
@@ -482,7 +572,7 @@
                     toastr.success('Fees deleted successfully');
                     document.getElementById('hdnintId').value = "0";
                     GetFeesList();
-                    $('#delete_Exam').click();
+                    $('#delete_Fees').click();
                 }
                 else {
                     alert('error');
