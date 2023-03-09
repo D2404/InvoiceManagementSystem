@@ -206,6 +206,7 @@ namespace InvoiceManagementSystem.Models
                 cmd.Parameters.AddWithValue("@FeesAmount", cls.FeesAmount);
                 cmd.Parameters.AddWithValue("@MonthId", cls.MonthId);
                 cmd.Parameters.AddWithValue("@YearId", cls.YearId);
+                cmd.Parameters.AddWithValue("@Date", cls.Date);
                 cmd.Parameters.AddWithValue("@UserId", objCommon.getUserIdFromSession());
 
                 SqlDataAdapter da = new SqlDataAdapter(cmd);
