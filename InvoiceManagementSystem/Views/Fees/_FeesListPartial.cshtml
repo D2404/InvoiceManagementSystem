@@ -12,6 +12,7 @@
             <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">FeesAmount</th>
             <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Total Pay</th>
             <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Total Pending</th>
+            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Total Fees</th>
             <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Status</th>
             <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Action</th>
 
@@ -27,7 +28,7 @@
         <td>
             <div class="d-flex px-2 py-1">
                 <div class="d-flex flex-column justify-content-center">
-                    <h5 class="text-xs font-weight-bold mb-0" style="text-align: left;">@item.ROWNUMBER</h5>
+                    <h5 class="text-xs font-weight-bold mb-0" style="text-align: center;">@item.ROWNUMBER</h5>
                 </div>
             </div>
 
@@ -35,7 +36,7 @@
         <td>
             <div class="d-flex px-2 py-1">
                 <div class="d-flex flex-column justify-content-center">
-                    <h5 class="text-xs font-weight-bold mb-0" style="text-align: left;">@item.ClassNo</h5>
+                    <h5 class="text-xs font-weight-bold mb-0" style="text-align: center;">@item.ClassNo</h5>
                 </div>
             </div>
 
@@ -43,7 +44,7 @@
         <td>
             <div class="d-flex px-2 py-1">
                 <div class="d-flex flex-column justify-content-center">
-                    <h5 class="text-xs font-weight-bold mb-0" style="text-align: left;">@item.StudentName</h5>
+                    <h5 class="text-xs font-weight-bold mb-0" style="text-align: center;">@item.StudentName</h5>
                 </div>
             </div>
 
@@ -51,7 +52,7 @@
         <td>
             <div class="d-flex px-2 py-1">
                 <div class="d-flex flex-column justify-content-center">
-                    <h5 class="text-xs font-weight-bold mb-0" style="text-align: left;">@item.RollNo</h5>
+                    <h5 class="text-xs font-weight-bold mb-0" style="text-align: center;">@item.RollNo</h5>
                 </div>
             </div>
 
@@ -59,7 +60,7 @@
         <td>
             <div class="d-flex px-2 py-1">
                 <div class="d-flex flex-column justify-content-center">
-                    <h5 class="text-xs font-weight-bold mb-0" style="text-align: left;">@item.MonthName</h5>
+                    <h5 class="text-xs font-weight-bold mb-0" style="text-align: center;">@item.MonthName</h5>
                 </div>
             </div>
 
@@ -67,14 +68,14 @@
         <td>
             <div class="d-flex px-2 py-1">
                 <div class="d-flex flex-column justify-content-center">
-                    <h5 class="text-xs font-weight-bold mb-0" style="text-align: left;">@item.YearName</h5>
+                    <h5 class="text-xs font-weight-bold mb-0" style="text-align: center;">@item.YearName</h5>
                 </div>
             </div>
         </td>
         <td>
             <div class="d-flex px-2 py-1">
                 <div class="d-flex flex-column justify-content-center">
-                    <h5 class="text-xs font-weight-bold mb-0" style="text-align: left;">@item.FeesAmount<span>.00</span></h5>
+                    <h5 class="text-xs font-weight-bold mb-0" style="text-align: center;">@item.FeesAmount<span>.00</span></h5>
                 </div>
             </div>
 
@@ -96,13 +97,20 @@
 
         </td>
         <td>
+            <div class="d-flex px-2 py-1">
+                <div class="d-flex flex-column justify-content-center">
+                    <h5 class="text-xs font-weight-bold mb-0" style="text-align: left;">@item.Yearly<span>.00</span></h5>
+                </div>
+            </div>
+
+        </td>
+        <td>
             @if (item.Yearly == item.TotalPay)
             {
-    <span  class="text-xs font-weight-bold mb-0"><i class="fa fa-check text-success"></i> <b style="color:forestgreen">Success</b></span> }
-else 
+    <span class="text-xs font-weight-bold mb-0"><i class="fa fa-check text-success"></i> <b style="color:forestgreen">Success</b></span> }
+else
 {
-    <span class="text-xs font-weight-bold mb-0"><i class="fa fa-clock-o text-danger"></i> <b style="color:red">Pending</b> </span>
-    }
+    <span class="text-xs font-weight-bold mb-0"><i class="fa fa-clock-o text-danger"></i> <b style="color:red">Pending</b> </span>}
         </td>
         <td class="align-middle text-center">
             <div class="dropdown">

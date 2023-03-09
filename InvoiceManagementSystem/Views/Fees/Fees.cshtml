@@ -169,21 +169,28 @@
                             <span id="errFeesAmount" class="text-xs font-weight-bold mb-0" style="color:red"></span>
                         </div>
                     </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="example-text-input" class="form-control-label">Payment Date</label>
+                            <input class="form-control floating datetimepicker" type="date" id="Date" autocomplete="off">
+                            <span id="errDate" class="text-xs font-weight-bold mb-0" style="color:red"></span>
+                        </div>
+                    </div>
                     <hr />
                     <h6 style="color:green">For your Information </h6>
 
                     <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="example-text-input" class="form-control-label">Monthly Fees</label>
-                                <span class="form-control" id="Monthly"></span>
-                            </div>
+                        <div class="form-group">
+                            <label for="example-text-input" class="form-control-label">Monthly Fees</label>
+                            <span class="form-control" id="Monthly"></span>
                         </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="example-text-input" class="form-control-label">Yearly Fees</label>
-                                <span contenteditable="false" class="form-control" id="Yearly" ></span>
-                            </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="example-text-input" class="form-control-label">Yearly Fees</label>
+                            <span contenteditable="false" class="form-control" id="Yearly"></span>
                         </div>
+                    </div>
                 </div>
             </div>
             <div class="modal-footer">
@@ -238,6 +245,7 @@
             type = 1;
         }
     }
+
 </script>
 <script>
     $(document).ready(function () {
@@ -248,6 +256,28 @@
     });
     function myFunction() {
         document.getElementById("myDropdown").classList.toggle("show");
+    }
+
+    $(function () {
+        $("#Date").datetimepicker({
+            format: 'DD/MM/YYYY',
+            maxDate: new Date,
+            useCurrent: true,
+            ignoreReadonly: true
+        })
+    });
+    function formatDate(date) {
+        var d = new Date(date),
+            month = '' + (d.getMonth() + 1),
+            day = '' + d.getDate(),
+            year = d.getFullYear();
+
+        if (month.length < 2)
+            month = '0' + month;
+        if (day.length < 2)
+            day = '0' + day;
+
+        return [day, month, year].join('/');
     }
     $("#FeesAmount").keyup(function () {
         debugger
@@ -272,7 +302,7 @@
         })
     });
     function InsertData() {
-        debugger
+        
         var val = true;
         var Id = $('#hdnintId').val();
         var ClassId = $('#ClassId').val();
@@ -281,7 +311,9 @@
         var YearId = $('#YearId').val();
         var SearchText = $('#SearchText').val();
         var RollNo = $('#RollNo').text();
+        var Date = $('#Date').val();
         var FeesAmount = $('#FeesAmount').val();
+
         if (FeesAmount == "" || /\S/.test(FeesAmount) == false) {
             $("#errFeesAmount").html("Please enter fees amount.");
             val = false;
@@ -298,6 +330,7 @@
         formData.append('YearId', YearId);
         formData.append('RollNo', RollNo);
         formData.append('FeesAmount', FeesAmount);
+        formData.append('Date', Date);
         formData.append('SearchText', SearchText);
 
         ShowWait();
@@ -468,7 +501,7 @@
     }
 
     function GetFeesList(page) {
-        debugger
+        
         var Id = 0;
         var SearchText = document.getElementById('SearchText').value;
         //var ClassId = document.getElementById('ClassId').value;
@@ -514,7 +547,7 @@
     }
 
     function GetSingleFeesData(id) {
-        debugger
+        
         document.getElementById('btnAdd').innerHTML = "Update";
         $("#btnAdd").attr('title', 'Update');
         document.getElementById('PopupTitle').innerHTML = "Update Fees";
@@ -539,6 +572,7 @@
                     $('#YearId').val(data.LSTFeesList[0].YearId).trigger("change");
                     document.getElementById('RollNo').value = data.LSTFeesList[0].RollNo;
                     document.getElementById('FeesAmount').value = data.LSTFeesList[0].FeesAmount;
+                    document.getElementById('Date').value = data.LSTFeesList[0].Date;
                 }
                 else {
                     alert('error');
