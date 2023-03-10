@@ -37,7 +37,7 @@
                                             <div class="numbers">
                                                 <p class="text-sm mb-0 text-uppercase font-weight-bold">Total ClassRoom</p>
 
-                                                <a href="/ClassRoom/ClassRoom">
+                                                <a onclick="ClassRoom(1);">
                                                     <h5 class="font-weight-bolder">@(Model.LSTDashBoardList[0].TotalClassRoom == 0 ? 0 : Model.LSTDashBoardList[0].TotalClassRoom)</h5>
                                                 </a>
                                             </div>
@@ -194,3 +194,51 @@
         </div>
     }
 </div>
+<div class="container-fluid py-4" id="Class">
+    <div class="row">
+        <div class="col-12">
+            <div class="card mb-4">
+                <div class="card-header pb-0">
+                    <h6>ClassRoom List</h6>
+                </div>
+                <div class="card-body px-0 pt-0 pb-2">
+                    <div class="table-responsive p-0">
+                        <div id="ClassRoomList"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--End of Datetime js/css-->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+
+    $(document).ready(function () {
+        $('#Class').hide();
+    });
+    function ClassRoom(page) {
+        $('#Class').show();
+        var cls = {
+        }
+        ShowWait();
+        $.ajax({
+            url: '/Home/GetClassRoom',
+            contentType: "application/json; charset=utf-8",
+            type: "POST",
+            data: JSON.stringify({
+                cls: cls
+            }),
+            success: function (data) {
+                debugger
+                $('#ClassRoomList').empty();
+                $('#ClassRoomList').append(data);
+                HideWait();
+            },
+            error: function (xhr) {
+                HideWait();
+                alert('errors');
+            }
+        });
+    }
+</script>

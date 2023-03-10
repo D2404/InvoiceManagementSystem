@@ -519,6 +519,7 @@
     <Content Include="Views\Fees\ClassWiseFees.cshtml" />
     <Content Include="Views\Fees\Fees.cshtml" />
     <Content Include="Views\Fees\_ClassWiseFeesListPartial.cshtml" />
+    <Content Include="Views\Home\_ClassRoomList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

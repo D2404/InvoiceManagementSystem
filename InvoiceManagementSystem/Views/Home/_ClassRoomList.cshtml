@@ -1,0 +1,54 @@
+﻿@model InvoiceManagementSystem.Models.ClassRoomModel
+
+<table class="table align-items-center mb-0">
+    <thead>
+        <tr>
+            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-20">Sr No.</th>
+            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-20">Name</th>
+            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-20">Status</th>
+        </tr>
+    </thead>
+    @if (Model != null && Model.LSTClassRoomList.Count > 0)
+    {
+        int no = 0;
+<tbody id="ClassRoomList">
+
+    @for (var i = 0; i < Model.LSTClassRoomList.Count; i++)
+    {
+        no = no + 1;
+        var item = Model.LSTClassRoomList[i];
+    <tr>
+        <td>
+            <p class="text-xs font-weight-bold mb-0" style="margin-left:22px">@no</p>
+            @*<p class="text-xs text-secondary mb-0">Organization</p>*@
+        </td>
+        <td>
+            <div class="d-flex px-2 py-1">
+                <div class="d-flex flex-column justify-content-center">
+                    <h5 class="text-xs font-weight-bold mb-0" style="margin-left:12px">@item.ClassNo</h5>
+                </div>
+            </div>
+        </td>
+        <td>
+            @if (item.IsActive == true)
+            {
+                <a style="margin-left:10px" class="text-xs font-weight-bold mb-0"><i class="fa fa-dot-circle-o text-success"></i> Active</a>
+            }
+            else
+            {
+                <a style="margin-left:10px" class="text-xs font-weight-bold mb-0"><i class="fa fa-dot-circle-o text-danger"></i> In-Active </a>
+            }
+        </td>
+    </tr>
+}
+</tbody> }
+            else
+            {
+<tr>
+    <td colspan="7">
+        <p class="text-xs font-weight-bold mb-0" style="text-align: center;"><b>No Record Found</b></p>
+        @*<h5 style="text-align: center;"><b>No Record Found</b></h5>*@
+    </td>
+</tr>            }
+</table>
+
