@@ -18,8 +18,14 @@ namespace InvoiceManagementSystem.Controllers
         // GET: Exam
         public ActionResult ExamMarks()
         {
-
-            return View();
+            if (objCommon.getUserIdFromSession() != 0)
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
         }
 
         [HttpPost]
