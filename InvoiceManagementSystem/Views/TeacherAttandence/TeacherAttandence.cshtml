@@ -50,7 +50,7 @@
 <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl " id="navbarBlur" data-scroll="false">
     <div class="container-fluid py-1 px-3">
         <nav aria-label="breadcrumb">
-            <h6 class="font-weight-bolder text-white mb-0">Teacher Attandence List</h6>
+            <h5 class="font-weight-bolder text-white mb-0">Teacher Attandence List</h5>
         </nav>
     </div>
 
@@ -84,9 +84,22 @@
 
     </div>
 </div>
+<div class="row">
+
+    <div style="margin-left:978px">
+        <a href="#" class="btn bg-gradient-dark" onclick="ShowFilter()" title="Filter"><i class="fa fa-filter"></i></a>
+    </div>
+</div>
 @if (InvoiceManagementSystem.Models.SessionModel.RoleId == 1)
 {
-    <a class="btn bg-gradient-info" title="Add TeacherAttandence" data-bs-toggle="modal" data-bs-target="#TeacherAttandence" onclick="Clear()" style="cursor:pointer;margin-left:915px">Add Attandence</a>
+    <div class="row">
+
+        <div style="margin-left:811px">
+            <a href="#" class="btn bg-gradient-dark" onclick="ShowFilter()" title="Filter"><i class="fa fa-filter"></i></a>
+            @*<a href="#" class="btn bg-gradient-dark" onclick="ShowFilter()" style="margin-left: 843px; margin-bottom: -64px;"><i class="fa fa-filter"></i></a>*@
+            <a class="btn bg-gradient-info" title="Add Subject" data-bs-toggle="modal" data-bs-target="#TeacherAttandence" onclick="Clear()">Add TeacherAttandence </a>
+        </div>
+    </div>
 }
 
 <div class="container-fluid py-4">
@@ -224,6 +237,7 @@
 </script>
 <script>
     $(document).ready(function () {
+        $('#FilterDiv').hide();
         GetTeacherAttandenceList(1);
         GetTeacher();
     });

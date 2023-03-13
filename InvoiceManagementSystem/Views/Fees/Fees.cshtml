@@ -49,7 +49,7 @@
 <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl " id="navbarBlur" data-scroll="false">
     <div class="container-fluid py-1 px-3">
         <nav aria-label="breadcrumb">
-            <h6 class="font-weight-bolder text-white mb-0">Fees List</h6>
+            <h5 class="font-weight-bolder text-white mb-0">Fees List</h5>
         </nav>
     </div>
 
@@ -79,7 +79,15 @@
     </div>
 </div>
 
-<a class="btn bg-gradient-info" title="Add Fees" data-bs-toggle="modal" data-bs-target="#Fees" onclick="Clear()" style="cursor: pointer; margin-left: 915px">Add Fees </a>
+
+<div class="row">
+
+    <div style="margin-left:878px">
+        <a href="#" class="btn bg-gradient-dark" onclick="ShowFilter()" title="Filter"><i class="fa fa-filter"></i></a>
+        @*<a href="#" class="btn bg-gradient-dark" onclick="ShowFilter()" style="margin-left: 843px; margin-bottom: -64px;"><i class="fa fa-filter"></i></a>*@
+    <a class="btn bg-gradient-info" title="Add Fees" data-bs-toggle="modal" data-bs-target="#Fees" onclick="Clear()">Add Fees</a>
+    </div>
+</div>
 
 
 <div class="container-fluid py-4">
@@ -249,6 +257,7 @@
 </script>
 <script>
     $(document).ready(function () {
+        $('#FilterDiv').hide();
         GetClassRoom();
         GetMonth();
         GetYear();
@@ -282,7 +291,7 @@
     $("#FeesAmount").keyup(function () {
         debugger
         var amt = $('#FeesAmount').val();
-       
+
 
         var Yearly = $('#Yearly').text();
         if (amt > Number(Yearly)) {
@@ -302,7 +311,7 @@
         })
     });
     function InsertData() {
-        
+
         var val = true;
         var Id = $('#hdnintId').val();
         var ClassId = $('#ClassId').val();
@@ -501,7 +510,7 @@
     }
 
     function GetFeesList(page) {
-        
+
         var Id = 0;
         var SearchText = document.getElementById('SearchText').value;
         //var ClassId = document.getElementById('ClassId').value;
@@ -547,7 +556,7 @@
     }
 
     function GetSingleFeesData(id) {
-        
+
         document.getElementById('btnAdd').innerHTML = "Update";
         $("#btnAdd").attr('title', 'Update');
         document.getElementById('PopupTitle').innerHTML = "Update Fees";

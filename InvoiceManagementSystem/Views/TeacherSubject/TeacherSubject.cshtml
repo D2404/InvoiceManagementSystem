@@ -49,7 +49,7 @@
 <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl " id="navbarBlur" data-scroll="false">
     <div class="container-fluid py-1 px-3">
         <nav aria-label="breadcrumb">
-            <h6 class="font-weight-bolder text-white mb-0">TeacherSubject List</h6>
+            <h5 class="font-weight-bolder text-white mb-0">Teacher Subject List</h5>
         </nav>
     </div>
 
@@ -87,9 +87,23 @@
 
     </div>
 </div>
+<div class="row">
+
+    <div style="margin-left:978px">
+        <a href="#" class="btn bg-gradient-dark" onclick="ShowFilter()" title="Filter"><i class="fa fa-filter"></i></a>
+    </div>
+</div>
 @if (InvoiceManagementSystem.Models.SessionModel.RoleId == 1)
 {
-    <a class="btn bg-gradient-info" title="Add TeacherSubject" data-bs-toggle="modal" data-bs-target="#TeacherSubject" onclick="Clear()" style="cursor:pointer;margin-left:828px">Add TeacherSubject </a>
+    <div class="row">
+
+        <div style="margin-left:811px">
+            <a href="#" class="btn bg-gradient-dark" onclick="ShowFilter()" title="Filter"><i class="fa fa-filter"></i></a>
+            @*<a href="#" class="btn bg-gradient-dark" onclick="ShowFilter()" style="margin-left: 843px; margin-bottom: -64px;"><i class="fa fa-filter"></i></a>*@
+            <a class="btn bg-gradient-info" title="Add Subject" data-bs-toggle="modal" data-bs-target="#TeacherSubject" onclick="Clear()">Add TeacherSubject </a>
+        </div>
+    </div>
+
 }
 
 <div class="container-fluid py-4">
@@ -216,9 +230,6 @@
 <script>
     var type = 1
 
-
-
-
     function ShowFilter() {
         if (type == 1) {
             $('#FilterDiv').show();
@@ -232,6 +243,7 @@
 </script>
 <script>
     $(document).ready(function () {
+        $('#FilterDiv').hide();
         GetClassRoom();
         GetTeacher();
         GetTeacherSubjectList(1);

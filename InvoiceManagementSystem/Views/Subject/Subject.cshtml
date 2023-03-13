@@ -49,7 +49,7 @@
 <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl " id="navbarBlur" data-scroll="false">
     <div class="container-fluid py-1 px-3">
         <nav aria-label="breadcrumb">
-            <h6 class="font-weight-bolder text-white mb-0">Subject List</h6>
+            <h5 class="font-weight-bolder text-white mb-0">Subject List</h5>
         </nav>
     </div>
 
@@ -88,8 +88,14 @@
 
     </div>
 </div>
+<div class="row">
 
-<a class="btn bg-gradient-info" title="Add Subject" data-bs-toggle="modal" data-bs-target="#Subject" onclick="Clear()" style="cursor:pointer;margin-left:915px">Add Subject </a>
+    <div style="margin-left:868px">
+        <a href="#" class="btn bg-gradient-dark" onclick="ShowFilter()" title="Filter"><i class="fa fa-filter"></i></a>
+        @*<a href="#" class="btn bg-gradient-dark" onclick="ShowFilter()" style="margin-left: 843px; margin-bottom: -64px;"><i class="fa fa-filter"></i></a>*@
+        <a class="btn bg-gradient-info" title="Add Subject" data-bs-toggle="modal" data-bs-target="#Subject" onclick="Clear()">Add Subject </a>
+    </div>
+</div>
 
 
 <div class="container-fluid py-4">
@@ -171,7 +177,7 @@
             <div class="modal-body">
                 <p style="margin-left:70px">Are you sure want to delete this Subject ?.</p>
             </div>
-            <div class="modal-footer"style="padding-right: 166px">
+            <div class="modal-footer" style="padding-right: 166px">
                 <button type="button" id="btnAdd" class="btn bg-gradient-danger" onclick="deleteSubject()">Delete</button>
                 <button type="button" class="btn bg-gradient-dark" data-bs-dismiss="modal">Cancel</button>
                 <input type="hidden" id="hdnintId" value="0" />
@@ -205,6 +211,8 @@
 <script src="https://dreamguys.co.in/smarthr/blue/assets/js/bootstrap-datetimepicker.min.js"></script>
 <!--End of Datetime js/css-->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js" integrity="sha512-2ImtlRlf2VVmiGZsjm9bEyhjGW4dU7B6TNwh/hx/iSByxNENtj3WVE6o/9Lj4TJeVXPi4bnOIMXFIJJAeufa0A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" integrity="sha512-nMNlpuaDPrqlEls3IX/Q56H36qvBASwb3ipuo3MxeWbsQB1881ox0cRv7UPTgBlriqoynt35KjEwgGUeUXIPnw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <script>
     var type = 1
 
@@ -226,6 +234,7 @@
     $(document).ready(function () {
         GetClassRoom();
         GetSubjectList(1);
+        $('#FilterDiv').hide();
     });
     function myFunction() {
         document.getElementById("myDropdown").classList.toggle("show");
@@ -316,7 +325,7 @@
                 cls: cls
             }),
             success: function (data) {
-                
+
                 var html = "";
                 html = html + ' <option value="0" selected>Select ClassRoom</option>';
                 for (var i = 0; i < data.LSTClassRoomList.length; i++) {
@@ -426,7 +435,7 @@
             success: function (data) {
 
                 if (data.Response == 'Success' && Id > 0) {
-                   
+
                     toastr.success('Subject deleted successfully');
                     document.getElementById('hdnintId').value = "0";
                     GetSubjectList();
@@ -494,7 +503,7 @@
             document.getElementById('SubjectName').value = "";
             $('#errSubjectName').html("");
             $("#ClassId").val('0').trigger('change');
-            
+
             if (Id == "0") {
 
                 document.getElementById('hdnintId').value = "0";
