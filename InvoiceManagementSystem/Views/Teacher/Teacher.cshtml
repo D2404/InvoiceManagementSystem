@@ -59,18 +59,30 @@
 
 </nav>
 <div class="row" id="FilterDiv" style="margin-left:19px">
-    <div class="col-sm-6 col-md-3">
+    <div class="col-sm-4 col-md-3">
         <div class="form-group form-focus">
             <input type="text" class="form-control floating" id="SearchText" placeholder="Search" maxlength="50">
         </div>
     </div>
-    <div class="col-sm-6 col-md-3">
+    <div class="col-sm-4 col-md-2">
         <div class="form-group form-focus select-focus">
             <select tabindex="1" data-placeholder="Select here.." id="intActive" name="intActive" class="form-control floating">
                 <option value="3">Select Status</option>
                 <option value="1">Active</option>
                 <option value="2">In-Active</option>
             </select>
+        </div>
+    </div>
+    <div class="col-sm-4 col-md-2" style="margin-top: -32px;">
+        <div class="form-group form-focus">
+            <label style="color:white">From Date</label>
+            <input class="form-control floating datetimepicker" type="date" id="FromDate" autocomplete="off">
+        </div>
+    </div>
+    <div class="col-sm-4 col-md-2" style="margin-top: -32px;">
+        <div class="form-group form-focus">
+            <label style="color:white">To Date</label>
+            <input class="form-control floating datetimepicker" type="date" id="ToDate" autocomplete="off">
         </div>
     </div>
     <div class="col-sm-6 col-md-1">
@@ -488,6 +500,8 @@
 
         var Id = 0;
         var SearchText = document.getElementById('SearchText').value;
+        var FromDate = document.getElementById('FromDate').value;
+        var ToDate = document.getElementById('ToDate').value;
         var intActive = document.getElementById('intActive').value;
         if (document.getElementById('PageSize') != null) {
             PageSize = document.getElementById('PageSize').value;
@@ -504,6 +518,8 @@
         var cls = {
             Id: Id,
             SearchText: SearchText,
+            Date: FromDate,
+            Date: ToDate,
             intActive: intActive,
             PageSize: PageSize,
             PageIndex: PageIndex,

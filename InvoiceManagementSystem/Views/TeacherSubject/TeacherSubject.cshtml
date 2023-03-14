@@ -87,12 +87,6 @@
 
     </div>
 </div>
-<div class="row">
-
-    <div style="margin-left:978px">
-        <a href="#" class="btn bg-gradient-dark" onclick="ShowFilter()" title="Filter"><i class="fa fa-filter"></i></a>
-    </div>
-</div>
 @if (InvoiceManagementSystem.Models.SessionModel.RoleId == 1)
 {
     <div class="row">
@@ -104,6 +98,15 @@
         </div>
     </div>
 
+}
+else
+{
+    <div class="row">
+
+        <div style="margin-left:978px">
+            <a href="#" class="btn bg-gradient-dark" onclick="ShowFilter()" title="Filter"><i class="fa fa-filter"></i></a>
+        </div>
+    </div>
 }
 
 <div class="container-fluid py-4">

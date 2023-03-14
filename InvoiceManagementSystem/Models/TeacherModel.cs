@@ -35,6 +35,7 @@ namespace InvoiceManagementSystem.Models
         public string CreatedDate { get; set; }
         public int ShowingEntries { get; set; }
         public int fromEntries { get; set; }
+        public string Date { get; set; }
         public string Dob { get; set; }
         public int intActive { get; set; }
         public bool IsActive { get; set; }

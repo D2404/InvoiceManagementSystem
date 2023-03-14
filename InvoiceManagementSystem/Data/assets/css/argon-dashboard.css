@@ -23335,9 +23335,9 @@ hr {
 }
 
     .navbar-vertical.bg-white .navbar-nav > .nav-item .nav-link.active {
-        background-color: #2E3840;
+        background-color: #E0E0E0;
         box-shadow: none;
-        color:white;
+        color: black;
     }
 
 .navbar-vertical .navbar-nav .nav-link.active {
