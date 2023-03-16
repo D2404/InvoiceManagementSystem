@@ -542,7 +542,7 @@
                 cls: cls
             }),
             success: function (data) {
-
+                
                 if (data != null) {
                     document.getElementById('hdnintId').value = data.LSTStudentList[0].Id;
                     document.getElementById('FullName').value = data.LSTStudentList[0].FullName;
@@ -553,9 +553,9 @@
                     document.getElementById('Address').value = data.LSTStudentList[0].Address;
                     document.getElementById('RollNo').value = data.LSTStudentList[0].RollNo;
                     $('#ClassId').val(data.LSTStudentList[0].ClassId).trigger("change");
-                    document.getElementById('Dob').value = data.LSTStudentList[0].Dob;
+                    /*document.getElementById('Dob').value = data.LSTStudentList[0].Dob;*/
                     //document.getElementById('Dob').value = ConvertRazorToDate(data.Dob);
-                    if (data.LSTStudentList[0].Gender == false) {
+                    if (data.LSTStudentList[0].Gender == true) {
                         $("#Active").prop('checked', true);
                     }
                     else {
