@@ -143,7 +143,7 @@ else
             <div class="modal-header">
                 <h5 class="modal-title" style="margin-left:173px"><span id="PopupTitle">Add TeacherAttandence</span></h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
+                    <span aria-hidden="true" style="color:black">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
@@ -166,7 +166,7 @@ else
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="example-text-input" class="form-control-label">Leave Type<span class="text-danger">*</span></label><br />
-                            <select class="form-control" id="LeaveType">
+                            <select class="form-control form-control-alternative" id="LeaveType">
                                 <option value="0">Select Leave Type</option>
                                 <option value="1">Half-Day</option>
                                 <option value="2">Full-Day</option>
@@ -176,14 +176,14 @@ else
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="example-text-input" class="form-control-label">Date</label>
-                            <input class="form-control floating datetimepicker" type="date" id="Date" autocomplete="off">
+                            <input class="form-control form-control-alternative floating datetimepicker" type="date" id="Date" autocomplete="off">
                             <span id="errDate" class="text-xs font-weight-bold mb-0" style="color:red"></span>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="example-text-input" class="form-control-label">Reason<span class="text-danger">*</span></label><br />
-                            <textarea class="form-control" id="Reason"></textarea>
+                            <textarea class="form-control form-control-alternative" id="Reason"></textarea>
                         </div>
                     </div>
                 </div>

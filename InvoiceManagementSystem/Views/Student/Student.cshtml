@@ -123,7 +123,7 @@
             <div class="modal-header">
                 <h5 class="modal-title" style="margin-left:173px"><span id="PopupTitle">Add Student</span></h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
+                    <span aria-hidden="true" style="color:black">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
@@ -131,14 +131,14 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="example-text-input" class="form-control-label">Full Name <span class="text-danger">*</span></label>
-                            <input class="form-control" type="text" id="FullName" placeholder="Enter Full Name">
+                            <input class="form-control form-control-alternative" type="text" id="FullName" placeholder="Enter Full Name">
                             <span id="errFullName" class="text-xs font-weight-bold mb-0" style="color:red"></span>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="example-text-input" class="form-control-label">User Name <span class="text-danger">*</span></label>
-                            <input class="form-control" type="email" id="UserName" placeholder="Enter Student Name">
+                            <input class="form-control form-control-alternative" type="email" id="UserName" placeholder="Enter Student Name">
                             <span id="errUserName" class="text-xs font-weight-bold mb-0" style="color:red"></span>
                         </div>
                     </div>
@@ -153,35 +153,43 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="example-text-input" class="form-control-label">Roll No <span class="text-danger">*</span></label>
-                            <input class="form-control" type="text" id="RollNo" placeholder="Enter Roll No">
+                            <input class="form-control form-control-alternative" type="text" id="RollNo" placeholder="Enter Roll No">
                             <span id="errRollNo" class="text-xs font-weight-bold mb-0" style="color:red"></span>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="example-text-input" class="form-control-label">Gender<span class="text-danger">*</span></label><br />
-                            <label><input type="radio" id="web" value="1" name="web" checked> Male &nbsp;</label>
-                            <label><input type="radio" id="web" value="2" name="web"> Female &nbsp;</label>
+                            <div class="form-radio">
+                                <div class="radio radio-outline radio-inline">
+                                    <label>
+                                        <input type="radio" name="radio" checked="checked" value="Active" class="rd" id="Active" />
+                                        <i class="helper"></i>Male
+                                        <input type="radio" name="radio" value="InActive" class="rd" id="InActive" />
+                                        <i class="helper"></i>Female
+                                    </label>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="example-text-input" class="form-control-label">Email <span class="text-danger">*</span></label>
-                            <input class="form-control" type="text" id="Email" placeholder="Enter Email">
+                            <input class="form-control form-control-alternative" type="text" id="Email" placeholder="Enter Email">
                             <span id="errEmail" class="text-xs font-weight-bold mb-0" style="color:red"></span>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="example-text-input" class="form-control-label">Password <span class="text-danger">*</span></label>
-                            <input class="form-control" type="text" id="Password" placeholder="Enter Email">
+                            <input class="form-control form-control-alternative" type="text" id="Password" placeholder="Enter Email">
                             <span id="errEmail" class="text-xs font-weight-bold mb-0" style="color:red"></span>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="example-text-input" class="form-control-label">Mobile <span class="text-danger">*</span></label>
-                            <input class="form-control" type="text" id="MobileNo" placeholder="Enter Mobile">
+                            <input class="form-control form-control-alternative" type="text" id="MobileNo" placeholder="Enter Mobile">
                             <span id="errMobile" class="text-xs font-weight-bold mb-0" style="color:red"></span>
                         </div>
                     </div>
@@ -196,7 +204,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="example-text-input" class="form-control-label">Address</label>
-                            <textarea class="form-control" id="Address"></textarea>
+                            <textarea class="form-control form-control-alternative" id="Address"></textarea>
                         </div>
                     </div>
                     <div class="col-sm-6">
@@ -204,7 +212,7 @@
                             <div class="form-group" id="divUploadFile" style="display:block">
                                 <input type="hidden" id="hdnfile" />
                                 <label for="basicinput"><b>Profile pic</b><span style="color: red">*</span></label>
-                                <input type="file" class="form-control" name="Profile" id="Profile" accept="image/*">
+                                <input type="file" class="form-control form-control-alternative" name="Profile" id="Profile" accept="image/*">
                             </div>
                         </div>
                         <div class="form-group" id="divFile" style="display:none">
@@ -359,13 +367,12 @@
             $("#errRollNo").html("Please enter rollno.");
             val = false;
         }
-        var Gender = false;
-        var onweb = $('input[name="web"]:checked').val();
-        if (onweb == 1) {
-            Gender = true;
+        var Gender = $("input[type='radio']:checked").val();
+        if (Gender == "Active") {
+            Gender = 1
         }
         else {
-            Gender = false;
+            Gender = 0
         }
 
         var formData = new FormData();
@@ -549,10 +556,10 @@
                     document.getElementById('Dob').value = data.LSTStudentList[0].Dob;
                     //document.getElementById('Dob').value = ConvertRazorToDate(data.Dob);
                     if (data.LSTStudentList[0].Gender == false) {
-                        $("input[name=web][value=" + 0 + "]").prop('checked', true);
+                        $("#Active").prop('checked', true);
                     }
-                    else if (data.LSTStudentList[0].Gender == true) {
-                        $("input[name=web][value=" + 1 + "]").prop('checked', true);
+                    else {
+                        $("#InActive").prop('checked', true);
                     }
                     if (data.ProfileImg != null && data.ProfileImg != "") {
                         document.getElementById('hdnFile').value = data.ProfileImg;

@@ -46,6 +46,10 @@
         display: block;
     }
 </style>
+<head>
+    <link href="~/Data/assets/select2/css/select2.min.css" rel="stylesheet" />
+    <link href="~/Data/assets/select2/css/select2-bootstrap4.css" rel="stylesheet" />
+</head>
 <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl " id="navbarBlur" data-scroll="false">
     <div class="container-fluid py-1 px-3">
         <nav aria-label="breadcrumb">
@@ -135,7 +139,7 @@
             <div class="modal-header">
                 <h5 class="modal-title" style="margin-left:173px"><span id="PopupTitle">Add Subject</span></h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
+                    <span aria-hidden="true" style="color:black">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
@@ -143,7 +147,7 @@
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label for="basicinput"><b>Class Room</b></label>
-                            <select class="form-control form-control-alternative" id="ClassId">
+                            <select class="single-select" id="ClassId">
                                 <option value="0">Select ClassRoom</option>
                             </select>
                         </div>
@@ -205,9 +209,11 @@
         </div>
     </div>
 </div>
-<!--End of Datetime js/css-->
-@*<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>*@
- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+@*<script src="~/Data/assets/js/bootstrap.min.js"></script>*@
+<script src="~/Data/assets/select2/js/select2.min.js"></script>
+
+@*<script src="~/Data/assets/select2/js/select2.min.js"></script>*@
 
 <script>
     var type = 1
@@ -231,21 +237,16 @@
         GetClassRoom();
         GetSubjectList(1);
         $('#FilterDiv').hide();
-        $('#ClassId').select2();
-    });
-    function myFunction() {
-        document.getElementById("myDropdown").classList.toggle("show");
-    }
 
-
-    $(function () {
-        $("#Dob").datetimepicker({
-            format: 'DD/MM/YYYY',
-            maxDate: new Date,
-            useCurrent: true,
-            ignoreReadonly: true
-        })
     });
+    $('.single-select').select2({
+        theme: 'bootstrap4',
+        SearchText:true,
+        width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style',
+        placeholder: $(this).data('placeholder'),
+        allowClear: Boolean($(this).data('allow-clear')),
+    });
+    
     function InsertData() {
 
         var val = true;

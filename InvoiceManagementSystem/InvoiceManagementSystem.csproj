@@ -164,6 +164,8 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\css\select2.css" />
     <Content Include="Content\css\select2.min.css" />
+    <Content Include="Content\css\select2\css\select2.min.css" />
+    <Content Include="Content\css\select2\js\select2.full.min.js" />
     <Content Include="Content\files\assets\advance-elements\bootstrap-datetimepicker.min.js" />
     <Content Include="Content\files\assets\advance-elements\css\bootstrap-datetimepicker.css" />
     <Content Include="Content\files\assets\advance-elements\custom-picker.js" />
@@ -446,6 +448,8 @@
     <Content Include="Data\assets\img\vr-bg.jpg" />
     <Content Include="Data\assets\js\argon-dashboard.js" />
     <Content Include="Data\assets\js\argon-dashboard.min.js" />
+    <Content Include="Data\assets\js\bootstrap.js" />
+    <Content Include="Data\assets\js\bootstrap.min.js" />
     <Content Include="Data\assets\js\core\bootstrap.bundle.min.js" />
     <Content Include="Data\assets\js\core\bootstrap.min.js" />
     <Content Include="Data\assets\js\core\popper.min.js" />
@@ -455,6 +459,9 @@
     <Content Include="Data\assets\js\plugins\perfect-scrollbar.min.js" />
     <Content Include="Data\assets\js\plugins\smooth-scrollbar.min.js" />
     <Content Include="Data\assets\js\select2.min.js" />
+    <Content Include="Data\assets\select2\css\select2-bootstrap4.css" />
+    <Content Include="Data\assets\select2\css\select2.min.css" />
+    <Content Include="Data\assets\select2\js\select2.min.js" />
     <Content Include="Data\Profile\b3ffb2857c6422fa3d13a3d474032194.jpg" />
     <Content Include="Data\Profile\BackgroundImage.jpg" />
     <Content Include="Data\Profile\bg.jpg" />
