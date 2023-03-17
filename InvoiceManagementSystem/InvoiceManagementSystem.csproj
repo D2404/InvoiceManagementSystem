@@ -158,6 +158,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\bootstrap-datetimepicker.css" />
+    <Content Include="Content\bootstrap-datetimepicker.min.css" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -351,6 +353,14 @@
     <Content Include="Data\assets\css\nucleo-icons.css" />
     <Content Include="Data\assets\css\nucleo-svg.css" />
     <Content Include="Data\assets\css\select2.min.css" />
+    <Content Include="Data\assets\DateTimePicker\bootstrap-datetimepicker.min.css" />
+    <Content Include="Data\assets\DateTimePicker\bootstrap-datetimepicker.min.js" />
+    <Content Include="Data\assets\DateTimePicker\fonts\awesome\fontawesome-webfont3295.svg" />
+    <Content Include="Data\assets\DateTimePicker\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Data\assets\DateTimePicker\fonts\themify\themify9f24.svg" />
+    <Content Include="Data\assets\DateTimePicker\glyphicons-halflings-regular.svg" />
+    <Content Include="Data\assets\DateTimePicker\glyphicons.css" />
+    <Content Include="Data\assets\DateTimePicker\moment.js" />
     <Content Include="Data\assets\fonts\nucleo-icons.svg" />
     <Content Include="Data\assets\img\apple-icon.png" />
     <Content Include="Data\assets\img\bg-profile.jpg" />
@@ -481,8 +491,6 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Scripts\bootstrap.js" />
-    <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Data\assets\css\argon-dashboard.css.map" />
     <Content Include="Data\assets\fonts\nucleo-icons.eot" />
     <Content Include="Data\assets\fonts\nucleo-icons.ttf" />
@@ -665,7 +673,39 @@
     <Content Include="Content\files\bower_components\datedropper\css\dd-icon\dd-icon.ttf" />
     <Content Include="Content\files\bower_components\datedropper\css\dd-icon\dd-icon.woff" />
     <Content Include="Content\files\bower_components\datedropper\css\dd-icon\dd-icond41d.eot" />
+    <Content Include="Data\assets\DateTimePicker\fonts\awesome\fontawesome-webfont3295.eot" />
+    <Content Include="Data\assets\DateTimePicker\fonts\awesome\fontawesome-webfont3295.ttf" />
+    <Content Include="Data\assets\DateTimePicker\fonts\awesome\fontawesome-webfont3295.woff" />
+    <Content Include="Data\assets\DateTimePicker\fonts\awesome\fontawesome-webfont3295.woff2" />
+    <Content Include="Data\assets\DateTimePicker\fonts\awesome\fontawesome-webfontd41d.eot" />
+    <Content Include="Data\assets\DateTimePicker\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Data\assets\DateTimePicker\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Data\assets\DateTimePicker\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Data\assets\DateTimePicker\fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="Data\assets\DateTimePicker\fonts\glyphicons-halflings-regulard41d.eot" />
+    <Content Include="Data\assets\DateTimePicker\fonts\themify\themify9f24.eot" />
+    <Content Include="Data\assets\DateTimePicker\fonts\themify\themify9f24.ttf" />
+    <Content Include="Data\assets\DateTimePicker\fonts\themify\themify9f24.woff" />
+    <Content Include="Data\assets\DateTimePicker\fonts\themify\themifyd41d.eot" />
+    <Content Include="Data\assets\DateTimePicker\glyphicons-halflings-regular.eot" />
+    <Content Include="Data\assets\DateTimePicker\glyphicons-halflings-regular.ttf" />
+    <Content Include="Data\assets\DateTimePicker\glyphicons-halflings-regular.woff" />
+    <Content Include="Data\assets\DateTimePicker\glyphicons-halflings-regular.woff2" />
+    <Content Include="Data\assets\DateTimePicker\glyphicons-halflings-regulard41d.eot" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\bootstrap.min.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Content\bootstrap-theme.min.css.map" />
+    <Content Include="Content\bootstrap-theme.css.map" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
+    <Content Include="Scripts\bootstrap-datetimepicker.js" />
+    <Content Include="Scripts\bootstrap-datetimepicker.min.js" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\Datepickermanual.js" />
     <Content Include="Scripts\i18n\af.js" />
     <Content Include="Scripts\i18n\ar.js" />
     <Content Include="Scripts\i18n\az.js" />
@@ -736,6 +776,10 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\Login.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\moment-with-locales.js" />
+    <Content Include="Scripts\moment-with-locales.min.js" />
+    <Content Include="Scripts\moment.js" />
+    <Content Include="Scripts\moment.min.js" />
     <Content Include="Scripts\select2.js" />
     <Content Include="Scripts\select2.min.js" />
     <Content Include="Web.config" />
@@ -780,14 +824,6 @@
     <Folder Include="Data\Item\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
-    <Content Include="fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="fonts\glyphicons-halflings-regular.eot" />
-    <Content Include="Content\bootstrap.min.css.map" />
-    <Content Include="Content\bootstrap.css.map" />
-    <Content Include="Content\bootstrap-theme.min.css.map" />
-    <Content Include="Content\bootstrap-theme.css.map" />
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.4.1.min.map" />

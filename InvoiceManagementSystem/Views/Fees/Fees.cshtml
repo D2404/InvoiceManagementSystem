@@ -231,10 +231,8 @@
         </div>
     </div>
 </div>
-<script src="https://dreamguys.co.in/smarthr/blue/assets/js/jquery-3.2.1.min.js"></script>
-<link rel="stylesheet" href="https://dreamguys.co.in/smarthr/blue/assets/css/bootstrap-datetimepicker.min.css">
-<script src="https://dreamguys.co.in/smarthr/blue/assets/js/moment.min.js"></script>
-<script src="https://dreamguys.co.in/smarthr/blue/assets/js/bootstrap-datetimepicker.min.js"></script>
+<link href="~/Data/assets/DateTimePicker/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+<script src="~/Data/assets/DateTimePicker/bootstrap-datetimepicker.min.js"></script>
 <!--End of Datetime js/css-->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script>
@@ -556,7 +554,7 @@
     }
 
     function GetSingleFeesData(id) {
-
+    debugger
         document.getElementById('btnAdd').innerHTML = "Update";
         $("#btnAdd").attr('title', 'Update');
         document.getElementById('PopupTitle').innerHTML = "Update Fees";

@@ -114,8 +114,8 @@ namespace InvoiceManagementSystem.Controllers
                 SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString);
                 conn.Open();
                 SqlCommand cmd = new SqlCommand("sp_GetStudentClassRoomList", conn); 
-                cmd.Parameters.AddWithValue("@ClassId", SessionModel.ClassId);
-                cmd.Parameters.AddWithValue("@UserId", objCommon.getUserIdFromSession());
+                //cmd.Parameters.AddWithValue("@ClassId", SessionModel.ClassId);
+                cmd.Parameters.Add("@UserId", SessionModel.TeacherId);
                 
                 cmd.CommandTimeout = 0;
                 SqlDataAdapter da = new SqlDataAdapter(cmd);

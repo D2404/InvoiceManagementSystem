@@ -141,7 +141,7 @@ else
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" style="margin-left:173px"><span id="PopupTitle">Add TeacherAttandence</span></h5>
+                <h5 class="modal-title" style="margin-left:109px"><span id="PopupTitle">Add TeacherAttandence</span></h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true" style="color:black">&times;</span>
                 </button>
@@ -159,8 +159,16 @@ else
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="example-text-input" class="form-control-label">Status<span class="text-danger">*</span></label><br />
-                            <label><input type="radio" id="web" value="1" name="web" checked> Present &nbsp;</label>
-                            <label><input type="radio" id="web" value="2" name="web"> Absent &nbsp;</label>
+                            <div class="form-radio">
+                                <div class="radio radio-outline radio-inline">
+                                    <label>
+                                        <input type="radio" name="radio" checked="checked" value="Active" class="rd" id="Active" />
+                                        <i class="helper"></i>Present
+                                        <input type="radio" name="radio" value="InActive" class="rd" id="InActive" />
+                                        <i class="helper"></i>Absent
+                                    </label>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -176,7 +184,7 @@ else
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="example-text-input" class="form-control-label">Date</label>
-                            <input class="form-control form-control-alternative floating datetimepicker" type="date" id="Date" autocomplete="off">
+                            <input class="form-control form-control-alternative" type="date" id="Date" autocomplete="off">
                             <span id="errDate" class="text-xs font-weight-bold mb-0" style="color:red"></span>
                         </div>
                     </div>
@@ -217,9 +225,9 @@ else
     </div>
 </div>
 <script src="https://dreamguys.co.in/smarthr/blue/assets/js/jquery-3.2.1.min.js"></script>
-<link rel="stylesheet" href="https://dreamguys.co.in/smarthr/blue/assets/css/bootstrap-datetimepicker.min.css">
+
 <script src="https://dreamguys.co.in/smarthr/blue/assets/js/moment.min.js"></script>
-<script src="https://dreamguys.co.in/smarthr/blue/assets/js/bootstrap-datetimepicker.min.js"></script>
+
 <!--End of Datetime js/css-->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script>
@@ -249,28 +257,6 @@ else
         document.getElementById("myDropdown").classList.toggle("show");
     }
 
-
-    $(function () {
-        $("#Date").datetimepicker({
-            format: 'DD/MM/YYYY',
-            maxDate: new Date,
-            useCurrent: true,
-            ignoreReadonly: true
-        })
-    });
-    function formatDate(date) {
-        var d = new Date(date),
-            month = '' + (d.getMonth() + 1),
-            day = '' + d.getDate(),
-            year = d.getFullYear();
-
-        if (month.length < 2)
-            month = '0' + month;
-        if (day.length < 2)
-            day = '0' + day;
-
-        return [day, month, year].join('/');
-    }
     function InsertData() {
 
         var val = true;
@@ -280,15 +266,14 @@ else
         var Date = $('#Date').val();
         var LeaveType = $('#LeaveType').val();
         var Reason = $('#Reason').val();
-        var Status = false;
-        var onweb = $('input[name="web"]:checked').val();
-        if (onweb == 1) {
-            Status = true;
+        /*var Status = false;*/
+        var Status = $("input[type='radio']:checked").val();
+        if (Status == "Active") {
+            Status = 1
         }
         else {
-            Status = false;
+            Status = 0
         }
-
         var formData = new FormData();
         if (val == false) {
             return;
@@ -365,7 +350,7 @@ else
         var Id = 0;
         var intActive = document.getElementById('intActive').value;
         var TeacherId = document.getElementById('ddlTeacherId').value;
-        $('#date').val(formatDate(new Date()));
+
         if (document.getElementById('PageSize') != null) {
             PageSize = document.getElementById('PageSize').value;
         }
@@ -423,14 +408,14 @@ else
                 cls: cls
             }),
             success: function (data) {
-
+                
                 if (data != null) {
                     document.getElementById('hdnintId').value = data.LSTTeacherAttandenceList[0].Id;
-                    if (data.LSTTeacherAttandenceList[0].Status == false) {
-                        $("input[name=web][value=" + 1 + "]").prop('checked', true);
+                    if (data.LSTTeacherAttandenceList[0].Status == true) {
+                        $("#Active").prop('checked', true);
                     }
-                    else if (data.LSTTeacherAttandenceList[0].Status == true) {
-                        $("input[name=web][value=" + 2 + "]").prop('checked', true);
+                    else {
+                        $("#InActive").prop('checked', true);
                     }
 
                     document.getElementById('Date').value = data.LSTTeacherAttandenceList[0].Date;
@@ -506,7 +491,7 @@ else
         $("#TeacherId").val('0').trigger('change');
         document.getElementById('btnAdd').innerHTML = "Add";
         $("#btnAdd").attr('title', 'Upload');
-        document.getElementById('PopupTitle').innerHTML = "Add Attandence";
+        document.getElementById('PopupTitle').innerHTML = "Add TeacherAttandence";
     }
 
     function ClearData(type) {
@@ -523,12 +508,12 @@ else
                 document.getElementById('hdnintId').value = "0";
                 document.getElementById('btnAdd').innerHTML = "Add";
                 $("#btnAdd").attr('title', 'Add');
-                document.getElementById('PopupTitle').innerHTML = "Add Attandence";
+                document.getElementById('PopupTitle').innerHTML = "Add TeacherAttandence";
             }
             else {
                 document.getElementById('btnAdd').innerHTML = "Update";
                 $("#btnAdd").attr('title', 'Update');
-                document.getElementById('PopupTitle').innerHTML = "Update Attandence";
+                document.getElementById('PopupTitle').innerHTML = "Update TeacherAttandence";
             }
         }
         else {

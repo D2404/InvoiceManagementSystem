@@ -194,7 +194,14 @@ namespace InvoiceManagementSystem.Controllers
         public ActionResult Fees()
         {
 
-            return View();
+            if (objCommon.getUserIdFromSession() != 0)
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
         }
 
         [HttpPost]
