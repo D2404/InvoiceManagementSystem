@@ -20,6 +20,8 @@ namespace InvoiceManagementSystem.Controllers
                 if (objCommon.getUserIdFromSession() != 0)
                 {
                     cls = cls.GetUserAccountDashboardCount(cls);
+                    cls.LSTTeacherList = cls.GetTeacherDetailsList(cls);
+                    cls.LSTStudentList = cls.GetStudentDetailsList(cls);
                     return View(cls);
                 }
                 else
