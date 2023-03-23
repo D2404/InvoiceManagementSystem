@@ -233,15 +233,15 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title"><span id="PopupTitle">Add Student</span></h5>
+                <h5 class="modal-title"style="margin-left:132px"><span id="PopupTitle">Delete Student</span></h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
+                    <span aria-hidden="true"style="color:black">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <p>Are you sure want to delete this Student ?.</p>
+                <p style="margin-left:70px">Are you sure want to delete this Student ?.</p>
             </div>
-            <div class="modal-footer">
+            <div class="modal-footer" style="padding-right: 166px">
                 <button type="button" id="btnAdd" class="btn bg-gradient-danger" onclick="deleteStudent()">Delete</button>
                 <button type="button" class="btn bg-gradient-dark" data-bs-dismiss="modal">Cancel</button>
                 <input type="hidden" id="hdnintId" value="0" />
@@ -255,7 +255,7 @@
             <div class="modal-header">
                 <h5 class="modal-title" style="margin-left:132px"><span id="PopupTitle">Status Confirmation</span></h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
+                    <span aria-hidden="true"style="color:black">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
@@ -459,6 +459,7 @@
         });
     }
     function GetClassRoom() {
+        
         var cls = {
         }
         $.ajax({
@@ -469,15 +470,15 @@
                 cls: cls
             }),
             success: function (data) {
-
+                
                 var html = "";
                 html = html + ' <option value="0" selected>Select ClassRoom</option>';
                 for (var i = 0; i < data.LSTClassRoomList.length; i++) {
                     html = html + '<option value="' + data.LSTClassRoomList[i].Id + '">' + data.LSTClassRoomList[i].ClassNo + '</option>';
                     $("#ClassId").empty();
                     $("#ClassId").append(html);
-                    $("#ddlClassId").empty();
-                    $("#ddlClassId").append(html);
+                    //$("#ddlClassId").empty();
+                    //$("#ddlClassId").append(html);
                 }
             }
         });

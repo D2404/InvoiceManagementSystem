@@ -52,7 +52,6 @@ namespace InvoiceManagementSystem.Models
                 cmd.Parameters.AddWithValue("@StudentId", cls.StudentId);
                 cmd.Parameters.Add("@Date", SqlDbType.DateTime).Value = cls.Date;
                 cmd.Parameters.Add("@Status", SqlDbType.Bit).Value = cls.Status;
-                cmd.Parameters.Add("@RollNo", SqlDbType.NVarChar).Value = cls.RollNo;
                 cmd.Parameters.Add("@LeaveType", SqlDbType.Int).Value = cls.LeaveType;
                 cmd.Parameters.Add("@Reason", SqlDbType.NVarChar).Value = cls.Reason;
                 //cmd.Parameters.AddWithValue("@UserId", objCommon.getUserIdFromSession());

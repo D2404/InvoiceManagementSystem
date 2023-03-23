@@ -85,6 +85,7 @@ namespace InvoiceManagementSystem.Models
                     DashboardModel obj = new DashboardModel();
                     obj.Dob = Convert.ToDateTime(dt.Rows[i]["dob"] == null || dt.Rows[i]["dob"].ToString().Trim() == "" ? null : dt.Rows[i]["dob"].ToString()).ToString("dd-MMM-yyyy");
                     obj.Name = dt.Rows[i]["FullName"] == null || dt.Rows[i]["FullName"].ToString().Trim() == "" ? null : dt.Rows[i]["FullName"].ToString();
+                    obj.ClassNo = dt.Rows[i]["ClassNo"] == null || dt.Rows[i]["ClassNo"].ToString().Trim() == "" ? null : dt.Rows[i]["ClassNo"].ToString();
                     obj.Type = Convert.ToInt32(dt.Rows[i]["Type"] == null || dt.Rows[i]["Type"].ToString().Trim() == "" ? null : dt.Rows[i]["Type"].ToString());
                     lstEmpDetail.Add(obj);
                 }

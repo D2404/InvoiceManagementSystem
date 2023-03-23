@@ -113,10 +113,10 @@ namespace InvoiceManagementSystem.Controllers
                 List<ClassRoomModel> lstClientList = new List<ClassRoomModel>();
                 SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString);
                 conn.Open();
-                SqlCommand cmd = new SqlCommand("sp_GetStudentClassRoomList", conn); 
-                //cmd.Parameters.AddWithValue("@ClassId", SessionModel.ClassId);
-                cmd.Parameters.Add("@UserId", SessionModel.TeacherId);
-                
+                SqlCommand cmd = new SqlCommand("Sp_GetClassRoomList", conn);
+                cmd.Parameters.AddWithValue("@UserId", objCommon.getTeacherIdFromSession());
+                cmd.Parameters.AddWithValue("@RoleId", SessionModel.RoleId);
+                cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandTimeout = 0;
                 SqlDataAdapter da = new SqlDataAdapter(cmd);
                 System.Data.DataTable dt = new System.Data.DataTable();
@@ -131,7 +131,7 @@ namespace InvoiceManagementSystem.Controllers
                     {
                         ClassRoomModel obj = new ClassRoomModel();
 
-                        obj.Id = Convert.ToInt32(dt.Rows[i]["Id"] == null || dt.Rows[i]["Id"].ToString().Trim() == "" ? null : dt.Rows[i]["Id"].ToString());
+                        obj.Id = Convert.ToInt32(dt.Rows[i]["ClassId"] == null || dt.Rows[i]["ClassId"].ToString().Trim() == "" ? null : dt.Rows[i]["ClassId"].ToString());
                         obj.ClassNo = dt.Rows[i]["ClassNo"] == null || dt.Rows[i]["ClassNo"].ToString().Trim() == "" ? null : dt.Rows[i]["ClassNo"].ToString();
 
                         lstClientList.Add(obj);

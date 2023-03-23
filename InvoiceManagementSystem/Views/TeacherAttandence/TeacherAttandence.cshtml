@@ -162,7 +162,7 @@ else
                             <div class="form-radio">
                                 <div class="radio radio-outline radio-inline">
                                     <label>
-                                        <input type="radio" name="radio" checked="checked" value="Active" class="rd" id="Active" />
+                                          <input type="radio" name="radio" checked="checked" value="Active" class="rd" id="Active" />
                                         <i class="helper"></i>Present
                                         <input type="radio" name="radio" value="InActive" class="rd" id="InActive" />
                                         <i class="helper"></i>Absent
@@ -258,7 +258,7 @@ else
     }
 
     function InsertData() {
-
+        debugger
         var val = true;
         var Id = $('#hdnintId').val();
         var SearchText = $('#SearchText').val();
@@ -266,7 +266,6 @@ else
         var Date = $('#Date').val();
         var LeaveType = $('#LeaveType').val();
         var Reason = $('#Reason').val();
-        /*var Status = false;*/
         var Status = $("input[type='radio']:checked").val();
         if (Status == "Active") {
             Status = 1

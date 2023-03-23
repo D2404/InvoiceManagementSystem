@@ -45,7 +45,7 @@ namespace InvoiceManagementSystem.Controllers
                 List<TeacherAttandenceModel> lstTeacherAttandenceList = new List<TeacherAttandenceModel>();
                 SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString);
                 conn.Open();
-                SqlCommand cmd = new SqlCommand("Sp_GetTeacherAttandenceList", conn);
+                SqlCommand cmd = new SqlCommand("sp_GetTeacherAttandenceList", conn);
                 cmd.Parameters.AddWithValue("@PageSize", cls.PageSize);
                 cmd.Parameters.AddWithValue("@PageIndex", cls.PageIndex);
                 cmd.Parameters.AddWithValue("@Search", cls.SearchText);

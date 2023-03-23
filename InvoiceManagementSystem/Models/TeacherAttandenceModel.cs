@@ -51,7 +51,7 @@ namespace InvoiceManagementSystem.Models
                 cmd.Parameters.Add("@Status", SqlDbType.Bit).Value = cls.Status;
                 cmd.Parameters.Add("@LeaveType", SqlDbType.NVarChar).Value = cls.LeaveType;
                 cmd.Parameters.Add("@Reason", SqlDbType.NVarChar).Value = cls.Reason;
-                //cmd.Parameters.AddWithValue("@UserId", objCommon.getUserIdFromSession());
+                cmd.Parameters.AddWithValue("@UserId", objCommon.getUserIdFromSession());
 
 
                 SqlDataAdapter da = new SqlDataAdapter(cmd);

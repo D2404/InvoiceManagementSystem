@@ -51,7 +51,7 @@ namespace InvoiceManagementSystem.Controllers
                 cmd.Parameters.AddWithValue("@Search", cls.SearchText);
                 cmd.Parameters.AddWithValue("@intActive", cls.intActive); 
                 cmd.Parameters.AddWithValue("@StudentId", objCommon.getStudentIdFromSession());
-                cmd.Parameters.AddWithValue("@ClassId", objCommon.getClassIdFromSession());
+                //cmd.Parameters.AddWithValue("@ClassId", objCommon.getClassIdFromSession());
                 cmd.Parameters.AddWithValue("@UserId", objCommon.getUserIdFromSession());
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandTimeout = 0;
