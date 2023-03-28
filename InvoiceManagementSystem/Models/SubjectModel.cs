@@ -160,7 +160,7 @@ namespace InvoiceManagementSystem.Models
             {
                 SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString);
                 conn.Open();
-                SqlCommand cmd = new SqlCommand("sp_UpdateClassWiseFeesStatus", conn);
+                SqlCommand cmd = new SqlCommand("sp_UpdateSubjectStatus", conn);
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@Id", cls.Id);
                 //cmd.Parameters.Add("@intLoginUser", SqlDbType.Int).Value = LoginUser;
