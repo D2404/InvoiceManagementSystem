@@ -188,7 +188,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="example-text-input" class="form-control-label">Password <span class="text-danger">*</span></label>
-                            <input class="form-control form-control-alternative" type="text" id="Password" placeholder="Enter Email">
+                            <input class="form-control form-control-alternative" type="text" id="Password" placeholder="Enter Password">
                             <span id="errPassword" class="text-xs font-weight-bold mb-0" style="color:red"></span>
                         </div>
                     </div>
@@ -199,12 +199,21 @@
                             <span id="errMobile" class="text-xs font-weight-bold mb-0" style="color:red"></span>
                         </div>
                     </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="basicinput"><b>Class Room</b></label>
+                            <select class="form-control form-control-alternative" id="ClassId">
+                                <option value="0">Select ClassRoom</option>
+                            </select>
+                            <span id="errClassId" class="text-xs font-weight-bold mb-0" style="color:red"></span>
+                        </div>
+                    </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="example-text-input" class="form-control-label">Date Of Birth</label>
-                            @*<input class="form-control form-control-alternative floating datetimepicker" type="date" id="Dob" autocomplete="off">*@
+                            <input class="form-control form-control-alternative floating datetimepicker" type="date" id="Dob" autocomplete="off">
                             @*<input class="form-control datetimepicker" type="date" id="Dob" placeholder="Enter Dob">*@
-                            <input class="form-control" type="datetime-local" id="Dob" autocomplete="off">
+                            @*<input class="form-control" type="datetime-local" id="Dob" autocomplete="off">*@
                             <span id="errDob" class="text-xs font-weight-bold mb-0" style="color:red"></span>
                         </div>
                     </div>
@@ -318,6 +327,7 @@
 <script>
     $(document).ready(function () {
         $('#FilterDiv').hide();
+        GetClassRoom();
         GetTeacherList(1);
     });
     function myFunction() {
@@ -351,6 +361,7 @@
         var Email = $('#Email').val();
         var Password = $('#Password').val();
         var MobileNo = $('#MobileNo').val();
+        var ClassId = $('#ClassId').val();
         var Dob = $('#Dob').val();
         var Address = $('#Address').val();
         var Education = $('#Education').val();
@@ -384,7 +395,10 @@
                 $("#errFullName").html("");
             }
         }
-
+        if (ClassId == 0) {
+            $("#errClassId").html("Please select classroom");
+            val = false;
+        }
 
         if (MobileNo == "" || MobileNo.trim() == '') {
             $("#errMobile").html("Please enter mobile.");
@@ -456,6 +470,7 @@
         formData.append('RoleId', RoleId);
         formData.append('FullName', FullName);
         formData.append('UserName', UserName);
+        formData.append('ClassId', ClassId);
         formData.append('Email', Email);
         formData.append('Password', Password);
         formData.append('MobileNo', MobileNo);
@@ -502,7 +517,30 @@
             }
         });
     }
+    function GetClassRoom() {
+        var cls = {
+        }
+        $.ajax({
+            url: '/Subject/GetClassRoom',
+            contentType: "application/json; charset=utf-8",
+            type: "GET",
+            data: JSON.stringify({
+                cls: cls
+            }),
+            success: function (data) {
 
+                var html = "";
+                html = html + ' <option value="0" selected>Select ClassRoom</option>';
+                for (var i = 0; i < data.LSTClassRoomList.length; i++) {
+                    html = html + '<option value="' + data.LSTClassRoomList[i].Id + '">' + data.LSTClassRoomList[i].ClassNo + '</option>';
+                    $("#ClassId").empty();
+                    $("#ClassId").append(html);
+                    $("#ddlClassId").empty();
+                    $("#ddlClassId").append(html);
+                }
+            }
+        });
+    }
     function GetTeacherList(page) {
 
         var Id = 0;
@@ -585,6 +623,7 @@
                     document.getElementById('Education').value = data.LSTTeacherList[0].Education;
                     document.getElementById('Salary').value = data.LSTTeacherList[0].Salary;
                     document.getElementById('Dob').value = data.LSTTeacherList[0].Dob;
+                    $('#ClassId').val(data.LSTTeacherList[0].ClassId).trigger("change");
                     //document.getElementById('Dob').value = ConvertRazorToDate(data.Dob);
                     if (data.LSTTeacherList[0].Gender == false) {
                         $("#Active").prop('checked', true);
@@ -689,6 +728,8 @@
         $('#errEducation').html("");
         document.getElementById('Salary').value = "";
         $('#errSalary').html("");
+        $("#ClassId").val('0').trigger('change');
+        $('#errClassId').html("");
         document.getElementById('btnAdd').innerHTML = "Add";
         $("#btnAdd").attr('title', 'Upload');
         document.getElementById('PopupTitle').innerHTML = "Add Teacher";
@@ -713,6 +754,8 @@
             $('#errEducation').html("");
             document.getElementById('Salary').value = "";
             $('#errSalary').html("");
+            $("#ClassId").val('0').trigger('change');
+            $('#errClassId').html("");
             if (Id == "0") {
 
                 document.getElementById('hdnintId').value = "0";

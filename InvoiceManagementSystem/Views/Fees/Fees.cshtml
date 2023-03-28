@@ -1,517 +1,608 @@
 ﻿
-@model ICDS.Models.AttendanceModel
 @{
-    ViewBag.Title = "PriviousMonthAttendanceFailedPanel";
-    ViewBag.ActiveName = "/DashBoard";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Fees Collection";
 }
-@*notification*@
-<link rel="stylesheet" type="text/css" href="~/Content/files/assets/pages/notification/notification.css">
-<link rel="stylesheet" type="text/css" href="~/Content/files/bower_components/animate.css/css/animate.css">
-<script src="~/Content/files/assets/js/bootstrap-growl.min.js"></script>
-
-@*Sweeatalert*@
-<link rel="stylesheet" type="text/css" href="~/Content/files/bower_components/sweetalert/css/sweetalert.css">
-<script src="~/Content/files/bower_components/sweetalert/js/sweetalert.min.js"></script>
-
-<link rel="stylesheet" href="~/Content/files/bower_components/select2/css/select2.min.css" />
-<link rel="stylesheet" type="text/css" href="~/Content/files/bower_components/bootstrap-multiselect/css/bootstrap-multiselect.css" />
-<link rel="stylesheet" type="text/css" href="~/Content/files/bower_components/multiselect/css/multi-select.css" />
-<script src="~/Content/files/bower_components/select2/js/select2.full.min.js"></script>
-<script src="~/Content/files/bower_components/bootstrap-multiselect/js/bootstrap-multiselect.js">
-</script>
-<script src="~/Content/files/bower_components/multiselect/js/jquery.multi-select.js"></script>
-<script src="~/Content/files/assets/js/jquery.quicksearch.js"></script>
-<script src="~/Content/files/assets/pages/advance-elements/select2-custom.js"></script>
-
-@*Validation*@
-<script src="~/Scripts/jquery.validate.js"></script>
-<script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
-
-<script src="~/Content/files/assets/js/classie.js"></script>
-<script src="~/Content/files/assets/js/modalEffects.js"></script>
-
-@*<script src="~/Scripts/DashBoard/StateDashBoardView.js"></script>*@
-
 <style>
-    .btn {
-        border-radius: 2px;
-        text-transform: capitalize;
-        font-size: 15px;
-        padding: 8px 15px;
+    .dropbtn {
+        background-color: #3498DB;
+        color: white;
+        padding: 16px;
+        font-size: 16px;
+        border: none;
         cursor: pointer;
     }
+        .dropbtn:hover, .dropbtn:focus {
+            background-color: #2980B9;
+        }
+    .dropdown {
+        position: relative;
+        display: inline-block;
+    }
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #f1f1f1;
+        min-width: 100px;
+        overflow: auto;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        z-index: 1;
+    }
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+    .dropdown a:hover {
+        background-color: #ddd;
+    }
+    .show {
+        display: block;
+    }
 </style>
-<div class="page-body">
-    @*<div class="clearfix"><br /></div>*@
+<nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl " id="navbarBlur" data-scroll="false">
+    <div class="container-fluid py-1 px-3">
+        <nav aria-label="breadcrumb">
+            <h6 class="font-weight-bolder text-white mb-0">Fees List</h6>
+        </nav>
+    </div>
+
+
+
+    <!-- Modal -->
+
+</nav>
+<div class="row" id="FilterDiv" style="margin-left:19px">
+    <div class="col-sm-6 col-md-3">
+        <div class="form-group form-focus">
+            <input type="text" class="form-control floating" id="SearchText" placeholder="Search" maxlength="50">
+        </div>
+    </div>
+    <div class="col-sm-6 col-md-3">
+        <div class="form-group form-focus">
+            <select data-placeholder="Select here.." id="ddlClassId" class="select2-single-placeholder form-control" style="width: 100%"></select>
+        </div>
+    </div>
+    <div class="col-sm-6 col-md-1">
+
+        <a class="btn bg-gradient-info" onclick="GetFeesList(1)">Search</a>
+    </div>
+    <div class="col-sm-6 col-md-1">
+        <a class="btn bg-gradient-dark" title="Clear" onclick="ClearData(2)"> Clear </a>
+
+    </div>
+</div>
+
+<a class="btn bg-gradient-info" title="Add Fees" data-bs-toggle="modal" data-bs-target="#Fees" onclick="Clear()" style="cursor: pointer; margin-left: 915px">Add Fees </a>
+
+
+<div class="container-fluid py-4">
     <div class="row">
-        <div class="col-md-12">
-            <div class="card borderless-card m-b-0">
-                <div class="inverse-breadcrumb p-10">
-                    <div class="breadcrumb-header ">
-                        <p class="f-18 f-w-600 m-b-0">Privious Month Pending Attendance Panel</p>
-                    </div>
-
-
-                </div>
-            </div>
-            <div class="card">
-                <div class="card-block">
-                    <div class="form-group row" id="message"></div>
-                    <span style="color:red;"><i>Required fields are indicated with red (<a style="color:red;">*</a>)</i></span><br /><br />
-                    <a href="@Url.Action("PriviousAttendanceSubmittedList","Dashboard")" style="    float: right;" class="btn btn-danger m-b-0">click here list for filled Past month salary</a>
-                    <br />
-                    <hr />
-                    <div class="row">
-                        <div class="col-sm-2">
-                            <label class="col-form-label f-w-600">Employee Code<span style="color:red;">*</span></label>
-                        </div>
-                        <div class="col-sm-2">
-                            <input type="text" class="form-control" id="EmployeeCode" />
-                        </div>
-                        <div class="col-sm-1">
-                            <label class="col-form-label f-w-600">Month<span style="color:red;">*</span></label>
-                        </div>
-                        <div class="col-sm-2">
-                            @Html.DropDownListFor(model => model.MonthID, (IEnumerable<SelectListItem>)ViewData["MonthName"], new { @class = "js-example-basic-single col-sm-12", id = "ddlMonth", data_search = "true" })
-                        </div>
-
-                        <div class="col-sm-1">
-                            <label class="col-form-label f-w-600">Year<span style="color:red;">*</span></label>
-                        </div>
-                        <div class="col-sm-2">
-                            @Html.DropDownListFor(model => model.FinancialYear, (IEnumerable<SelectListItem>)ViewData["FinanCialYear"], new { @class = "js-example-basic-single col-sm-12", id = "ddlYear", data_search = "true" })
-                        </div>
-
-                        <div class="col-sm-2">
-                            <img src="~/Content/files/Loader.gif" height="36" id="LoaderForView" style="display:none" />
-                            <button type="submit" class="btn btn-info m-b-0" id="btnSearch" onclick="GetPriviousAttendanceFailedEmployeeData()">
-                                <i class="fa fa-search"></i> View
-                            </button>
-                        </div>
-                        <div class="clearfix"></div>
-                    </div>
-                </div>
-
+        <div class="col-sm-12 col-md-12">
+            <div class="dataTables_length" id="DataTables_Table_0_length">
+                <label style="color:white">
+                    Show
+                    <select id="PageSize" onchange="GetFeesList(1)" class="drpselect">
+                        <option value="10">10</option>
+                        <option value="25">25</option>
+                        <option value="50">50</option>
+                        <option value="100">100</option>
+                    </select> entries
+                </label>
             </div>
         </div>
     </div>
-    <div class="clearfix"></div>
-    <div id="divData" style="display:none;"></div>
-
+    <div class="row">
+        <div class="col-12">
+            <div class="card mb-4">
+                <div class="card-header pb-0">
+                    <h6>Fees List</h6>
+                </div>
+                <div class="card-body px-0 pt-0 pb-2">
+                    <div class="table-responsive p-0">
+                        <div id="tblBody"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+<div class="modal fade" id="Fees" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" style="margin-left:173px"><span id="PopupTitle">Add Fees</span></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="basicinput"><b>Class Room</b></label>
+                            <select class="form-control" id="ClassId" onchange="onClass();">
+                                <option value="0">Select here..</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="basicinput"><b>Student</b></label>
+                            <select class="form-control js-example-basic-single" id="StudentId" onchange="onStudent();">
+                                <option value="0">Select here..</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="example-text-input" class="form-control-label">Roll No </label><br />
+                            <span class="form-control" id="RollNo" name="RollNo"></span>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="basicinput"><b>Month</b></label>
+                            <select class="form-control" id="MonthId">
+                                <option value="0">Select here..</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="basicinput"><b>Year</b></label>
+                            <select class="form-control" id="YearId">
+                                <option value="0">Select here..</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="example-text-input" class="form-control-label">FeesAmount <span class="text-danger">*</span></label>
+                            <input class="form-control" type="text" id="FeesAmount" placeholder="Enter Out of marks">
+                            <span id="errFeesAmount" class="text-xs font-weight-bold mb-0" style="color:red"></span>
+                        </div>
+                    </div>
+                    <hr />
+                    <h6 style="color:green">For your Information </h6>
 
+                    <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="example-text-input" class="form-control-label">Monthly Fees</label>
+                                <span class="form-control" id="Monthly"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="example-text-input" class="form-control-label">Yearly Fees</label>
+                                <span contenteditable="false" class="form-control" id="Yearly" ></span>
+                            </div>
+                        </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="btnAdd" class="btn bg-gradient-info" onclick="InsertData()">Add</button>
+                <button type="button" class="btn bg-gradient-dark" onclick="ClearData(1)">Clear</button>
+                <input type="hidden" id="hdnintId" value="0" />
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="delete_Fees" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" style="margin-left:132px"><span id="PopupTitle">Delete Fees</span></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p style="margin-left:70px">Are you sure want to delete this Fees ?.</p>
+            </div>
 
+            <div class="modal-footer" style="padding-right: 166px">
+
+                <button type="button" id="btnAdd" class="btn bg-gradient-danger" onclick="deleteFees()">Delete</button>
+                <button type="button" class="btn bg-gradient-dark" data-bs-dismiss="modal">Cancel</button>
+                <input type="hidden" id="hdnintId" value="0" />
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://dreamguys.co.in/smarthr/blue/assets/js/jquery-3.2.1.min.js"></script>
+<link rel="stylesheet" href="https://dreamguys.co.in/smarthr/blue/assets/css/bootstrap-datetimepicker.min.css">
+<script src="https://dreamguys.co.in/smarthr/blue/assets/js/moment.min.js"></script>
+<script src="https://dreamguys.co.in/smarthr/blue/assets/js/bootstrap-datetimepicker.min.js"></script>
+<!--End of Datetime js/css-->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script>
-    function GetPriviousAttendanceFailedEmployeeData() {
-        $('#divData').empty();
-        $('#divData').hide();
-        $('#LoaderForView').show();
-        $('#message').html('');
-
-        var EmployeeCode = "";
-        var MonthID = "";
-        var EmployeeCode = $('#EmployeeCode').val().trim();
-        var MonthID = $('#ddlMonth').val();
-        var Monthyear = $('#ddlYear').val();
-
-
-        if (EmployeeCode == "" || EmployeeCode == null) {
-            var mesg = "<div class='alert alert-danger background-danger'><button type='button' class='close' data-dismiss='alert' aria-label='Close'>&nbsp;&nbsp;&nbsp;<i class='icofont icofont-close-line-circled text-white'></i></button><strong>Please!</strong> Enter Employee Code. </div>";
-            $('#message').append(mesg);
-            $('#LoaderForView').hide();
+    var type = 1
+    function ShowFilter() {
+        if (type == 1) {
+            $('#FilterDiv').show();
+            type = 2;
+        }
+        else {
+            $('#FilterDiv').hide();
+            type = 1;
+        }
+    }
+</script>
+<script>
+    $(document).ready(function () {
+        GetClassRoom();
+        GetMonth();
+        GetYear();
+        GetFeesList(1);
+    });
+    function myFunction() {
+        document.getElementById("myDropdown").classList.toggle("show");
+    }
+    $("#FeesAmount").keyup(function () {
+        debugger
+        var amt = $('#FeesAmount').val();
+       
+        var Yearly = $('#Yearly').text();
+        if (amt > Number(Yearly)) {
+            $('#errFeesAmount').html('Fees must be less than YearlyFees.');
+            $('#FeesAmount').val(0);
             return false;
         }
-
-        if (MonthID == "-1") {
-            var mesg = "<div class='alert alert-danger background-danger'><button type='button' class='close' data-dismiss='alert' aria-label='Close'>&nbsp;&nbsp;&nbsp;<i class='icofont icofont-close-line-circled text-white'></i></button><strong>Please!</strong> Select Month. </div>";
-            $('#message').append(mesg);
-            $('#LoaderForView').hide();
-            return false;
+    });
+    $(function () {
+        $("#Dob").datetimepicker({
+            format: 'DD/MM/YYYY',
+            maxDate: new Date,
+            useCurrent: true,
+            ignoreReadonly: true
+        })
+    });
+    function InsertData() {
+        debugger
+        var val = true;
+        var Id = $('#hdnintId').val();
+        var ClassId = $('#ClassId').val();
+        var StudentId = $('#StudentId').val();
+        var MonthId = $('#MonthId').val();
+        var YearId = $('#YearId').val();
+        var SearchText = $('#SearchText').val();
+        var RollNo = $('#RollNo').text();
+        var FeesAmount = $('#FeesAmount').val();
+        if (FeesAmount == "" || /\S/.test(FeesAmount) == false) {
+            $("#errFeesAmount").html("Please enter fees amount.");
+            val = false;
         }
-
-        if (Monthyear == "-1") {
-            var mesg = "<div class='alert alert-danger background-danger'><button type='button' class='close' data-dismiss='alert' aria-label='Close'>&nbsp;&nbsp;&nbsp;<i class='icofont icofont-close-line-circled text-white'></i></button><strong>Please!</strong> Select Year. </div>";
-            $('#message').append(mesg);
-            $('#LoaderForView').hide();
-            return false;
+        var formData = new FormData();
+        if (val == false) {
+            return;
         }
-
+        formData.append('Id', Id);
+        formData.append('ClassId', ClassId);
+        formData.append('StudentId', StudentId);
+        formData.append('MonthId', MonthId);
+        formData.append('YearId', YearId);
+        formData.append('RollNo', RollNo);
+        formData.append('FeesAmount', FeesAmount);
+        formData.append('SearchText', SearchText);
+        ShowWait();
         $.ajax({
-            type: 'GET',
-            url: '/DashBoard/PriviousAttendanceFailedEmployeeData/',
-            async: true,
-
-            data: { EmployeeCode: EmployeeCode, MonthID: MonthID, Monthyear: Monthyear },
-            cache: false,
+            type: "POST",
+            url: '/Fees/InsertFees',
+            contentType: "application/json; charset=utf-8",
+            contentType: false,
+            processData: false,
+            data: formData,
             success: function (data) {
-                $('#divData').show();
-                $('#divData').html(data);
-                $('#LoaderForView').hide();
+                if (data != null) {
+                    if (data == 'Success' && Id == 0) {
+                        toastr.success('Fees inserted successfully');
+                        GetFeesList(1);
+                        $('#Fees').click();
+                        ClearData(1);
+                    }
+                    else if (data == 'Updated' && Id > 0) {
+                        toastr.success('Fees updated successfully');
+                        GetFeesList(1);
+                        $('#Fees').click();
+                        ClearData(1);
+                    }
+                    else if (data == 'Exists') {
+                        toastr.error('Fees already exists!');
+                        document.getElementById('Email').value = "";
+                    }
+                }
+                HideWait();
             },
-            error: function (xhr, status, error) {
-                alert(error);
+            error: function (xyz) {
+                HideWait();
+                alert('errors');
             }
         });
     }
-
-    //function ConfirmSaveData(Emp_code, MonthID, Monthyear) {
-    //    var x = confirm("Are you sure you want to Save this Attendance?");
-    //    if (x == true) {
-    //        RejectData(Emp_code, MonthID);
-    //    }
-    //}
-
-    function AttandanceSave(id) {
-        $("#LoaderForView_" + id + "").hide();
-        var btnname = $("#btnSave_" + id + "").val();
-
-
-
-
-        console.log(btnname);
-        if (btnname == "Edit") {
-            $('#message').html('');
-
-            $("#LoaderForView_" + id + "").hide();
-            $("#txtAbsentDays_" + id + "").prop("disabled", false);
-            btnname = "Save";
-            $("#btnSave_" + id + "").text(btnname);
-            console.log(btnname);
-            $("#btnSave_" + id + "").val(btnname);
-            console.log($("#btnSave_" + id + "").val());
-            return false;
+    function GetClassRoom() {
+        var cls = {
+        }
+        $.ajax({
+            url: '/Fees/GetClassRoom',
+            contentType: "application/json; charset=utf-8",
+            type: "GET",
+            data: JSON.stringify({
+                cls: cls
+            }),
+            success: function (data) {
+                var html = "";
+                html = html + ' <option value="0" selected>Select ClassRoom</option>';
+                for (var i = 0; i < data.LSTClassRoomList.length; i++) {
+                    html = html + '<option value="' + data.LSTClassRoomList[i].Id + '">' + data.LSTClassRoomList[i].ClassNo + '</option>';
+                    $("#ClassId").empty();
+                    $("#ClassId").append(html);
+                    $("#ddlClassId").empty();
+                    $("#ddlClassId").append(html);
+                }
+            }
+        });
+    }
+    function GetMonth() {
+        var cls = {
+        }
+        $.ajax({
+            url: '/Fees/GetMonth',
+            contentType: "application/json; charset=utf-8",
+            type: "GET",
+            data: JSON.stringify({
+                cls: cls
+            }),
+            success: function (data) {
+                var html = "";
+                html = html + ' <option value="0" selected>Select Month</option>';
+                for (var i = 0; i < data.LSTMonthList.length; i++) {
+                    html = html + '<option value="' + data.LSTMonthList[i].Id + '">' + data.LSTMonthList[i].MonthName + '</option>';
+                    $("#MonthId").empty();
+                    $("#MonthId").append(html);
+                    //$("#ddlClassId").empty();
+                    //$("#ddlClassId").append(html);
+                }
+            }
+        });
+    }
+    function GetYear() {
+        var cls = {
+        }
+        $.ajax({
+            url: '/Fees/GetYear',
+            contentType: "application/json; charset=utf-8",
+            type: "GET",
+            data: JSON.stringify({
+                cls: cls
+            }),
+            success: function (data) {
+                var html = "";
+                html = html + ' <option value="0" selected>Select Year</option>';
+                for (var i = 0; i < data.LSTYearList.length; i++) {
+                    html = html + '<option value="' + data.LSTYearList[i].Id + '">' + data.LSTYearList[i].Year + '</option>';
+                    $("#YearId").empty();
+                    $("#YearId").append(html);
+                    //$("#ddlClassId").empty();
+                    //$("#ddlClassId").append(html);
+                }
+            }
+        });
+    }
+    function onClass() {
+        var ClassId = $('#ClassId').val();
+        $.ajax({
+            type: "GET",
+            url: '/Fees/LoadStudent?ClassId=' + ClassId,
+            async: false,
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (data) {
+                debugger
+                $('#StudentId').empty();
+                $("#StudentId").append($("<option     />").val("0").text("Select student name.."));
+                $.each(data, function (i, v) {
+                    $("#StudentId").append($("<option     />").val(v.StudentId).text(v.StudentName));
+                });
+                $('#Monthly').empty();
+                $("#Monthly").append();
+                $.each(data, function (i, v) {
+                    $("#Monthly").append($("<option     />").val(v.Monthly).text(v.Monthly));
+                });
+                $('#Yearly').empty();
+                $("#Yearly").append();
+                $.each(data, function (i, v) {
+                    $("#Yearly").append($("<option     />").val(v.Yearly).text(v.Yearly));
+                });
+                HideWait();
+            },
+            failure: function () {
+                HideWait();
+                alert("Failed!");
+            }
+        });
+    }
+    function onStudent() {
+        var StudentId = $('#StudentId').val();
+        $.ajax({
+            type: "GET",
+            url: '/Fees/LoadRollNo?StudentId=' + StudentId,
+            async: false,
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (data) {
+                debugger
+                $('#RollNo').empty();
+                $("#RollNo").append();
+                $.each(data, function (i, v) {
+                    $("#RollNo").append($("<option     />").val(v.RollNo).text(v.RollNo));
+                });
+                HideWait();
+            },
+            failure: function () {
+                HideWait();
+                alert("Failed!");
+            }
+        });
+    }
+    function GetFeesList(page) {
+        debugger
+        var Id = 0;
+        var SearchText = document.getElementById('SearchText').value;
+        //var ClassId = document.getElementById('ClassId').value;
+        //var StudentId = document.getElementById('StudentId').value;
+        if (document.getElementById('PageSize') != null) {
+            PageSize = document.getElementById('PageSize').value;
         }
         else {
-            $("input[type='button']").prop("disabled", true);
-            var SavedRecordCount = 0;
-            $("#LoaderForView_" + id + "").show();
-            $('#message').html('');
-            console.log(btnname);
-            var UniqueID = $("#hdnUniqueID_" + id + "").val();
-            var AbsentDays = $("#txtAbsentDays_" + id + "").val();
-            var Half_day = $("#txthalfAbsentDays_" + id + "").val();
-
-            var TransactionNumber = $("#hdnTransactionNumber_" + id + "").val();
-            var MonthDays = $('#hdnMonthDays').val();
-            var WorkingDays = 0;
-            var TotalWorkingDays = 0;
-            var MonthYear = $("#ddlYear option:selected").text();
-            var MonthID = $("#hdnMonthID").val();
-            var MonthName = $('#hdnMonthName').val();
-            var AWType = $('#hdnAWType').val();
-            var CategoryName = $("#hdnCategoryName_" + id + "").val();
-            var AnganwadiID = $("#hdnAnganwadiID").val();
-            var AnganwadiCode = $("#hdnAnganwadiCode").val();
-            var AbsentStatus = $('#hdnAbsentStatus').val();
-            var hdnSavedEntry = $("#hdnSavedEntry_" + id + "").val();
-            var Emp_code = $("#hdnEmp_code_" + id + "").val().trim();
-            var Office_ID = $("#hdnOffice_ID_" + id + "").val();
-
-
-
-
-            var today = new Date();
-            var year = today.getFullYear();
-            var opendate = $("input[name='radio_" + id + "']:checked").val();
-            var IsRegular = 0;
-            var IsResignation = 0;
-            var IsRetirement = 0;
-            var IsTerminate = 0;
-            var IsDeath = 0;
-            var Resignationdate = "";
-            var RetirementDate = "";
-            var TerminateDate = "";
-            var DeathDate = "";
-
-            var Reason = $("#reason_" + id + "").val();
-            if (opendate == "Resignation") {
-                IsRegular = 0;
-                IsResignation = 1;
-                IsRetirement = 0;
-                IsTerminate = 0;
-                IsDeath = 0;
-
-                Resignationdate = $("#txtresignationdate_" + id + "").val();
-                RelivingDate = $("#txtretrieddate_" + id + "").val();
-
-                RetirementDate = $("#hdnRetirementDate_" + id + "").val();
-
-
-                if (Resignationdate == "dd/MM/yyyy" || Resignationdate == "" || Resignationdate == null) {
-                    var mesg = "<div class='alert alert-warning background-warning'><button type='button' class='close' data-dismiss='alert' aria-label='Close'>&nbsp;&nbsp;&nbsp;<i class='icofont icofont-close-line-circled text-white'></i></button> Please Enter Resignation Date. </div>";
-                    $('#message').html(mesg);
-                    $("#LoaderForView_" + id + "").hide();
-                    return false;
-                }
-
-                if (RelivingDate == "dd/MM/yyyy" || RelivingDate == "" || RelivingDate == null) {
-                    var mesg = "<div class='alert alert-warning background-warning'><button type='button' class='close' data-dismiss='alert' aria-label='Close'>&nbsp;&nbsp;&nbsp;<i class='icofont icofont-close-line-circled text-white'></i></button> Please Enter Reliving Date. </div>";
-                    $('#message').html(mesg);
-                    $("#LoaderForView_" + id + "").hide();
-                    return false;
-                }
-
-
-                var now = new Date();
-                var MonthNo = $("#hdnMonthID").val();
-                var prevMonthLastDate = new Date(MonthYear, MonthNo, 0);
-                //  var prevMonthFirstDate = new Date(MonthYear - (MonthNo > 0 ? 0 : 1), (MonthNo + 1 + 12) % 12, 1);
-                var prevMonthFirstDate = new Date(MonthYear - (MonthNo > 0 ? 0 : 1), MonthNo, 1);
-
-                var minmonth = prevMonthFirstDate.getMonth();
-                var minday = prevMonthFirstDate.getDate();
-                var minyear = prevMonthFirstDate.getFullYear();
-                if (minmonth < 10)
-                    minmonth = '0' + minmonth.toString();
-                if (minday < 10)
-                    minday = '0' + minday.toString();
-                var minDate = minyear + '-' + minmonth + '-' + minday;
-
-                var NewRetirementDate = new Date(RetirementDate);
-                var maxmonth = NewRetirementDate.getMonth() + 1;
-                var maxday = NewRetirementDate.getDate();
-                var maxyear = NewRetirementDate.getFullYear();
-                if (maxmonth < 10)
-                    maxmonth = '0' + maxmonth.toString();
-                if (maxday < 10)
-                    maxday = '0' + maxday.toString();
-                var maxDate = maxyear + '-' + maxmonth + '-' + maxday;
-
-                if (minDate <= Resignationdate) {
-
+            PageSize = 10;
+        }
+        if (page == undefined) {
+            page = 1;
+        }
+        var PageIndex = page;
+        PageIndex = page;
+        var cls = {
+            Id: Id,
+            SearchText: SearchText,
+            //ClassId: ClassId,
+            //StudentId: StudentId,
+            PageSize: PageSize,
+            PageIndex: PageIndex,
+        }
+        ShowWait();
+        $.ajax({
+            url: '/Fees/GetFees',
+            contentType: "application/json; charset=utf-8",
+            type: "POST",
+            data: JSON.stringify({
+                cls: cls
+            }),
+            success: function (data) {
+                $('#tblBody').empty();
+                $('#tblBody').append(data);
+                HideWait();
+            },
+            error: function (xhr) {
+                HideWait();
+                alert('errors');
+            }
+        });
+    }
+    function GetSingleFeesData(id) {
+        debugger
+        document.getElementById('btnAdd').innerHTML = "Update";
+        $("#btnAdd").attr('title', 'Update');
+        document.getElementById('PopupTitle').innerHTML = "Update Fees";
+        var cls = {
+            Id: id
+        }
+        $.ajax({
+            url: '/Fees/GetSingleFeesData',
+            contentType: "application/json; charset=utf-8",
+            type: "POST",
+            data: JSON.stringify({
+                cls: cls
+            }),
+            success: function (data) {
+                debugger
+                if (data != null) {
+                    document.getElementById('hdnintId').value = data.LSTFeesList[0].Id;
+                    $('#ClassId').val(data.LSTFeesList[0].ClassId).trigger("change");
+                    $('#StudentId').val(data.LSTFeesList[0].StudentId).trigger("change");
+                    $('#MonthId').val(data.LSTFeesList[0].MonthId).trigger("change");
+                    $('#YearId').val(data.LSTFeesList[0].YearId).trigger("change");
+                    document.getElementById('RollNo').value = data.LSTFeesList[0].RollNo;
+                    document.getElementById('FeesAmount').value = data.LSTFeesList[0].FeesAmount;
                 }
                 else {
-                    //var mesg = "<div class='alert alert-warning background-warning'><button type='button' class='close' data-dismiss='alert' aria-label='Close'>&nbsp;&nbsp;&nbsp;<i class='icofont icofont-close-line-circled text-white'></i></button> Please Enter Resignation Date for this Month " + MonthName + ". </div>";
-                    //$('#message').html(mesg);
-                    //$("#btnSave_" + id + "").prop("disabled", true);
-                    //$("#LoaderForView_" + id + "").hide();
-                    //return false;
+                    alert('error');
                 }
-
-                if (Resignationdate <= maxDate) {
-
+            },
+            error: function (xhr) {
+                alert('errors');
+            }
+        });
+    }
+    function deleteFees() {
+        var Id = document.getElementById('hdnintId').value;
+        var cls = {
+            Id: Id
+        }
+        ShowWait();
+        $.ajax({
+            url: '/Fees/deleteFees',
+            contentType: "application/json; charset=utf-8",
+            type: "POST",
+            data: JSON.stringify({
+                cls: cls
+            }),
+            success: function (data) {
+                if (data.Response == 'Success' && Id > 0) {
+                    toastr.success('Fees deleted successfully');
+                    document.getElementById('hdnintId').value = "0";
+                    GetFeesList();
+                    $('#delete_Fees').click();
                 }
                 else {
-                    var mesg = "<div class='alert alert-warning background-warning'><button type='button' class='close' data-dismiss='alert' aria-label='Close'>&nbsp;&nbsp;&nbsp;<i class='icofont icofont-close-line-circled text-white'></i></button> Please Enter Resignation Date before  Retirement Date . </div>";
-                    $('#message').html(mesg);
-                    $("#btnSave_" + id + "").prop("disabled", true);
-                    $("#LoaderForView_" + id + "").hide();;
-                    return false;
+                    alert('error');
                 }
-
-                if (Resignationdate <= RelivingDate) {
-                    //alert("Resignationdate:" + Resignationdate + " <br />Reliving Date:" + RelivingDate);
-                }
-                else {
-                    var mesg = "<div class='alert alert-warning background-warning'><button type='button' class='close' data-dismiss='alert' aria-label='Close'>&nbsp;&nbsp;&nbsp;<i class='icofont icofont-close-line-circled text-white'></i></button> Please Enter Proper Reliving Date. </div>";
-                    $('#message').html(mesg);
-                    $("#LoaderForView_" + id + "").hide();
-                    return false;
-                }
-
-                if (RelivingDate <= maxDate) {
-
-                }
-                else {
-                    var mesg = "<div class='alert alert-warning background-warning'><button type='button' class='close' data-dismiss='alert' aria-label='Close'>&nbsp;&nbsp;&nbsp;<i class='icofont icofont-close-line-circled text-white'></i></button> Please Enter Reliving Date before Retirement date. </div>";
-                    $('#message').html(mesg);
-                    $("#btnSave_" + id + "").prop("disabled", true);
-                    $("#LoaderForView_" + id + "").hide();
-                    return false;
-                }
+                HideWait();
+            },
+            error: function (xhr) {
+                HideWait();
+                alert('errors');
             }
-            else if (opendate == "Retirement") {
-                IsRegular = 0;
-                IsResignation = 0;
-                IsRetirement = 1;
-                Resignationdate = "";
-                RelivingDate = "";
-                IsTerminate = 0;
-                IsDeath = 0;
-                TerminateDate = "";
-                DeathDate = "";
-            }
-            else if (opendate == "Regular") {
-                IsRegular = 1;
-                IsResignation = 0;
-                IsRetirement = 0;
-                Resignationdate = "";
-                RelivingDate = "";
-                IsTerminate = 0;
-                IsDeath = 0;
-                TerminateDate = "";
-                DeathDate = "";
-            }
-            else if (opendate == "Terminate") {
-                IsRegular = 0;
-                IsResignation = 0;
-                IsRetirement = 0;
-                IsTerminate = 1;
-                IsDeath = 0;
-
-                TerminateDate = $("#txtTerminatedate_" + id + "").val();
-                Resignationdate = "";
-                RelivingDate = "";
-
-                DeathDate = "";
-
-                if (TerminateDate == "dd/MM/yyyy" || TerminateDate == "" || TerminateDate == null) {
-                    var mesg = "<div class='alert alert-warning background-warning'><button type='button' class='close' data-dismiss='alert' aria-label='Close'>&nbsp;&nbsp;&nbsp;<i class='icofont icofont-close-line-circled text-white'></i></button> Please Enter terminate Date. </div>";
-                    $('#message').html(mesg);
-                    $("#LoaderForView_" + id + "").hide();
-                    return false;
-                }
-            }
-            else if (opendate == "Death") {
-                IsRegular = 0;
-                IsResignation = 0;
-                IsRetirement = 0;
-                IsTerminate = 0;
-                IsDeath = 1;
-                Resignationdate = "";
-                RelivingDate = "";
-                TerminateDate = "";
-
-                DeathDate = $("#txtDeathdate_" + id + "").val();
-
-                if (DeathDate == "dd/MM/yyyy" || DeathDate == "" || DeathDate == null) {
-                    var mesg = "<div class='alert alert-warning background-warning'><button type='button' class='close' data-dismiss='alert' aria-label='Close'>&nbsp;&nbsp;&nbsp;<i class='icofont icofont-close-line-circled text-white'></i></button> Please Enter Death Date. </div>";
-                    $('#message').html(mesg);
-                    $("#LoaderForView_" + id + "").hide();
-                    return false;
-                }
+        });
+    }
+    function Clear() {
+        document.getElementById('RollNo').value = "";
+        $('#errRollNo').html("");
+        document.getElementById('Outofmarks').value = "";
+        $('#errOutofmarks').html("");
+        document.getElementById('Totalmarks').value = "";
+        $('#errTotalmarks').html("");
+        $("#ClassId").val('0').trigger('change');
+        $("#SubjectId").val('0').trigger('change');
+        document.getElementById('btnAdd').innerHTML = "Add";
+        $("#btnAdd").attr('title', 'Upload');
+        document.getElementById('PopupTitle').innerHTML = "Add Fees";
+    }
+    function ClearData(type) {
+        if (type == 1) {
+            var Id = document.getElementById('hdnintId').value;
+            document.getElementById('RollNo').value = "";
+            $('#errRollNo').html("");
+            document.getElementById('Outofmarks').value = "";
+            $('#errOutofmarks').html("");
+            document.getElementById('Totalmarks').value = "";
+            $('#errTotalmarks').html("");
+            $("#ClassId").val('0').trigger('change');
+            $("#SubjectId").val('0').trigger('change');
+            if (Id == "0") {
+                document.getElementById('hdnintId').value = "0";
+                document.getElementById('btnAdd').innerHTML = "Add";
+                $("#btnAdd").attr('title', 'Add');
+                document.getElementById('PopupTitle').innerHTML = "Add Fees";
             }
             else {
-                IsRegular = 1;
-                IsResignation = 0;
-                IsRetirement = 0;
-                IsTerminate = 0;
-                IsDeath = 0;
-                Resignationdate = "";
-                RelivingDate = "";
-                TerminateDate = "";
-                DeathDate = "";
+                document.getElementById('btnAdd').innerHTML = "Update";
+                $("#btnAdd").attr('title', 'Update');
+                document.getElementById('PopupTitle').innerHTML = "Update Fees";
             }
-
-            if (AbsentDays == "") {
-                var mesg = "<div class='alert alert-warning background-warning'><button type='button' class='close' data-dismiss='alert' aria-label='Close'>&nbsp;&nbsp;&nbsp;<i class='icofont icofont-close-line-circled text-white'></i></button>Please Enter Absent Days. </div>";
-                $('#message').html(mesg);
-                $("#LoaderForView_" + id + "").hide();
-                return false;
-            }
-
-            var TotalWorkingDays = Number(MonthDays) - Number(AbsentDays)
-
-            if (Number(AbsentDays) > Number(MonthDays)) {
-                var mesg = "<div class='alert alert-warning background-warning'><button type='button' class='close' data-dismiss='alert' aria-label='Close'>&nbsp;&nbsp;&nbsp;<i class='icofont icofont-close-line-circled text-white'></i></button>Please enter the less than total month day. </div>";
-                $('#message').html(mesg);
-                $("#LoaderForView_" + id + "").hide();
-                return false;
-            }
-
-            if (IsRetirement == 1) {
-                var Retirementdatainput1 = $("#txtRetirementdate_" + id + "").val();
-                if (Retirementdatainput1 == "") {
-                    var mesg = "<div class='alert alert-warning background-warning'><button type='button' class='close' data-dismiss='alert' aria-label='Close'>&nbsp;&nbsp;&nbsp;<i class='icofont icofont-close-line-circled text-white'></i></button> Please Enter Retierment Date. </div>";
-                    $('#message').html(mesg);
-                    $("#LoaderForView_" + id + "").hide();
-                    return false;
-                }
-
-            }
-            var RetirementDate = $("#newhdnRetirementDate_" + id + "").val();
-            var Retirementdatainput = $("#txtRetirementdate_" + id + "").val();
-
-            var Actual_Month = $('#ddl_actual_Month').val();
-            var Actual_Year = $('#ddl_actual_Year').val();
-
-            $.ajax({
-                url: '/DashBoard/PriviousAttendanceFailedAddUpdateAttendance',
-                type: 'Post',
-                datatype: 'json',
-                data: {
-                    UniqueID: UniqueID, AbsentDays: AbsentDays, TransactionNumber: TransactionNumber, MonthID: MonthID, CategoryName: CategoryName, AnganwadiID: AnganwadiID, AnganwadiCode: AnganwadiCode,
-                    AbsentStatus: AbsentStatus, IsRegular: IsRegular, IsResignation: IsResignation, IsRetirement: IsRetirement, Resignationdate: Resignationdate, RelivingDate: RelivingDate,
-                    NewWorkingDays: MonthDays, TotalWorkingDays: TotalWorkingDays, AWType: AWType, MonthYear: MonthYear, Reason: Reason, Retirementdatainput: Retirementdatainput, RetirementDate: RetirementDate,
-                    IsTerminate: IsTerminate, TerminateDate: TerminateDate, IsDeath: IsDeath, DeathDate: DeathDate, hdnSavedEntry: hdnSavedEntry, Emp_code: Emp_code, Office_ID: Office_ID, Half_day: Half_day,
-                    Actual_Month: Actual_Month, Actual_Year: Actual_Year
-                },
-                success: function (data) {
-                    if (data.result > 0) {
-                        $("#hdnTransactionNumber_" + id + "").val(data.TransactionNumber);
-                        var mesg = "<div class='alert alert-success background-success'><button type='button' class='close' data-dismiss='alert' aria-label='Close'>&nbsp;&nbsp;&nbsp;<i class='icofont icofont-close-line-circled text-white'></i></button>Saved Successfully. </div>";
-                        $('#message').html(mesg);
-                        btnname = "Edit";
-                        $("#btnSave_" + id + "").text(btnname);
-                        console.log(btnname);
-                        $("#btnSave_" + id + "").val(btnname);
-                        console.log($("#btnSave_" + id + "").val());
-                        $("#LoaderForView_" + id + "").hide();
-                        $("#txtAbsentDays_" + id + "").prop("disabled", true);
-                        $("input[type='button']").prop("disabled", false);
-                        var SavedEntryID = $("#hdnSavedEntry_" + id + "").val();
-                        var EntryDone = $("#hdnEntryDone").val();
-                        if (SavedEntryID == 0) {
-                            var TotalRecordID = $("#hdnTotalRecordid").val();
-                            EntryDone = Number(EntryDone) + Number(1);
-                            if (Number(EntryDone) == Number(TotalRecordID)) {
-                                $("#hdnSavedEntry_" + id + "").val(Number(1));
-                                $("#hdnEntryDone").val(Number(TotalRecordID));
-                                $('#AbsentStatus').val('Submitted');
-                                $('#hdnSubmittedEntry').val(Number(TotalRecordID));
-                            }
-                            else {
-                                $("#hdnSavedEntry_" + id + "").val(Number(1));
-                                $('#AbsentStatus').val('Not Submitted');
-                                $("#hdnEntryDone").val(Number(EntryDone))
-                                $('#hdnSubmittedEntry').val(Number(EntryDone));
-                            }
-                            if (EntryDone > 2) {
-                                EmtryDone = 0;
-                            }
-                        }
-                        var savecnt = $('#savecount').val();
-                        var Totlsave = Number(savecnt) + 1;
-                        $('#savecount').val(Totlsave);
-                        var Totl_save = $('#savecount').val();
-                        var cont = $('#Totalcount').val();
-                        if (Totl_save >= cont) {
-                            $('#btnClose').attr("disabled", false);
-                        }
-                        else {
-                            $('#btnClose').attr("disabled", true);
-                        }
-                    }
-                    else if (data == -1) {
-                        var mesg = "<div class='alert alert-warning background-warning'><button type='button' class='close' data-dismiss='alert' aria-label='Close'>&nbsp;&nbsp;&nbsp;<i class='icofont icofont-close-line-circled text-white'></i></button> Attandance not saved.</div>";
-                        $('#message').html(mesg);
-                        $("#LoaderForView_" + id + "").hide();
-                        return false;
-                    }
-                    else if (data == -3) {
-                        var mesg = "<div class='alert alert-warning background-warning'><button type='button' class='close' data-dismiss='alert' aria-label='Close'>&nbsp;&nbsp;&nbsp;<i class='icofont icofont-close-line-circled text-white'></i></button>Please Enter Proper Reliving Date or Resignation Days. </div>";
-                        $('#message').html(mesg);
-                        $("#LoaderForView_" + id + "").hide();
-                        return false;
-                    }
-                    else {
-                        var mesg = "<div class='alert alert-warning background-danger'><button type='button' class='close' data-dismiss='alert' aria-label='Close'>&nbsp;&nbsp;&nbsp;<i class='icofont icofont-close-line-circled text-white'></i></button> Attandance not saved . </div>";
-                        $('#message').html(mesg);
-                        $("#LoaderForView_" + id + "").hide();
-                        return false;
-                    }
-                }, error: function (xhr, status, error) {
-                    alert(xhr.responseText);
-                    $('#message').html('');
-                    $("#LoaderForView_" + id + "").hide();
-                }
-            });
-
+        }
+        else {
+            document.getElementById('SearchText').value = "";
+            GetFeesList();
         }
     }
-
-
-
-
+    function RemoveFile() {
+        document.getElementById('divUploadFile').style.display = "block";
+        document.getElementById('divFile').style.display = "none";
+        //document.getElementById('hdnstrFile').value = "";
+        bISFile = 0;
+    }
+    function opendeleteModel(id) {
+        document.getElementById('hdnintId').value = id;
+    }
 </script>
