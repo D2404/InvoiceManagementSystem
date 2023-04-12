@@ -16,6 +16,7 @@ namespace InvoiceManagementSystem.Models
         SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString);
         public int Id { get; set; }
         public int RoleId { get; set; }
+        public int TeacherId { get; set; }
         public int ClassId { get; set; }
         public string FullName { get; set; }
         public string UserName { get; set; }
@@ -94,6 +95,7 @@ namespace InvoiceManagementSystem.Models
                 cmd.Parameters.AddWithValue("@UserId", objCommon.getUserIdFromSession());
                 cmd.Parameters.AddWithValue("@RoleId", cls.RoleId);
                 cmd.Parameters.AddWithValue("@ClassId", cls.ClassId);
+                cmd.Parameters.AddWithValue("@TeacherId", cls.TeacherId);
 
                 SqlDataAdapter da = new SqlDataAdapter(cmd);
                 cmd.CommandTimeout = 0;

@@ -30,21 +30,21 @@
 
                     {
                         <div class="box">
-                            <div class="card card-facebook">
-                                <div class="card-body p-3">
+                            <div class="card card-facebook" >
+                                <div class="card-body p-3" style="background: linear-gradient( 45deg, #6a11cb, #2575fc)">
                                     <div class="row">
                                         <div class="col-8">
                                             <div class="numbers">
-                                                <p class="text-sm mb-0 text-uppercase font-weight-bold">Total Class</p>
+                                                <p class="text-sm mb-0 text-uppercase font-weight-bold"style="color:white">Total Class</p>
 
-                                                <a onclick="ClassRoom(1);">
-                                                    <h5 class="font-weight-bolder">@(Model.LSTDashBoardList[0].TotalClassRoom == 0 ? 0 : Model.LSTDashBoardList[0].TotalClassRoom)</h5>
+                                                <a href="javascript:void(0)" onclick="ClassRoom(1);">
+                                                    <h5 class="font-weight-bolder" style="color: white; text-decoration: underline">@(Model.LSTDashBoardList[0].TotalClassRoom == 0 ? 0 : Model.LSTDashBoardList[0].TotalClassRoom)</h5>
                                                 </a>
                                             </div>
                                         </div>
                                         <div class="col-4 text-end">
-                                            <div class="icon icon-shape bg-gradient-primary shadow-primary text-center rounded-circle">
-                                                <i class="ni ni-money-coins text-lg opacity-10" aria-hidden="true"></i>
+                                            <div class="icon icon-shape bg-gradient-dark shadow-dark text-center rounded-circle">
+                                                <i class="fa fa-home text-lg opacity-10" aria-hidden="true"></i>
                                             </div>
                                         </div>
                                     </div>
@@ -52,23 +52,24 @@
                             </div>
                         </div>
                     }
+ 
                 }
             </div>
             <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
                 <div class="card" id="box">
-                    <div class="card-body p-3">
+                    <div class="card-body p-3" style="background: linear-gradient( 45deg, #00b09b, #96c93d) !important">
                         <div class="row">
                             <div class="col-8">
                                 <div class="numbers">
-                                    <p class="text-sm mb-0 text-uppercase font-weight-bold">Total Subject</p>
-                                    <a href="/Subject/Subject">
-                                        <h5 class="font-weight-bolder">@(Model.LSTDashBoardList[0].TotalSubject == 0 ? 0 : Model.LSTDashBoardList[0].TotalSubject)</h5>
+                                    <p class="text-sm mb-0 text-uppercase font-weight-bold"style="color:white">Total Subject</p>
+                                    <a href="javascript:void(0)" onclick="Subject(1);">
+                                        <h5 class="font-weight-bolder"style="color: white; text-decoration: underline">@(Model.LSTDashBoardList[0].TotalSubject == 0 ? 0 : Model.LSTDashBoardList[0].TotalSubject)</h5>
                                     </a>
                                 </div>
                             </div>
                             <div class="col-4 text-end">
-                                <div class="icon icon-shape bg-gradient-danger shadow-danger text-center rounded-circle">
-                                    <i class="ni ni-world text-lg opacity-10" aria-hidden="true"></i>
+                                <div class="icon icon-shape bg-gradient-dark shadow-dark text-center rounded-circle">
+                                    <i class="fa fa-book text-lg opacity-10" aria-hidden="true"></i>
                                 </div>
                             </div>
                         </div>
@@ -77,40 +78,40 @@
             </div>
             <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
                 <div class="card" id="box">
-                    <div class="card-body p-3">
+                    <div class="card-body p-3" style="background: linear-gradient( 45deg, #ee0979, #ff6a00)">
                         <div class="row">
                             <div class="col-8">
                                 <div class="numbers">
-                                    <p class="text-sm mb-0 text-uppercase font-weight-bold">Total Student</p>
-                                    <a href="/Student/Student">
-                                        <h5 class="font-weight-bolder">@(Model.LSTDashBoardList[0].TotalStudent == 0 ? 0 : Model.LSTDashBoardList[0].TotalStudent)</h5>
+                                    <p class="text-sm mb-0 text-uppercase font-weight-bold"style="color:white">Total Student</p>
+                                    <a href="javascript:void(0)" onclick="Student(1);">
+                                        <h5 class="font-weight-bolder"style="color: white; text-decoration: underline">@(Model.LSTDashBoardList[0].TotalStudent == 0 ? 0 : Model.LSTDashBoardList[0].TotalStudent)</h5>
                                     </a>
                                 </div>
                             </div>
                             <div class="col-4 text-end">
-                                <div class="icon icon-shape bg-gradient-success shadow-success text-center rounded-circle">
-                                    <i class="ni ni-paper-diploma text-lg opacity-10" aria-hidden="true"></i>
+                                <div class="icon icon-shape bg-gradient-dark shadow-dark text-center rounded-circle">
+                                    <i class="fa fa-users text-lg opacity-10" aria-hidden="true"></i>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-xl-3 col-sm-6">
+            <div class="col-xl-3 col-sm-6" >
                 <div class="card" id="box">
-                    <div class="card-body p-3">
+                    <div class="card-body p-3" style="background: linear-gradient(to right, #0f2027, #203a43, #2c5364) !important">
                         <div class="row">
                             <div class="col-8">
                                 <div class="numbers">
-                                    <p class="text-sm mb-0 text-uppercase font-weight-bold">Total Teacher</p>
-                                    <a href="/Teacher/Teacher">
-                                        <h5 class="font-weight-bolder">@(Model.LSTDashBoardList[0].TotalTeacher == 0 ? 0 : Model.LSTDashBoardList[0].TotalTeacher)</h5>
+                                    <p class="text-sm mb-0 text-uppercase font-weight-bold"style="color:white">Total Teacher</p>
+                                    <a href="javascript:void(0)" onclick="Teacher(1);">
+                                        <h5 class="font-weight-bolder"style="color: white; text-decoration: underline">@(Model.LSTDashBoardList[0].TotalTeacher == 0 ? 0 : Model.LSTDashBoardList[0].TotalTeacher)</h5>
                                     </a>
                                 </div>
                             </div>
                             <div class="col-4 text-end">
-                                <div class="icon icon-shape bg-gradient-warning shadow-warning text-center rounded-circle">
-                                    <i class="ni ni-cart text-lg opacity-10" aria-hidden="true"></i>
+                                <div class="icon icon-shape bg-gradient-dark shadow-dark text-center rounded-circle">
+                                    <i class="fa fa-user-circle text-lg opacity-10" aria-hidden="true"></i>
                                 </div>
                             </div>
                         </div>
@@ -120,7 +121,7 @@
         </div>
         <br>
         <div class="row" style="margin-left:1px">
-            <div class="col-xl-5 col-sm-6 mb-xl-0 mb-6">
+            <div class="col-xl-5 col-sm-6 mb-xl-0 mb-6" style="background-color: black">
                 @if (Model.LSTTeacherList != null)
                 {
                     <div class="row">
@@ -128,19 +129,19 @@
                         {
                             if (Model.LSTTeacherList[i].Dob != null && Model.LSTTeacherList[i].Type == 1)
                             {
-                                <div class="card" id="box">
-                                    <div class="card-body p-3">
+                                <div class="card" id="box" style="background-color: #073b4c">
+                                    <div class="card-body p-3" >
                                         <div class="row">
                                             <div class="col-8">
                                                 <div class="numbers">
-                                                    <p style="text-decoration:underline;" class="text-sm mb-0 text-uppercase font-weight-bold">Teacher's Today's Birthday</p>
+                                                    <p style="text-decoration:underline;color:white" class="text-sm mb-0 text-uppercase font-weight-bold">Teacher's Today's Birthday</p>
                                                     <br />
                                                     @foreach (var item in Model.LSTTeacherList)
                                                     {
                                                         if (item.Dob != null && item.Type == 1)
                                                         {
                                                             <div class="dash-card-container">
-                                                                <h6 class="font-weight-bolder">@item.Dob <br /> @item.Name</h6>
+                                                                <h6 class="font-weight-bolder" style="color: white">@item.Dob <br /> @item.Name</h6>
                                                             </div>
                                                         }
                                                     }
@@ -148,7 +149,7 @@
                                                 </div>
                                             </div>
                                             <div class="col-4 text-end">
-                                                <div class="icon icon-shape bg-gradient-warning shadow-success text-center rounded-circle">
+                                                <div class="icon icon-shape bg-gradient-dark shadow-dark text-center rounded-circle">
                                                     <i class="fa fa-birthday-cake text-lg opacity-10" aria-hidden="true"></i>
                                                 </div>
                                             </div>
@@ -160,20 +161,20 @@
                             }
                             else if (Model.LSTTeacherList[i].Type == 2)
                             {
-                                <div class="card" id="box">
+                                <div class="card" id="box" style="background-color: #073b4c">
                                     <div class="card-body p-3">
                                         <div class="row">
                                             <div class="col-8">
                                                 <div class="numbers">
-                                                    <p style="text-decoration:underline;" class="text-sm mb-0 text-uppercase font-weight-bold">Today's Birthday</p>
+                                                    <p style="text-decoration: underline; color: white" class="text-sm mb-0 text-uppercase font-weight-bold">Today's Birthday</p>
                                                     <br />
                                                     <div class="dash-card-container">
-                                                        <h6 style="font-size:14px" class="font-weight-bolder">Today is no one's birthday</h6>
+                                                        <h6 style="font-size: 14px; color: white" class="font-weight-bolder">Today is no one's birthday</h6>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="col-4 text-end">
-                                                <div class="icon icon-shape bg-gradient-warning shadow-success text-center rounded-circle">
+                                                <div class="icon icon-shape bg-gradient-dark shadow-dark text-center rounded-circle">
                                                     <i class="fa fa-birthday-cake text-lg opacity-10" aria-hidden="true"></i>
                                                 </div>
                                             </div>
@@ -189,7 +190,7 @@
                 }
 
             </div>
-            <div class="col-xl-5 col-sm-8 mb-xl-0 mb-6" style="margin-left:120px">
+            <div class="col-xl-5 col-sm-8 mb-xl-0 mb-6" style="margin-left:120px; background-color: #293241">
                 @if (Model.LSTTeacherList != null)
                 {
                     <div class="row">
@@ -197,26 +198,26 @@
                         {
                             if (Model.LSTTeacherList[i].Dob != null && Model.LSTTeacherList[i].Type == 2)
                             {
-                                <div class="card" id="box">
+                                <div class="card" id="box" style="background-color: #a52422">
                                     <div class="card-body p-3">
                                         <div class="row">
                                             <div class="col-8">
                                                 <div class="numbers">
-                                                    <h5 style="text-decoration:underline;" class="text-sm mb-0 text-uppercase font-weight-bold">Teacher's Upcoming Birthday</h5>
+                                                    <h5 style="text-decoration:underline;color:white" class="text-sm mb-0 text-uppercase font-weight-bold">Teacher's Upcoming Birthday</h5>
                                                     <br />
                                                     @foreach (var item in Model.LSTTeacherList)
                                                     {
                                                         if (item.Dob != null && item.Type == 2)
                                                         {
                                                             <div class="dash-card-container">
-                                                                <h6 style="font-size:14px" class="font-weight-bolder">@item.Dob - @item.Name - @item.ClassNo</h6>
+                                                                <h6 style="font-size:14px;color:white " class="font-weight-bolder">@item.Dob - @item.Name - @item.ClassNo</h6>
                                                             </div>
                                                         }
                                                     }
                                                 </div>
                                             </div>
                                             <div class="col-4 text-end">
-                                                <div class="icon icon-shape bg-gradient-primary shadow-success text-center rounded-circle">
+                                                <div class="icon icon-shape bg-gradient-dark shadow-dark text-center rounded-circle">
                                                     <i class="fa fa-birthday-cake text-lg opacity-10" aria-hidden="true"></i>
                                                 </div>
                                             </div>
@@ -408,8 +409,8 @@
                             <div class="col-8">
                                 <div class="numbers">
                                     <p class="text-sm mb-0 text-uppercase font-weight-bold">Total Student</p>
-                                    <a href="/Student/Student">
-                                        <h5 class="font-weight-bolder" style="color:steelblue">@(Model.LSTDashBoardList[0].TotalStudent == 0 ? 0 : Model.LSTDashBoardList[0].TotalStudent)</h5>
+                                    <a href="javascript:void(0)" onclick="Student(1);">
+                                        <h5 class="font-weight-bolder" style="color: cornflowerblue; text-decoration: underline">@(Model.LSTDashBoardList[0].TotalStudent == 0 ? 0 : Model.LSTDashBoardList[0].TotalStudent)</h5>
                                     </a>
                                 </div>
                             </div>
@@ -543,13 +544,30 @@
         </div>
     }
 </div>
+
 <div class="container-fluid py-4" id="Class">
+    <div class="row">
+        <div class="col-sm-12 col-md-12">
+            <div class="dataTables_length" id="DataTables_Table_0_length">
+                <label style="color:black">
+                    Show
+                    <select id="PageSize" onchange="ClassRoom(1)" class="drpselect">
+                        <option value="10">10</option>
+                        <option value="25">25</option>
+                        <option value="50">50</option>
+                        <option value="100">100</option>
+                    </select> entries
+                </label>
+            </div>
+        </div>
+    </div>
     <div class="row">
         <div class="col-12">
             <div class="card mb-4">
                 <div class="card-header pb-0">
                     <h6>ClassRoom List</h6>
                 </div>
+                
                 <div class="card-body px-0 pt-0 pb-2">
                     <div class="table-responsive p-0">
                         <div id="ClassRoomList"></div>
@@ -559,16 +577,135 @@
         </div>
     </div>
 </div>
+
+<div class="container-fluid py-4" id="Subject">
+    <div class="row">
+        <div class="col-sm-12 col-md-12">
+            <div class="dataTables_length" id="DataTables_Table_0_length">
+                <label style="color:black">
+                    Show
+                    <select id="PageSize" onchange="Subject(1)" class="drpselect">
+                        <option value="10">10</option>
+                        <option value="25">25</option>
+                        <option value="50">50</option>
+                        <option value="100">100</option>
+                    </select> entries
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="card mb-4">
+                <div class="card-header pb-0">
+                    <h6>Subject List</h6>
+                </div>
+                <div class="card-body px-0 pt-0 pb-2">
+                    <div class="table-responsive p-0">
+                        <div id="SubjectList"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid py-4" id="Teacher">
+    <div class="row">
+        <div class="col-sm-12 col-md-12">
+            <div class="dataTables_length" id="DataTables_Table_0_length">
+                <label style="color:black">
+                    Show
+                    <select id="PageSize" onchange="Teacher(1)" class="drpselect">
+                        <option value="10">10</option>
+                        <option value="25">25</option>
+                        <option value="50">50</option>
+                        <option value="100">100</option>
+                    </select> entries
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="card mb-4">
+                <div class="card-header pb-0">
+                    <h6>Teacher List</h6>
+                </div>
+                <div class="card-body px-0 pt-0 pb-2">
+                    <div class="table-responsive p-0">
+                        <div id="TeacherList"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid py-4" id="Student">
+    <div class="row">
+        <div class="col-sm-12 col-md-12">
+            <div class="dataTables_length" id="DataTables_Table_0_length">
+                <label style="color:black">
+                    Show
+                    <select id="PageSize" onchange="Student(1)" class="drpselect">
+                        <option value="10">10</option>
+                        <option value="25">25</option>
+                        <option value="50">50</option>
+                        <option value="100">100</option>
+                    </select> entries
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="card mb-4">
+                <div class="card-header pb-0">
+                    <h6>Student List</h6>
+                </div>
+                <div class="card-body px-0 pt-0 pb-2">
+                    <div class="table-responsive p-0">
+                        <div id="StudentList"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!--End of Datetime js/css-->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script>
 
     $(document).ready(function () {
         $('#Class').hide();
+        $('#Subject').hide();
+        $('#Teacher').hide();
+        $('#Student').hide();
     });
     function ClassRoom(page) {
+        $('#Subject').hide();
+        $('#Teacher').hide();
+        $('#Student').hide();
         $('#Class').show();
+        var Id = 0;
+        if (document.getElementById('PageSize') != null) {
+            PageSize = document.getElementById('PageSize').value;
+        }
+        else {
+            PageSize = 10;
+        }
+        if (page == undefined) {
+            page = 1;
+        }
+        var PageIndex = page;
+
+        PageIndex = page;
         var cls = {
+            Id: Id,
+            PageSize: PageSize,
+            PageIndex: PageIndex,
         }
         ShowWait();
         $.ajax({
@@ -579,7 +716,7 @@
                 cls: cls
             }),
             success: function (data) {
-                debugger
+                
                 $('#ClassRoomList').empty();
                 $('#ClassRoomList').append(data);
                 HideWait();
@@ -590,4 +727,137 @@
             }
         });
     }
+
+    function Subject(page) {
+        $('#Class').hide();
+        $('#Teacher').hide();
+        $('#Student').hide();
+        $('#Subject').show();
+        var Id = 0;
+        if (document.getElementById('PageSize') != null) {
+            PageSize = document.getElementById('PageSize').value;
+        }
+        else {
+            PageSize = 10;
+        }
+        if (page == undefined) {
+            page = 1;
+        }
+        var PageIndex = page;
+
+        PageIndex = page;
+        var cls = {
+            Id: Id,
+            PageSize: PageSize,
+            PageIndex: PageIndex,
+        }
+        ShowWait();
+        $.ajax({
+            url: '/Home/GetSubject',
+            contentType: "application/json; charset=utf-8",
+            type: "POST",
+            data: JSON.stringify({
+                cls: cls
+            }),
+            success: function (data) {
+
+                $('#SubjectList').empty();
+                $('#SubjectList').append(data);
+                HideWait();
+            },
+            error: function (xhr) {
+                HideWait();
+                alert('errors');
+            }
+        });
+    }
+
+    function Teacher(page) {
+        $('#Class').hide();
+        $('#Subject').hide();
+        $('#Student').hide();
+        $('#Teacher').show();
+        var Id = 0;
+        if (document.getElementById('PageSize') != null) {
+            PageSize = document.getElementById('PageSize').value;
+        }
+        else {
+            PageSize = 10;
+        }
+        if (page == undefined) {
+            page = 1;
+        }
+        var PageIndex = page;
+
+        PageIndex = page;
+        var cls = {
+            Id: Id,
+            PageSize: PageSize,
+            PageIndex: PageIndex,
+        }
+        ShowWait();
+        $.ajax({
+            url: '/Home/GetTeacher',
+            contentType: "application/json; charset=utf-8",
+            type: "POST",
+            data: JSON.stringify({
+                cls: cls
+            }),
+            success: function (data) {
+
+                $('#TeacherList').empty();
+                $('#TeacherList').append(data);
+                HideWait();
+            },
+            error: function (xhr) {
+                HideWait();
+                alert('errors');
+            }
+        });
+    }
+
+    function Student(page) {
+        $('#Class').hide();
+        $('#Subject').hide();
+        $('#Teacher').hide();
+        $('#Student').show();
+        var Id = 0;
+        if (document.getElementById('PageSize') != null) {
+            PageSize = document.getElementById('PageSize').value;
+        }
+        else {
+            PageSize = 10;
+        }
+        if (page == undefined) {
+            page = 1;
+        }
+        var PageIndex = page;
+
+        PageIndex = page;
+        var cls = {
+            Id: Id,
+            PageSize: PageSize,
+            PageIndex: PageIndex,
+        }
+        ShowWait();
+        $.ajax({
+            url: '/Home/GetStudent',
+            contentType: "application/json; charset=utf-8",
+            type: "POST",
+            data: JSON.stringify({
+                cls: cls
+            }),
+            success: function (data) {
+
+                $('#StudentList').empty();
+                $('#StudentList').append(data);
+                HideWait();
+            },
+            error: function (xhr) {
+                HideWait();
+                alert('errors');
+            }
+        });
+    }
+
 </script>

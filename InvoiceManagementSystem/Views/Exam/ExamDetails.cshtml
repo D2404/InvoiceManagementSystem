@@ -1,55 +1,12 @@
 ﻿
 @{
-    ViewBag.Title = "Class wise Fees Master";
+    ViewBag.Title = "Exam";
 }
-<style>
-    .dropbtn {
-        background-color: #3498DB;
-        color: white;
-        padding: 16px;
-        font-size: 16px;
-        border: none;
-        cursor: pointer;
-    }
 
-        .dropbtn:hover, .dropbtn:focus {
-            background-color: #2980B9;
-        }
-
-    .dropdown {
-        position: relative;
-        display: inline-block;
-    }
-
-    .dropdown-content {
-        display: none;
-        position: absolute;
-        background-color: #f1f1f1;
-        min-width: 100px;
-        overflow: auto;
-        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-        z-index: 1;
-    }
-
-        .dropdown-content a {
-            color: black;
-            padding: 12px 16px;
-            text-decoration: none;
-            display: block;
-        }
-
-    .dropdown a:hover {
-        background-color: #ddd;
-    }
-
-    .show {
-        display: block;
-    }
-</style>
 <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl " id="navbarBlur" data-scroll="false">
     <div class="container-fluid py-1 px-3">
         <nav aria-label="breadcrumb">
-            <h5 class="font-weight-bolder text-white mb-0">ClassRoom wise Fees List</h5>
+            <h5 class="font-weight-bolder text-white mb-0">Exam List</h5>
         </nav>
     </div>
 
@@ -59,25 +16,19 @@
 
 </nav>
 <div class="row" id="FilterDiv" style="margin-left:19px">
-    
-
+    <div class="col-sm-6 col-md-3">
+        <div class="form-group form-focus">
+            <input type="text" class="form-control floating" id="SearchText" placeholder="Search" maxlength="50">
+        </div>
+    </div>
     <div class="col-sm-6 col-md-3">
         <div class="form-group form-focus">
             <select data-placeholder="Select here.." id="ddlClassId" class="select2-single-placeholder form-control" style="width: 100%"></select>
         </div>
     </div>
-    <div class="col-sm-6 col-md-3">
-        <div class="form-group form-focus select-focus">
-            <select tabindex="1" data-placeholder="Select here.." id="intActive" name="intActive" class="form-control floating">
-                <option value="3">Select Status</option>
-                <option value="1">Active</option>
-                <option value="2">In-Active</option>
-            </select>
-        </div>
-    </div>
     <div class="col-sm-6 col-md-1">
 
-        <a class="btn bg-gradient-info" onclick="GetFeesList(1)">Search</a>
+        <a class="btn bg-gradient-info" onclick="GetExamList(1)">Search</a>
     </div>
     <div class="col-sm-6 col-md-1">
         <a class="btn bg-gradient-dark" title="Clear" onclick="ClearData(2)"> Clear </a>
@@ -90,10 +41,9 @@
     <div style="margin-left:878px">
         <a href="#" class="btn bg-gradient-dark" onclick="ShowFilter()" title="Filter"><i class="fa fa-filter"></i></a>
         @*<a href="#" class="btn bg-gradient-dark" onclick="ShowFilter()" style="margin-left: 843px; margin-bottom: -64px;"><i class="fa fa-filter"></i></a>*@
-    <a class="btn bg-gradient-info" title="Add Fees" data-bs-toggle="modal" data-bs-target="#Fees" onclick="Clear()">Add Fees</a>
+    <a class="btn bg-gradient-info" title="Add Exam" data-bs-toggle="modal" data-bs-target="#Exam" onclick="Clear()">Add Exam</a>
     </div>
 </div>
-
 
 
 <div class="container-fluid py-4">
@@ -102,7 +52,7 @@
             <div class="dataTables_length" id="DataTables_Table_0_length">
                 <label style="color:white">
                     Show
-                    <select id="PageSize" onchange="GetSubjectList(1)" class="drpselect">
+                    <select id="PageSize" onchange="GetExamList(1)" class="drpselect">
                         <option value="10">10</option>
                         <option value="25">25</option>
                         <option value="50">50</option>
@@ -116,7 +66,7 @@
         <div class="col-12">
             <div class="card mb-4">
                 <div class="card-header pb-0">
-                    <h6>Fees List</h6>
+                    <h6>Exam List</h6>
                 </div>
                 <div class="card-body px-0 pt-0 pb-2">
                     <div class="table-responsive p-0">
@@ -127,11 +77,11 @@
         </div>
     </div>
 </div>
-<div class="modal fade" id="Fees" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="Exam" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" style="margin-left:173px"><span id="PopupTitle">Add Fees</span></h5>
+                <h5 class="modal-title" style="margin-left:173px"><span id="PopupTitle">Add Exam</span></h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true" style="color:black">&times;</span>
                 </button>
@@ -141,23 +91,25 @@
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label for="basicinput"><b>Class Room</b></label>
-                            <select class="form-control" id="ClassId">
-                                <option value="0">Select ClassRoom</option>
+                            <select class="form-control" id="ClassId" onchange="onClass();">
+                                <option value="0">Select here..</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="basicinput"><b>Subject</b></label>
+                            <select class="form-control  form-control-alternative js-example-basic-single" id="SubjectId">
+                                <option value="0">Select here..</option>
                             </select>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="example-text-input" class="form-control-label">Monthly Fees<span class="text-danger">*</span></label>
-                            <input class="form-control form-control-alternative" type="text" id="Monthly" placeholder="Enter Monthly Fees">
-                            <span id="errMonthly" class="text-xs font-weight-bold mb-0" style="color:red"></span>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="example-text-input" class="form-control-label">Yearly Fees<span class="text-danger">*</span></label>
-                            <input class="form-control form-control-alternative" type="text" id="Yearly" placeholder="Enter Yearly Fees">
-                            <span id="errYearly" class="text-xs font-weight-bold mb-0" style="color:red"></span>
+                            <label for="example-text-input" class="form-control-label">Date</label>
+                            <input class="form-control floating datetimepicker" type="date" id="date" autocomplete="off">
+                            @*<input class="form-control datetimepicker" type="date" id="Dob" placeholder="Enter Dob">*@
+                            <span id="errdate" class="text-xs font-weight-bold mb-0" style="color:red"></span>
                         </div>
                     </div>
                 </div>
@@ -170,42 +122,24 @@
         </div>
     </div>
 </div>
-<div class="modal fade" id="delete_Fees" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="delete_Exam" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" style="margin-left:174px"><span id="PopupTitle">Delete Fees</span></h5>
+                <h5 class="modal-title" style="margin-left:132px"><span id="PopupTitle">Delete Exam</span></h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true"style="color:black">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <p style="margin-left:70px">Are you sure want to delete this Fees ?.</p>
+                <p style="margin-left:70px">Are you sure want to delete this Exam ?.</p>
             </div>
-            <div class="modal-footer"style="padding-right: 166px">
-                <button type="button" id="btnAdd" class="btn bg-gradient-danger" onclick="deleteFees()">Delete</button>
+
+            <div class="modal-footer" style="padding-right: 166px">
+
+                <button type="button" id="btnAdd" class="btn bg-gradient-danger" onclick="deleteExam()">Delete</button>
                 <button type="button" class="btn bg-gradient-dark" data-bs-dismiss="modal">Cancel</button>
                 <input type="hidden" id="hdnintId" value="0" />
-            </div>
-        </div>
-    </div>
-</div>
-<div class="modal fade" id="status" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" style="margin-left:132px"><span id="PopupTitle">Status Confirmation</span></h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true" style="color:black">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <p style="margin-left:98px">Are you sure want to change status?</p>
-            </div>
-            <div class="modal-footer" style="padding-right: 146px">
-                <button type="button" id="btnAdd" class="btn bg-gradient-info" onclick="UpdateStatus()">Change</button>
-                <button type="button" class="btn bg-gradient-dark" data-bs-dismiss="modal">Cancel</button>
-
             </div>
         </div>
     </div>
@@ -237,7 +171,7 @@
     $(document).ready(function () {
         $('#FilterDiv').hide();
         GetClassRoom();
-        GetFeesList(1);
+        GetExamList(1);
     });
     function myFunction() {
         document.getElementById("myDropdown").classList.toggle("show");
@@ -245,7 +179,7 @@
 
 
     $(function () {
-        $("#Dob").datetimepicker({
+        $("#date").datetimepicker({
             format: 'DD/MM/YYYY',
             maxDate: new Date,
             useCurrent: true,
@@ -253,21 +187,13 @@
         })
     });
     function InsertData() {
-
+        
         var val = true;
         var Id = $('#hdnintId').val();
         var ClassId = $('#ClassId').val();
-        var Monthly = $('#Monthly').val();
-        if (Monthly == "" || /\S/.test(Monthly) == false) {
-            $("#errMonthly").html("Please enter Monthly fees.");
-            val = false;
-        }
-        var Yearly = $('#Yearly').val();
-        if (Yearly == "" || /\S/.test(Yearly) == false) {
-            $("#errYearly").html("Please enter Yearly fees.");
-            val = false;
-        }
-        
+        var SubjectId = $('#SubjectId').val();
+        var SearchText = $('#SearchText').val();
+        var Date = $('#date').val();
         var formData = new FormData();
         if (val == false) {
             return;
@@ -275,12 +201,14 @@
 
         formData.append('Id', Id);
         formData.append('ClassId', ClassId);
-        formData.append('Monthly', Monthly);
-        formData.append('Yearly', Yearly);
+        formData.append('SubjectId', SubjectId);
+        formData.append('Date', Date);
+        formData.append('SearchText', SearchText);
+
         ShowWait();
         $.ajax({
             type: "POST",
-            url: '/Fees/InsertClassWiseFees',
+            url: '/Exam/InsertExamDetails',
             contentType: "application/json; charset=utf-8",
             contentType: false,
             processData: false,
@@ -288,22 +216,20 @@
             success: function (data) {
                 if (data != null) {
                     if (data == 'Success' && Id == 0) {
-                        toastr.success('Fees inserted successfully');
-                        GetFeesList(1);
-                        $('#Fees').click();
+                        toastr.success('Exam inserted successfully');
+                        GetExamList(1);
+                        $('#Exam').click();
                         ClearData(1);
                     }
                     else if (data == 'Updated' && Id > 0) {
-                        toastr.success('Fees updated successfully');
-                        GetFeesList(1);
-                        $('#Fees').click();
+                        toastr.success('Exam updated successfully');
+                        GetExamList(1);
+                        $('#Exam').click();
                         ClearData(1);
                     }
                     else if (data == 'Exists') {
-                        toastr.error('Fees already exists!');
-                        $("#ClassId").val('0').trigger('change');
-                        document.getElementById('Monthly').value = "";
-                        document.getElementById('Yearly').value = "";
+                        toastr.error('Exam already exists!');
+                        document.getElementById('Email').value = "";
                     }
                 }
                 HideWait();
@@ -318,14 +244,14 @@
         var cls = {
         }
         $.ajax({
-            url: '/Subject/GetClassRoom',
+            url: '/Exam/GetClassRoom',
             contentType: "application/json; charset=utf-8",
             type: "GET",
             data: JSON.stringify({
                 cls: cls
             }),
             success: function (data) {
-                
+
                 var html = "";
                 html = html + ' <option value="0" selected>Select ClassRoom</option>';
                 for (var i = 0; i < data.LSTClassRoomList.length; i++) {
@@ -338,11 +264,36 @@
             }
         });
     }
-    function GetFeesList(page) {
+
+    function onClass() {
+        var ClassId = $('#ClassId').val();
+        $.ajax({
+            type: "GET",
+            url: '/Exam/LoadSubject?ClassId=' + ClassId,
+            async: false,
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (data) {
+
+                $('#SubjectId').empty();
+                $("#SubjectId").append($("<option     />").val("0").text("Select subject name.."));
+                $.each(data, function (i, v) {
+                    $("#SubjectId").append($("<option     />").val(v.SubjectId).text(v.SubjectName));
+                });
+                HideWait();
+            },
+            failure: function () {
+                HideWait();
+                alert("Failed!");
+            }
+        });
+    }
+
+
+    function GetExamList(page) {
 
         var Id = 0;
-       
-        var intActive = document.getElementById('intActive').value;
+        var SearchText = document.getElementById('SearchText').value;
         var ClassId = document.getElementById('ddlClassId').value;
         if (document.getElementById('PageSize') != null) {
             PageSize = document.getElementById('PageSize').value;
@@ -358,14 +309,14 @@
         PageIndex = page;
         var cls = {
             Id: Id,
-            intActive: intActive,
+            SearchText: SearchText,
             ClassId: ClassId,
             PageSize: PageSize,
             PageIndex: PageIndex,
         }
         ShowWait();
         $.ajax({
-            url: '/Fees/GetClassWiseFees',
+            url: '/Exam/GetExamDetails',
             contentType: "application/json; charset=utf-8",
             type: "POST",
             data: JSON.stringify({
@@ -383,29 +334,29 @@
         });
     }
 
-    function GetSingleFeesData(id) {
-        $('#errSubjectName').html("");
+    function GetSingleExamData(id) {
+        debugger
         document.getElementById('btnAdd').innerHTML = "Update";
         $("#btnAdd").attr('title', 'Update');
-        document.getElementById('PopupTitle').innerHTML = "Update Fees";
+        document.getElementById('PopupTitle').innerHTML = "Update Exam";
         var cls = {
             Id: id
         }
 
         $.ajax({
-            url: '/Fees/GetSingleClassWiseFeesData',
+            url: '/Exam/GetSingleExamDetailsData',
             contentType: "application/json; charset=utf-8",
             type: "POST",
             data: JSON.stringify({
                 cls: cls
             }),
             success: function (data) {
-
+                debugger
                 if (data != null) {
-                    document.getElementById('hdnintId').value = data.LSTFeesList[0].Id;
-                    document.getElementById('Monthly').value = data.LSTFeesList[0].Monthly;
-                    document.getElementById('Yearly').value = data.LSTFeesList[0].Yearly;
-                    $('#ClassId').val(data.LSTFeesList[0].ClassId).trigger("change");
+                    document.getElementById('hdnintId').value = data.LSTExamList[0].Id;
+                    $('#ClassId').val(data.LSTExamList[0].ClassId).trigger("change");
+                    $('#SubjectId').val(data.LSTExamList[0].SubjectId).trigger("change");
+                    document.getElementById('date').value = data.LSTExamList[0].Date;
                 }
                 else {
                     alert('error');
@@ -419,14 +370,14 @@
         });
     }
 
-    function deleteFees() {
+    function deleteExam() {
         var Id = document.getElementById('hdnintId').value;
         var cls = {
             Id: Id
         }
         ShowWait();
         $.ajax({
-            url: '/Fees/deleteClassWiseFees',
+            url: '/Exam/deleteExamDetails',
             contentType: "application/json; charset=utf-8",
             type: "POST",
             data: JSON.stringify({
@@ -435,11 +386,11 @@
             success: function (data) {
 
                 if (data.Response == 'Success' && Id > 0) {
-                   
-                    toastr.success('Fees deleted successfully');
+
+                    toastr.success('Exam deleted successfully');
                     document.getElementById('hdnintId').value = "0";
-                    GetFeesList();
-                    $('#delete_Fees').click();
+                    GetExamList();
+                    $('#delete_Exam').click();
                 }
                 else {
                     alert('error');
@@ -455,76 +406,38 @@
     }
 
     function Clear() {
-        document.getElementById('Monthly').value = "";
-        $('#errMonthly').html("");
-        document.getElementById('Yearly').value = "";
-        $('#errYearly').html("");
-        $("#ddlClassId").val('0').trigger('change');
+      
+        $("#ClassId").val('0').trigger('change');
+        $("#SubjectId").val('0').trigger('change');
         document.getElementById('btnAdd').innerHTML = "Add";
         $("#btnAdd").attr('title', 'Upload');
-        document.getElementById('PopupTitle').innerHTML = "Add Fees";
+        document.getElementById('PopupTitle').innerHTML = "Add Exam";
     }
-    function UpdateStatus() {
-        var Id = document.getElementById('hdnintId').value;
-        var cls = {
-            Id: Id
-        }
-        ShowWait();
-        $.ajax({
-            url: '/Fees/UpdateStatus',
-            contentType: "application/json; charset=utf-8",
-            type: "POST",
-            data: JSON.stringify({
-                cls: cls
-            }),
-            success: function (data) {
-                if (data == 'success') {
-                    toastr.success('status updated successfully.');
-                    document.getElementById('hdnintId').value = "0";
-                    GetFeesList(1);
-                    $('#status').click();
-                }
-                else if (data == 'Exist') {
-                    toastr.error('Exists');
-                }
-                else {
-                    alert('error');
-                }
-                HideWait();
-            },
-            error: function (xhr) {
-                HideWait();
-                alert('errors');
-            }
-        });
-    }
+
     function ClearData(type) {
 
         if (type == 1) {
             var Id = document.getElementById('hdnintId').value;
-            document.getElementById('Monthly').value = "";
-            $('#errMonthly').html("");
-            document.getElementById('Yearly').value = "";
-            $('#errYearly').html("");
+           
             $("#ClassId").val('0').trigger('change');
-            
+            $("#SubjectId").val('0').trigger('change');
+
             if (Id == "0") {
 
                 document.getElementById('hdnintId').value = "0";
                 document.getElementById('btnAdd').innerHTML = "Add";
                 $("#btnAdd").attr('title', 'Add');
-                document.getElementById('PopupTitle').innerHTML = "Add Fees";
+                document.getElementById('PopupTitle').innerHTML = "Add Exam";
             }
             else {
                 document.getElementById('btnAdd').innerHTML = "Update";
                 $("#btnAdd").attr('title', 'Update');
-                document.getElementById('PopupTitle').innerHTML = "Update Fees";
+                document.getElementById('PopupTitle').innerHTML = "Update Exam";
             }
         }
         else {
-            document.getElementById('intActive').value = '3';
-            $("#ddlClassId").val('0').trigger('change');
-            GetFeesList();
+            document.getElementById('SearchText').value = "";
+            GetExamList();
         }
     }
     function RemoveFile() {
@@ -536,10 +449,6 @@
 
 
     function opendeleteModel(id) {
-
-        document.getElementById('hdnintId').value = id;
-    }
-    function openstatusModel(id) {
 
         document.getElementById('hdnintId').value = id;
     }

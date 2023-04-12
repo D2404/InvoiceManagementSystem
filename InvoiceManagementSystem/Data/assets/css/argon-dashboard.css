@@ -20850,8 +20850,9 @@ fieldset:disabled .btn {
     background: transparent;
 }
 
-.card {
-    box-shadow: 0 0 2rem 0 rgba(136, 152, 170, 0.15);
+
+.card:hover {
+    box-shadow: 0 0 11px rgba(33,33,33,.2);
 }
 
     .card .card-header {
@@ -21677,8 +21678,9 @@ label,
 }
 
 .bg-gradient-info {
-    background-image: linear-gradient(310deg, #1171ef 0%, #11cdef 100%);
+    background-image: linear-gradient(to top,#1861f2 0%,#0378ff 71%,#73c0ff 100%);
 }
+
 
 .bg-gradient-warning {
     background-image: linear-gradient(310deg, #fb6340 0%, #fbb140 100%);
@@ -21693,7 +21695,7 @@ label,
 }
 
 .bg-gradient-dark {
-    background-image: linear-gradient(310deg, #212229 0%, #212529 100%);
+    background-image: linear-gradient(to top,#070708 0%,#070708 11%,#3d3d40 100%);
 }
 
 .bg-gradient-faded-primary {

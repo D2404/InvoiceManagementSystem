@@ -818,6 +818,11 @@
     <Content Include="Views\Fees\Fees.cshtml" />
     <Content Include="Views\Fees\_ClassWiseFeesListPartial.cshtml" />
     <Content Include="Views\Home\_ClassRoomList.cshtml" />
+    <Content Include="Views\Home\_SubjectList.cshtml" />
+    <Content Include="Views\Home\_TeacherList.cshtml" />
+    <Content Include="Views\Home\_StudentList.cshtml" />
+    <Content Include="Views\Exam\ExamDetails.cshtml" />
+    <Content Include="Views\Exam\_ExamDetailsListPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

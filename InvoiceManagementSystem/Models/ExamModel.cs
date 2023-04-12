@@ -22,6 +22,7 @@ namespace InvoiceManagementSystem.Models
         public string ClassNo { get; set; }
         public int ClassId { get; set; }
         public int UserId { get; set; }
+        public DateTime Date { get; set; }
         public int intActive { get; set; }
         public bool IsActive { get; set; }
         public string Response { get; set; }
@@ -157,5 +158,124 @@ namespace InvoiceManagementSystem.Models
             }
             return cls;
         }
+
+
+        public ExamModel addExamDetails(ExamModel cls)
+        {
+            try
+            {
+                conn.Open();
+                SqlCommand cmd = new SqlCommand("AddUpdateExamDetails", conn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@Id", SqlDbType.Int).Value = cls.Id;
+                cmd.Parameters.AddWithValue("@ClassId", cls.ClassId);
+                cmd.Parameters.AddWithValue("@SubjectId", cls.SubjectId);
+                cmd.Parameters.AddWithValue("@Date", cls.Date);
+                cmd.Parameters.AddWithValue("@UserId", objCommon.getUserIdFromSession());
+
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                cmd.CommandTimeout = 0;
+                da.ReturnProviderSpecificTypes = true;
+                DataTable dt = new DataTable();
+                da.Fill(dt);
+                conn.Close();
+                if (dt.Rows.Count > 0)
+                {
+                    string intRefId = dt.Rows[0][0].ToString();
+                    if (intRefId == "1")
+                    {
+                        cls.Response = "Success";
+                    }
+                    else if (intRefId == "2")
+                    {
+                        cls.Response = "Updated";
+                    }
+                    else if (intRefId == "-1")
+                    {
+                        cls.Response = "Exists";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                if (conn.State == ConnectionState.Open)
+                {
+                    conn.Close();
+                }
+            }
+
+            return cls;
+        }
+
+        public ExamModel GetExamDetails(ExamModel cls)
+        {
+            try
+            {
+                List<ExamModel> LSTList = new List<ExamModel>();
+                conn.Open();
+                SqlCommand cmd = new SqlCommand("sp_GetSingleExamDetails", conn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@Id", cls.Id);
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                DataTable dt = new DataTable();
+                da.Fill(dt);
+                conn.Close();
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    for (var i = 0; i < dt.Rows.Count; i++)
+                    {
+                        ExamModel obj = new ExamModel();
+                        obj.Id = Convert.ToInt32(dt.Rows[i]["Id"] == null || dt.Rows[i]["Id"].ToString().Trim() == "" ? null : dt.Rows[i]["Id"].ToString());
+                        obj.ClassId = Convert.ToInt32(dt.Rows[i]["ClassId"] == null || dt.Rows[i]["ClassId"].ToString().Trim() == "" ? null : dt.Rows[i]["ClassId"].ToString());
+                        obj.SubjectId = Convert.ToInt32(dt.Rows[i]["SubjectId"] == null || dt.Rows[i]["SubjectId"].ToString().Trim() == "" ? null : dt.Rows[i]["SubjectId"].ToString());
+                        LSTList.Add(obj);
+                    }
+                }
+                cls.LSTExamList = LSTList;
+                return cls;
+            }
+            catch (Exception ex)
+            {
+                if (conn.State == ConnectionState.Open)
+                {
+                    conn.Close();
+                }
+                throw ex;
+            }
+        }
+
+        public ExamModel deleteExamDetails(ExamModel cls)
+        {
+            try
+            {
+                conn.Open();
+                SqlCommand cmd = new SqlCommand("sp_DeleteExamDetails", conn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@Id", cls.Id);
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                cmd.CommandTimeout = 0;
+                da.ReturnProviderSpecificTypes = true;
+                DataTable dt = new DataTable();
+                da.Fill(dt);
+                conn.Close();
+                if (dt.Rows[0][0].ToString() == "1")
+                {
+                    cls.Response = "Success";
+                }
+                else if (dt.Rows[0][0].ToString() == "2")
+                {
+                    cls.Response = "dependency";
+                }
+            }
+            catch (Exception ex)
+            {
+                if (conn.State == ConnectionState.Open)
+                {
+                    conn.Close();
+                }
+            }
+            return cls;
+        }
+
     }
 }
