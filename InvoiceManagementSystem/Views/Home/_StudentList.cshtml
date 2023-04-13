@@ -3,14 +3,14 @@
 <table class="table align-items-center mb-0">
     <thead>
         <tr>
-            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Sr No.</th>
-            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Profile</th>
-            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Full Name</th>
-            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">User Name</th>
-            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Class No</th>
-            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Roll No</th>
-            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Gender</th>
-            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Status</th>
+            <th class="text-uppercase text-white text-xxs font-weight-bolder opacity-7">Sr No.</th>
+            <th class="text-uppercase text-white text-xxs font-weight-bolder opacity-7">Profile</th>
+            <th class="text-uppercase text-white text-xxs font-weight-bolder opacity-7">Full Name</th>
+            <th class="text-uppercase text-white text-xxs font-weight-bolder opacity-7">User Name</th>
+            <th class="text-uppercase text-white text-xxs font-weight-bolder opacity-7">Class No</th>
+            <th class="text-uppercase text-white text-xxs font-weight-bolder opacity-7">Roll No</th>
+            <th class="text-uppercase text-white text-xxs font-weight-bolder opacity-7">Gender</th>
+            <th class="text-uppercase text-white text-xxs font-weight-bolder opacity-7 ps-2">Status</th>
            
 
         </tr>
@@ -23,7 +23,7 @@
             var item = Model.LSTStudentList[i];
     <tr>
         <td>
-            <p class="text-xs font-weight-bold mb-0" style="text-align: center;">@item.ROWNUMBER</p>
+            <p class="text-xs font-weight-bold mb-0" style="text-align: center; color: white">@item.ROWNUMBER</p>
             @*<p class="text-xs text-secondary mb-0">Organization</p>*@
         </td>
         @if (item.ProfileImg == null || item.ProfileImg == "")
@@ -36,34 +36,34 @@
         <td>
             <div class="d-flex px-2 py-1">
                 <div class="d-flex flex-column justify-content-center">
-                    <h5 class="text-xs font-weight-bold mb-0" style="text-align: left;">@item.FullName</h5>
+                    <h5 class="text-xs font-weight-bold mb-0" style="text-align: left; color: white">@item.FullName</h5>
                 </div>
             </div>
         </td>
         <td>
-            <p class="text-xs font-weight-bold mb-0" style="text-align: left;">@item.UserName</p>
+            <p class="text-xs font-weight-bold mb-0" style="text-align: left; color: white">@item.UserName</p>
         </td>
 
         <td>
-            <p class="text-xs font-weight-bold mb-0" style="text-align: left;">@item.ClassNo</p>
+            <p class="text-xs font-weight-bold mb-0" style="text-align: left; color: white">@item.ClassNo</p>
         
         </td>
 
         <td>
-            <p class="text-xs font-weight-bold mb-0" style="text-align: left;">@item.RollNo</p>
+            <p class="text-xs font-weight-bold mb-0" style="text-align: left; color: white">@item.RollNo</p>
         </td>
         
         @if (item.Gender == true)
         {
-            <td><p class="text-xs font-weight-bold mb-0" style="text-align: left;">Male</p></td> 
+            <td><p class="text-xs font-weight-bold mb-0" style="text-align: left; color: white">Male</p></td> 
         }
         else
         {
-            <td><p class="text-xs font-weight-bold mb-0" style="text-align: left;">Female</p></td>
+            <td><p class="text-xs font-weight-bold mb-0" style="text-align: left; color: white">Female</p></td>
         }
         <td>
             
-                <a style="margin-left:10px" class="text-xs font-weight-bold mb-0"><i class="fa fa-dot-circle-o text-success"></i> Active</a> 
+                <a style="margin-left: 10px; color: white " class="text-xs font-weight-bold mb-0"><i class="fa fa-dot-circle-o text-success"></i> Active</a> 
             
         </td>
         
@@ -75,7 +75,7 @@
             {
                 <tr>
                     <td colspan="7">
-                        <p class="text-xs font-weight-bold mb-0"  style="text-align: center;"><b>No Record Found</b></p>
+                        <p class="text-xs font-weight-bold mb-0"  style="text-align: center;color:white"><b>No Record Found</b></p>
                         @*<h5 style="text-align: center;"><b>No Record Found</b></h5>*@
                     </td>
                 </tr>
@@ -107,7 +107,7 @@
                 {
                     end = Model.LSTStudentList[0].TotalRecord;
                 }
-                <span id="spnTotalRecords" class="dataTables_info" Department="status" aria-live="polite" style="padding: 52px 27px 10px 18px; float: left; color: black;font-size:13px">Showing @start to @end of @Model.LSTStudentList[0].TotalRecord  entries</span>
+                <span id="spnTotalRecords" class="dataTables_info" Department="status" aria-live="polite" style="padding: 52px 27px 10px 18px; float: left; color: white;font-size:13px">Showing @start to @end of @Model.LSTStudentList[0].TotalRecord  entries</span>
             }
 
             <div id="divPagination">

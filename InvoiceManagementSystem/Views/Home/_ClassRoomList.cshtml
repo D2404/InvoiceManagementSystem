@@ -1,11 +1,11 @@
 ﻿@model InvoiceManagementSystem.Models.ClassRoomModel
 
 <table class="table align-items-center mb-0">
-    <thead>
+    <thead >
         <tr>
-            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-20">Sr No.</th>
-            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-20">Name</th>
-            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-20">Status</th>
+            <th class="text-uppercase text-white text-xxs font-weight-bolder opacity-20">Sr No.</th>
+            <th class="text-uppercase text-white text-xxs font-weight-bolder opacity-20">Name</th>
+            <th class="text-uppercase text-white text-xxs font-weight-bolder opacity-20">Status</th>
         </tr>
     </thead>
     @if (Model != null && Model.LSTClassRoomList.Count > 0)
@@ -19,19 +19,19 @@
         var item = Model.LSTClassRoomList[i];
     <tr>
         <td>
-            <p class="text-xs font-weight-bold mb-0" style="margin-left:22px">@no</p>
+            <p class="text-xs font-weight-bold mb-0" style="margin-left:22px;color:white">@no</p>
             @*<p class="text-xs text-secondary mb-0">Organization</p>*@
         </td>
         <td>
             <div class="d-flex px-2 py-1">
                 <div class="d-flex flex-column justify-content-center">
-                    <h5 class="text-xs font-weight-bold mb-0" style="margin-left:12px">@item.ClassNo</h5>
+                    <h5 class="text-xs font-weight-bold mb-0" style="margin-left:12px;color:white">@item.ClassNo</h5>
                 </div>
             </div>
         </td>
         <td>
             
-                <a style="margin-left:10px" class="text-xs font-weight-bold mb-0"><i class="fa fa-dot-circle-o text-success"></i> Active</a>
+            <a style="margin-left:10px;color:white" class="text-xs font-weight-bold mb-0"><i class="fa fa-dot-circle-o text-success"></i> Active</a>
             
         </td>
     </tr>
@@ -72,7 +72,7 @@
                 {
                     end = Model.LSTClassRoomList[0].TotalRecord;
                 }
-                <span id="spnTotalRecords" class="dataTables_info" Department="status" aria-live="polite" style="padding: 52px 27px 10px 18px; float: left; color: black;font-size:13px">Showing @start to @end of @Model.LSTClassRoomList[0].TotalRecord  entries</span>}
+                <span id="spnTotalRecords" class="dataTables_info" Department="status" aria-live="polite" style="padding: 52px 27px 10px 18px; float: left; color: white;font-size:13px">Showing @start to @end of @Model.LSTClassRoomList[0].TotalRecord  entries</span>}
 
             <div id="divPagination">
                 @if (Model.LSTClassRoomList != null && Model.LSTClassRoomList.Count > 0)

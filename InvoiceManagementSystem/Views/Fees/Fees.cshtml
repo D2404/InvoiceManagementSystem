@@ -124,6 +124,7 @@
                             <select class="form-control" id="ClassId" onchange="onClass();">
                                 <option value="0">Select here..</option>
                             </select>
+                            <span id="errClassNo" class="text-xs font-weight-bold mb-0" style="color:red"></span>
                         </div>
                     </div>
                     <div class="col-sm-6">
@@ -132,6 +133,7 @@
                             <select class="form-control js-example-basic-single" id="StudentId" onchange="onStudent();">
                                 <option value="0">Select here..</option>
                             </select>
+                            <span id="errStudent" class="text-xs font-weight-bold mb-0" style="color:red"></span>
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -140,12 +142,21 @@
                             <span class="form-control" id="RollNo" name="RollNo"></span>
                         </div>
                     </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="example-text-input" class="form-control-label">Date</label>
+                            <input class="form-control floating datetimepicker" type="Date" id="Date" autocomplete="off">
+                            @*<input class="form-control datetimepicker" type="date" id="Dob" placeholder="Enter Dob">*@
+                            <span id="errDate" class="text-xs font-weight-bold mb-0" style="color:red"></span>
+                        </div>
+                    </div>
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label for="basicinput"><b>Month</b></label>
                             <select class="form-control" id="MonthId">
                                 <option value="0">Select here..</option>
                             </select>
+                            <span id="errMonth" class="text-xs font-weight-bold mb-0" style="color:red"></span>
                         </div>
                     </div>
                     <div class="col-sm-6">
@@ -154,12 +165,13 @@
                             <select class="form-control" id="YearId">
                                 <option value="0">Select here..</option>
                             </select>
+                            <span id="errYear" class="text-xs font-weight-bold mb-0" style="color:red"></span>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="example-text-input" class="form-control-label">FeesAmount <span class="text-danger">*</span></label>
-                            <input class="form-control" type="text" id="FeesAmount" placeholder="Enter Out of marks">
+                            <input class="form-control" type="text" id="FeesAmount" placeholder="Enter Fees Amount">
                             <span id="errFeesAmount" class="text-xs font-weight-bold mb-0" style="color:red"></span>
                         </div>
                     </div>
@@ -167,17 +179,17 @@
                     <h6 style="color:green">For your Information </h6>
 
                     <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="example-text-input" class="form-control-label">Monthly Fees</label>
-                                <span class="form-control" id="Monthly"></span>
-                            </div>
+                        <div class="form-group">
+                            <label for="example-text-input" class="form-control-label">Monthly Fees</label>
+                            <span class="form-control" id="Monthly"></span>
                         </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="example-text-input" class="form-control-label">Yearly Fees</label>
-                                <span contenteditable="false" class="form-control" id="Yearly" ></span>
-                            </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="example-text-input" class="form-control-label">Yearly Fees</label>
+                            <span contenteditable="false" class="form-control" id="Yearly"></span>
                         </div>
+                    </div>
                 </div>
             </div>
             <div class="modal-footer">
@@ -240,7 +252,7 @@
         document.getElementById("myDropdown").classList.toggle("show");
     }
     $("#FeesAmount").keyup(function () {
-        debugger
+        
         var amt = $('#FeesAmount').val();
        
         var Yearly = $('#Yearly').text();
@@ -259,14 +271,35 @@
         })
     });
     function InsertData() {
-        debugger
+        
         var val = true;
         var Id = $('#hdnintId').val();
         var ClassId = $('#ClassId').val();
+        if (ClassId == 0) {
+            $("#errClassNo").html("Please select classroom.");
+            val = false;
+        }
         var StudentId = $('#StudentId').val();
+        if (StudentId == 0) {
+            $("#errStudent").html("Please select student.");
+            val = false;
+        }
         var MonthId = $('#MonthId').val();
+        if (MonthId == 0) {
+            $("#errMonth").html("Please select month.");
+            val = false;
+        }
         var YearId = $('#YearId').val();
+        if (YearId == 0) {
+            $("#errYear").html("Please select year.");
+            val = false;
+        }
         var SearchText = $('#SearchText').val();
+        var Date = $('#Date').val();
+        if (Date == "" || /\S/.test(Date) == false) {
+            $("#errDate").html("Please select date.");
+            val = false;
+        }
         var RollNo = $('#RollNo').text();
         var FeesAmount = $('#FeesAmount').val();
         if (FeesAmount == "" || /\S/.test(FeesAmount) == false) {
@@ -283,6 +316,7 @@
         formData.append('MonthId', MonthId);
         formData.append('YearId', YearId);
         formData.append('RollNo', RollNo);
+        formData.append('Date', Date);
         formData.append('FeesAmount', FeesAmount);
         formData.append('SearchText', SearchText);
         ShowWait();
@@ -398,7 +432,7 @@
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (data) {
-                debugger
+                
                 $('#StudentId').empty();
                 $("#StudentId").append($("<option     />").val("0").text("Select student name.."));
                 $.each(data, function (i, v) {
@@ -431,7 +465,7 @@
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (data) {
-                debugger
+                
                 $('#RollNo').empty();
                 $("#RollNo").append();
                 $.each(data, function (i, v) {
@@ -446,7 +480,7 @@
         });
     }
     function GetFeesList(page) {
-        debugger
+        
         var Id = 0;
         var SearchText = document.getElementById('SearchText').value;
         //var ClassId = document.getElementById('ClassId').value;
@@ -490,7 +524,7 @@
         });
     }
     function GetSingleFeesData(id) {
-        debugger
+        
         document.getElementById('btnAdd').innerHTML = "Update";
         $("#btnAdd").attr('title', 'Update');
         document.getElementById('PopupTitle').innerHTML = "Update Fees";
@@ -505,7 +539,7 @@
                 cls: cls
             }),
             success: function (data) {
-                debugger
+                
                 if (data != null) {
                     document.getElementById('hdnintId').value = data.LSTFeesList[0].Id;
                     $('#ClassId').val(data.LSTFeesList[0].ClassId).trigger("change");
@@ -556,14 +590,18 @@
         });
     }
     function Clear() {
-        document.getElementById('RollNo').value = "";
-        $('#errRollNo').html("");
-        document.getElementById('Outofmarks').value = "";
-        $('#errOutofmarks').html("");
-        document.getElementById('Totalmarks').value = "";
-        $('#errTotalmarks').html("");
         $("#ClassId").val('0').trigger('change');
-        $("#SubjectId").val('0').trigger('change');
+        $('#errClassNo').html("");
+        $("#StudentId").val('0').trigger('change');
+        $('#errStudent').html("");
+        $("#MonthId").val('0').trigger('change');
+        $('#errMonth').html("");
+        $("#YearId").val('0').trigger('change');
+        $('#errYear').html("");
+        document.getElementById('Date').value = "";
+        $('#errDate').html("");
+        document.getElementById('FeesAmount').value = "";
+        $('#errFeesAmount').html("");
         document.getElementById('btnAdd').innerHTML = "Add";
         $("#btnAdd").attr('title', 'Upload');
         document.getElementById('PopupTitle').innerHTML = "Add Fees";
@@ -571,14 +609,18 @@
     function ClearData(type) {
         if (type == 1) {
             var Id = document.getElementById('hdnintId').value;
-            document.getElementById('RollNo').value = "";
-            $('#errRollNo').html("");
-            document.getElementById('Outofmarks').value = "";
-            $('#errOutofmarks').html("");
-            document.getElementById('Totalmarks').value = "";
-            $('#errTotalmarks').html("");
             $("#ClassId").val('0').trigger('change');
-            $("#SubjectId").val('0').trigger('change');
+            $('#errClassNo').html("");
+            $("#StudentId").val('0').trigger('change');
+            $('#errStudent').html("");
+            $("#MonthId").val('0').trigger('change');
+            $('#errMonth').html("");
+            $("#YearId").val('0').trigger('change');
+            $('#errYear').html("");
+            document.getElementById('Date').value = "";
+            $('#errDate').html("");
+            document.getElementById('FeesAmount').value = "";
+            $('#errFeesAmount').html("");
             if (Id == "0") {
                 document.getElementById('hdnintId').value = "0";
                 document.getElementById('btnAdd').innerHTML = "Add";

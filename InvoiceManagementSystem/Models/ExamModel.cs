@@ -22,7 +22,7 @@ namespace InvoiceManagementSystem.Models
         public string ClassNo { get; set; }
         public int ClassId { get; set; }
         public int UserId { get; set; }
-        public DateTime Date { get; set; }
+        public string Date { get; set; }
         public int intActive { get; set; }
         public bool IsActive { get; set; }
         public string Response { get; set; }

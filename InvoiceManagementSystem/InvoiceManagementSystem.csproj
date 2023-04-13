@@ -421,6 +421,7 @@
     <Content Include="Data\assets\img\logos\mastercard.png" />
     <Content Include="Data\assets\img\logos\visa.png" />
     <Content Include="Data\assets\img\marie.jpg" />
+    <Content Include="Data\assets\img\muktajivan-school-logo.png" />
     <Content Include="Data\assets\img\shapes\pattern-lines.svg" />
     <Content Include="Data\assets\img\shapes\shape-1.svg" />
     <Content Include="Data\assets\img\shapes\shape-2.svg" />
