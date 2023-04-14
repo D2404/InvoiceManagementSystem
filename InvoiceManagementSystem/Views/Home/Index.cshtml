@@ -22,12 +22,12 @@
 
                     {
                         <div class="box">
-                            <div class="card card-facebook" >
+                            <div class="card card-facebook">
                                 <div class="card-body p-3" style="background: linear-gradient( to right, #1658f2, #70e5ff);">
                                     <div class="row">
                                         <div class="col-8">
                                             <div class="numbers">
-                                                <p class="text-sm mb-0 text-uppercase font-weight-bold"style="color:white">Total Class</p>
+                                                <p class="text-sm mb-0 text-uppercase font-weight-bold" style="color:white">Total Class</p>
 
                                                 <a href="javascript:void(0)" onclick="ClassRoom(1);">
                                                     <h5 class="font-weight-bolder" style="color: white; text-decoration: underline">@(Model.LSTDashBoardList[0].TotalClassRoom == 0 ? 0 : Model.LSTDashBoardList[0].TotalClassRoom)</h5>
@@ -44,7 +44,7 @@
                             </div>
                         </div>
                     }
- 
+
                 }
             </div>
             <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
@@ -53,9 +53,9 @@
                         <div class="row">
                             <div class="col-8">
                                 <div class="numbers">
-                                    <p class="text-sm mb-0 text-uppercase font-weight-bold"style="color:white">Total Subject</p>
+                                    <p class="text-sm mb-0 text-uppercase font-weight-bold" style="color:white">Total Subject</p>
                                     <a href="javascript:void(0)" onclick="Subject(1);">
-                                        <h5 class="font-weight-bolder"style="color: white; text-decoration: underline">@(Model.LSTDashBoardList[0].TotalSubject == 0 ? 0 : Model.LSTDashBoardList[0].TotalSubject)</h5>
+                                        <h5 class="font-weight-bolder" style="color: white; text-decoration: underline">@(Model.LSTDashBoardList[0].TotalSubject == 0 ? 0 : Model.LSTDashBoardList[0].TotalSubject)</h5>
                                     </a>
                                 </div>
                             </div>
@@ -74,9 +74,9 @@
                         <div class="row">
                             <div class="col-8">
                                 <div class="numbers">
-                                    <p class="text-sm mb-0 text-uppercase font-weight-bold"style="color:white">Total Student</p>
+                                    <p class="text-sm mb-0 text-uppercase font-weight-bold" style="color:white">Total Student</p>
                                     <a href="javascript:void(0)" onclick="Student(1);">
-                                        <h5 class="font-weight-bolder"style="color: white; text-decoration: underline">@(Model.LSTDashBoardList[0].TotalStudent == 0 ? 0 : Model.LSTDashBoardList[0].TotalStudent)</h5>
+                                        <h5 class="font-weight-bolder" style="color: white; text-decoration: underline">@(Model.LSTDashBoardList[0].TotalStudent == 0 ? 0 : Model.LSTDashBoardList[0].TotalStudent)</h5>
                                     </a>
                                 </div>
                             </div>
@@ -89,15 +89,15 @@
                     </div>
                 </div>
             </div>
-            <div class="col-xl-3 col-sm-6" >
+            <div class="col-xl-3 col-sm-6">
                 <div class="card" id="box">
                     <div class="card-body p-3" style="background: linear-gradient(to right, #15282e, #4890b1) !important ">
                         <div class="row">
                             <div class="col-8">
                                 <div class="numbers">
-                                    <p class="text-sm mb-0 text-uppercase font-weight-bold"style="color:white">Total Teacher</p>
+                                    <p class="text-sm mb-0 text-uppercase font-weight-bold" style="color:white">Total Teacher</p>
                                     <a href="javascript:void(0)" onclick="Teacher(1);">
-                                        <h5 class="font-weight-bolder"style="color: white; text-decoration: underline">@(Model.LSTDashBoardList[0].TotalTeacher == 0 ? 0 : Model.LSTDashBoardList[0].TotalTeacher)</h5>
+                                        <h5 class="font-weight-bolder" style="color: white; text-decoration: underline">@(Model.LSTDashBoardList[0].TotalTeacher == 0 ? 0 : Model.LSTDashBoardList[0].TotalTeacher)</h5>
                                     </a>
                                 </div>
                             </div>
@@ -122,7 +122,7 @@
                             if (Model.LSTTeacherList[i].Dob != null && Model.LSTTeacherList[i].Type == 1)
                             {
                                 <div class="card" id="box" style="background: linear-gradient(to right, #fa7000ad, #5848b1b5) !important ">
-                                    <div class="card-body p-3" >
+                                    <div class="card-body p-3">
                                         <div class="row">
                                             <div class="col-8">
                                                 <div class="numbers">
@@ -345,30 +345,94 @@
     }
     else if (InvoiceManagementSystem.Models.SessionModel.RoleId == 2)
     {
-        <div class="row">
-           
-            <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
-                <div class="card">
-                    <div class="card-body p-3">
-                        <div class="row">
-                            <div class="col-8">
-                                <div class="numbers">
-                                    <p class="text-sm mb-0 text-uppercase font-weight-bold">Total Student</p>
-                                    <a href="javascript:void(0)" onclick="Student(1);">
-                                        <h5 class="font-weight-bolder" style="color: cornflowerblue; text-decoration: underline">@(Model.LSTDashBoardList[0].TotalStudent == 0 ? 0 : Model.LSTDashBoardList[0].TotalStudent)</h5>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="col-4 text-end">
-                                <div class="icon icon-shape bg-gradient-success shadow-success text-center rounded-circle">
-                                    <i class="ni ni-paper-diploma text-lg opacity-10" aria-hidden="true"></i>
-                                </div>
-                            </div>
+<div class="row">
+
+    <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+        <div class="card">
+            <div class="card-body p-3" style="background: linear-gradient( to right, #1658f2, #70e5ff);">
+                <div class="row">
+                    <div class="col-8">
+                        <div class="numbers">
+                            <p class="text-sm mb-0 text-uppercase font-weight-bold" style="color:white">ClassName</p>
+                            <a href="javascript:void(0)">
+                                <h6 class="font-weight-bolder" style="color: white">@(Model.LSTDashBoardList[0].ClassNo == "" ? null : Model.LSTDashBoardList[0].ClassNo)</h6>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-4 text-end">
+                        <div class="icon icon-shape bg-gradient-dark shadow-success text-center rounded-circle">
+                            <i class="ni ni-paper-diploma text-lg opacity-10" aria-hidden="true"></i>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
+    <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+        <div class="card" id="box">
+            <div class="card-body p-3" style="background: linear-gradient( to right, #025738, #64f5b8) !important ">
+                <div class="row">
+                    <div class="col-8">
+                        <div class="numbers">
+                            <p class="text-sm mb-0 text-uppercase font-weight-bold" style="color:white">Total Subject</p>
+                            <a href="javascript:void(0)" onclick="TeacherSubject(1);">
+                                <h5 class="font-weight-bolder" style="color: white; text-decoration: underline">@(Model.LSTDashBoardList[0].TotalTeacherSubject == 0 ? 0 : Model.LSTDashBoardList[0].TotalTeacherSubject)</h5>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-4 text-end">
+                        <div class="icon icon-shape bg-gradient-dark shadow-dark text-center rounded-circle">
+                            <i class="fa fa-book text-lg opacity-10" aria-hidden="true"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+        <div class="card" id="box">
+            <div class="card-body p-3" style="background: linear-gradient( to right, #cf3c04, #f5df1d) ">
+                <div class="row">
+                    <div class="col-8">
+                        <div class="numbers">
+                            <p class="text-sm mb-0 text-uppercase font-weight-bold" style="color:white">Total Student</p>
+                            <a href="javascript:void(0)" onclick="Student(1);">
+                                <h5 class="font-weight-bolder" style="color: white; text-decoration: underline">@(Model.LSTDashBoardList[0].TotalStudent == 0 ? 0 : Model.LSTDashBoardList[0].TotalStudent)</h5>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-4 text-end">
+                        <div class="icon icon-shape bg-gradient-dark shadow-dark text-center rounded-circle">
+                            <i class="fa fa-users text-lg opacity-10" aria-hidden="true"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+        <div class="card" id="box">
+            <div class="card-body p-3" style="background: linear-gradient(to right, #15282e, #4890b1) !important ">
+                <div class="row">
+                    <div class="col-8">
+                        <div class="numbers">
+                            <p class="text-sm mb-0 text-uppercase font-weight-bold" style="color:white">Total Attend</p>
+                            <a href="javascript:void(0)" onclick="TeacherAttendance(1);">
+                           
+                                <h6 class="font-weight-bolder" style="color: white; text-decoration: underline">@(Model.LSTDashBoardList[0].PresentDays == 0 ? 0 : Model.LSTDashBoardList[0].PresentDays)  %</h6>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-4 text-end">
+                        <div class="icon icon-shape bg-gradient-dark shadow-dark text-center rounded-circle">
+                            <i class="fa fa-users text-lg opacity-10" aria-hidden="true"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
         <br />
         <div class="row" style="margin-left:1px">
             <div class="col-xl-5 col-sm-6 mb-xl-0 mb-6">
@@ -512,7 +576,7 @@
                 <div class="card-header pb-0" style="background: linear-gradient(to right, #15282e, #4890b1) !important ">
                     <h6 style="color:white">ClassRoom List</h6>
                 </div>
-                
+
                 <div class="card-body px-0 pt-0 pb-2">
                     <div class="table-responsive p-0">
                         <div id="ClassRoomList"></div>
@@ -619,6 +683,70 @@
     </div>
 </div>
 
+<div class="container-fluid py-4" id="TeacherSubject">
+    <div class="row">
+        <div class="col-sm-12 col-md-12">
+            <div class="dataTables_length" id="DataTables_Table_0_length">
+                <label style="color:black">
+                    Show
+                    <select id="PageSize" onchange="TeacherSubject(1)" class="drpselect">
+                        <option value="10">10</option>
+                        <option value="25">25</option>
+                        <option value="50">50</option>
+                        <option value="100">100</option>
+                    </select> entries
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="card mb-4" style="background: linear-gradient(to right, #15282e, #4890b1) !important ">
+                <div class="card-header pb-0" style="background: linear-gradient(to right, #15282e, #4890b1) !important ">
+                    <h6 style="color:white">TeacherSubject List</h6>
+                </div>
+                <div class="card-body px-0 pt-0 pb-2">
+                    <div class="table-responsive p-0">
+                        <div id="TeacherSubjectList"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid py-4" id="TeacherAttendance">
+    <div class="row">
+        <div class="col-sm-12 col-md-12">
+            <div class="dataTables_length" id="DataTables_Table_0_length">
+                <label style="color:black">
+                    Show
+                    <select id="PageSize" onchange="TeacherAttendance(1)" class="drpselect">
+                        <option value="10">10</option>
+                        <option value="25">25</option>
+                        <option value="50">50</option>
+                        <option value="100">100</option>
+                    </select> entries
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="card mb-4" style="background: linear-gradient(to right, #15282e, #4890b1) !important ">
+                <div class="card-header pb-0" style="background: linear-gradient(to right, #15282e, #4890b1) !important ">
+                    <h6 style="color:white">TeacherAttendance List</h6>
+                </div>
+                <div class="card-body px-0 pt-0 pb-2">
+                    <div class="table-responsive p-0">
+                        <div id="TeacherAttendanceList"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!--End of Datetime js/css-->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script>
@@ -628,11 +756,15 @@
         $('#Subject').hide();
         $('#Teacher').hide();
         $('#Student').hide();
+        $('#TeacherSubject').hide();
+        $('#TeacherAttendance').hide();
     });
     function ClassRoom(page) {
         $('#Subject').hide();
         $('#Teacher').hide();
         $('#Student').hide();
+        $('#TeacherSubject').hide();
+        $('#TeacherAttendance').hide();
         $('#Class').show();
         var Id = 0;
         if (document.getElementById('PageSize') != null) {
@@ -661,7 +793,7 @@
                 cls: cls
             }),
             success: function (data) {
-                
+
                 $('#ClassRoomList').empty();
                 $('#ClassRoomList').append(data);
                 HideWait();
@@ -677,6 +809,9 @@
         $('#Class').hide();
         $('#Teacher').hide();
         $('#Student').hide();
+        $('#TeacherSubject').hide();
+        $('#TeacherAttendance').hide();
+
         $('#Subject').show();
         var Id = 0;
         if (document.getElementById('PageSize') != null) {
@@ -721,6 +856,8 @@
         $('#Class').hide();
         $('#Subject').hide();
         $('#Student').hide();
+        $('#TeacherSubject').hide();
+        $('#TeacherAttendance').hide();
         $('#Teacher').show();
         var Id = 0;
         if (document.getElementById('PageSize') != null) {
@@ -765,6 +902,9 @@
         $('#Class').hide();
         $('#Subject').hide();
         $('#Teacher').hide();
+        $('#TeacherSubject').hide();
+        $('#TeacherAttendance').hide();
+
         $('#Student').show();
         var Id = 0;
         if (document.getElementById('PageSize') != null) {
@@ -796,6 +936,99 @@
 
                 $('#StudentList').empty();
                 $('#StudentList').append(data);
+                HideWait();
+            },
+            error: function (xhr) {
+                HideWait();
+                alert('errors');
+            }
+        });
+    }
+
+    function TeacherSubject(page) {
+        $('#Class').hide();
+        $('#Subject').hide();
+        $('#Teacher').hide();
+        $('#Student').hide();
+        $('#TeacherAttendance').hide();
+        $('#TeacherSubject').show();
+        var Id = 0;
+        if (document.getElementById('PageSize') != null) {
+            PageSize = document.getElementById('PageSize').value;
+        }
+        else {
+            PageSize = 10;
+        }
+        if (page == undefined) {
+            page = 1;
+        }
+        var PageIndex = page;
+
+        PageIndex = page;
+        var cls = {
+            Id: Id,
+            PageSize: PageSize,
+            PageIndex: PageIndex,
+        }
+        ShowWait();
+        $.ajax({
+            url: '/Home/GetTeacherSubject',
+            contentType: "application/json; charset=utf-8",
+            type: "POST",
+            data: JSON.stringify({
+                cls: cls
+            }),
+            success: function (data) {
+
+                $('#TeacherSubjectList').empty();
+                $('#TeacherSubjectList').append(data);
+                HideWait();
+            },
+            error: function (xhr) {
+                HideWait();
+                alert('errors');
+            }
+        });
+    }
+
+    function TeacherAttendance(page) {
+        $('#Class').hide();
+        $('#Subject').hide();
+        $('#Teacher').hide();
+        $('#Student').hide();
+        $('#TeacherSubject').hide();
+        $('#TeacherAttendance').show();
+        
+        var Id = 0;
+        if (document.getElementById('PageSize') != null) {
+            PageSize = document.getElementById('PageSize').value;
+        }
+        else {
+            PageSize = 10;
+        }
+        if (page == undefined) {
+            page = 1;
+        }
+        var PageIndex = page;
+
+        PageIndex = page;
+        var cls = {
+            Id: Id,
+            PageSize: PageSize,
+            PageIndex: PageIndex,
+        }
+        ShowWait();
+        $.ajax({
+            url: '/Home/GetTeacherAttandence',
+            contentType: "application/json; charset=utf-8",
+            type: "POST",
+            data: JSON.stringify({
+                cls: cls
+            }),
+            success: function (data) {
+
+                $('#TeacherAttendanceList').empty();
+                $('#TeacherAttendanceList').append(data);
                 HideWait();
             },
             error: function (xhr) {

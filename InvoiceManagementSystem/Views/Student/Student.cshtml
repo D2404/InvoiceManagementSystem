@@ -148,6 +148,7 @@
                             <select class="form-control" id="ClassId">
                                 <option value="0">Select ClassRoom</option>
                             </select>
+                            <span id="errClassroom" class="text-xs font-weight-bold mb-0" style="color:red"></span>
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -182,8 +183,8 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="example-text-input" class="form-control-label">Password <span class="text-danger">*</span></label>
-                            <input class="form-control form-control-alternative" type="text" id="Password" placeholder="Enter Email">
-                            <span id="errEmail" class="text-xs font-weight-bold mb-0" style="color:red"></span>
+                            <input class="form-control form-control-alternative" type="text" id="Password" placeholder="Enter Password">
+                            <span id="errPassword" class="text-xs font-weight-bold mb-0" style="color:red"></span>
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -213,6 +214,7 @@
                                 <input type="hidden" id="hdnfile" />
                                 <label for="basicinput"><b>Profile pic</b><span style="color: red">*</span></label>
                                 <input type="file" class="form-control form-control-alternative" name="Profile" id="Profile" accept="image/*">
+                                <span id="errProfile" class="text-xs font-weight-bold mb-0" style="color:red"></span>
                             </div>
                         </div>
                         <div class="form-group" id="divFile" style="display:none">
@@ -355,8 +357,16 @@
                 $("#errFullName").html("");
             }
         }
+        if (ClassId == 0) {
+            $("#errClassroom").html("Please select classroom.");
+            val = false;
+        }
         if (Email == "" || /\S/.test(Email) == false) {
             $("#errEmail").html("Please enter email.");
+            val = false;
+        }
+        if (Password == "" || /\S/.test(Password) == false) {
+            $("#errPassword").html("Please enter password.");
             val = false;
         }
         if (MobileNo == "" || /\S/.test(MobileNo) == false) {
@@ -365,6 +375,10 @@
         }
         if (RollNo == "" || /\S/.test(RollNo) == false) {
             $("#errRollNo").html("Please enter rollno.");
+            val = false;
+        }
+        if (Dob == "" || /\S/.test(Dob) == false) {
+            $("#errDob").html("Please select dob.");
             val = false;
         }
         var Gender = $("input[type='radio']:checked").val();
@@ -382,7 +396,7 @@
         if (hdnfile == null || hdnfile == "") {
             var Profile = document.getElementById('Profile').value;
             if (Profile == null || Profile == "") {
-                alert('Please select image.');
+                $("#errProfile").html('Please select image.');
                 return;
             }
             if (fileCount > 0) {
@@ -682,7 +696,16 @@
         $('#errEmail').html("");
         document.getElementById('MobileNo').value = "";
         $('#errMobile').html("");
+        document.getElementById('RollNo').value = "";
+        $('#errRollNo').html("");
+        $("#ClassId").val('0').trigger('change');
+        $('#errClassroom').html("");
+        document.getElementById('Dob').value = "";
+        $('#errDob').html("");
+        document.getElementById('Password').value = "";
+        $('#errPassword').html("");
         $('#Address').val('');
+        $('#errProfile').html("");
 
         document.getElementById('btnAdd').innerHTML = "Add";
         $("#btnAdd").attr('title', 'Upload');
@@ -692,6 +715,7 @@
     function ClearData(type) {
 
         if (type == 1) {
+          
             var Id = document.getElementById('hdnintId').value;
             document.getElementById('FullName').value = "";
             $('#errFullName').html("");
@@ -701,7 +725,16 @@
             $('#errEmail').html("");
             document.getElementById('MobileNo').value = "";
             $('#errMobile').html("");
+            document.getElementById('RollNo').value = "";
+            $('#errRollNo').html("");
+            $("#ClassId").val('0').trigger('change');
+            $('#errClassroom').html("");
+            document.getElementById('Dob').value = "";
+            $('#errDob').html("");
+            document.getElementById('Password').value = "";
+            $('#errPassword').html("");
             $('#Address').val('');
+            $('#errProfile').html("");
 
             if (Id == "0") {
 

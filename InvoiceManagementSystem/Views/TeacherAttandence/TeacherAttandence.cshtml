@@ -137,7 +137,7 @@ else
         </div>
     </div>
 </div>
-<div class="modal fade" id="TeacherAttandence" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+@*<div class="modal fade" id="TeacherAttandence" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -200,6 +200,67 @@ else
                 <button type="button" id="btnAdd" class="btn bg-gradient-info" onclick="InsertData()">Add</button>
                 <button type="button" class="btn bg-gradient-dark" onclick="ClearData(1)">Clear</button>
                 <input type="hidden" id="hdnintId" value="0" />
+                <input type="hidden" id="MonthId" value="0" />
+                <input type="hidden" id="YearId" value="0" />
+            </div>
+        </div>
+    </div>
+</div>*@
+
+<div class="modal fade" id="TeacherAttandence" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="margin-left:100px">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" style="margin-left:270px"><span id="PopupTitle">Add TeacherAttandence</span></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" style="color:black">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    @*<div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="basicinput"><b>Month</b></label>
+                            <select class="form-control form-control-alternative" id="MonthId">
+                                <option value="0">Select Month</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="basicinput"><b>Year</b></label>
+                            <select class="form-control form-control-alternative" id="YearId">
+                                <option value="0">Select here..</option>
+                            </select>
+                            <span id="errYear" class="text-xs font-weight-bold mb-0" style="color:red"></span>
+                        </div>
+                    </div>*@
+                    <div class="col-sm-4 col-md-4">
+                        <div class="form-group">
+                            <label style="color:white">Date</label>
+                            <input class="form-control floating datetimepicker" type="date" id="Date" autocomplete="off">
+                        </div>
+                    </div>
+                    <div class="col-sm-2 col-md-2">
+
+                        <a class="btn bg-gradient-info" onclick="GetTeacherAttandance(1)">Search</a>
+                    </div>
+
+                    <div class="col-sm-2 col-md-1">
+                        <a class="btn bg-gradient-dark" title="Clear" onclick="ClearData(2)"> Clear </a>
+
+                    </div>
+                    <div class="card-body px-0 pt-0 pb-2">
+                        <div class="table-responsive p-0">
+                            <div id="tblBody1"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="btnAdd" class="btn bg-gradient-info" onclick="InsertData()">Add</button>
+                <button type="button" class="btn bg-gradient-dark" onclick="ClearData(1)">Clear</button>
+                <input type="hidden" id="hdnintId" value="0" />
             </div>
         </div>
     </div>
@@ -252,6 +313,8 @@ else
         $('#FilterDiv').hide();
         GetTeacherAttandenceList(1);
         GetTeacher();
+        GetMonth();
+        GetYear();
     });
     function myFunction() {
         document.getElementById("myDropdown").classList.toggle("show");
@@ -262,6 +325,16 @@ else
         var val = true;
         var Id = $('#hdnintId').val();
         var SearchText = $('#SearchText').val();
+        var MonthId = $('#MonthId').val();
+        if (MonthId == 0) {
+            $("#errMonth").html("Please select month.");
+            val = false;
+        }
+        var YearId = $('#YearId').val();
+        if (YearId == 0) {
+            $("#errYear").html("Please select year.");
+            val = false;
+        }
         var TeacherId = $('#TeacherId').val();
         var Date = $('#Date').val();
         var LeaveType = $('#LeaveType').val();
@@ -282,6 +355,8 @@ else
         formData.append('TeacherId', TeacherId);
         formData.append('Status', Status);
         formData.append('SearchText', SearchText);
+        formData.append('MonthId', MonthId);
+        formData.append('YearId', YearId);
         formData.append('Date', Date);
         formData.append('LeaveType', LeaveType);
         formData.append('Reason', Reason);
@@ -320,6 +395,54 @@ else
             }
         });
     }
+
+    function GetMonth() {
+        
+        var cls = {
+        }
+        $.ajax({
+            url: '/Fees/GetMonth',
+            contentType: "application/json; charset=utf-8",
+            type: "GET",
+            data: JSON.stringify({
+                cls: cls
+            }),
+            success: function (data) {
+                var html = "";
+                html = html + ' <option value="0" selected>Select Month</option>';
+                for (var i = 0; i < data.LSTMonthList.length; i++) {
+                    html = html + '<option value="' + data.LSTMonthList[i].Id + '">' + data.LSTMonthList[i].MonthName + '</option>';
+                    $("#MonthId").empty();
+                    $("#MonthId").append(html);
+                    //$("#ddlClassId").empty();
+                    //$("#ddlClassId").append(html);
+                }
+            }
+        });
+    }
+    function GetYear() {
+        var cls = {
+        }
+        $.ajax({
+            url: '/Fees/GetYear',
+            contentType: "application/json; charset=utf-8",
+            type: "GET",
+            data: JSON.stringify({
+                cls: cls
+            }),
+            success: function (data) {
+                var html = "";
+                html = html + ' <option value="0" selected>Select Year</option>';
+                for (var i = 0; i < data.LSTYearList.length; i++) {
+                    html = html + '<option value="' + data.LSTYearList[i].Id + '">' + data.LSTYearList[i].Year + '</option>';
+                    $("#YearId").empty();
+                    $("#YearId").append(html);
+                    //$("#ddlClassId").empty();
+                    //$("#ddlClassId").append(html);
+                }
+            }
+        });
+    }
     function GetTeacher() {
         var cls = {
         }
@@ -341,6 +464,52 @@ else
                     $("#ddlTeacherId").empty();
                     $("#ddlTeacherId").append(html);
                 }
+            }
+        });
+    }
+
+    function GetTeacherAttandance(page) {
+
+        var Id = 0;
+        
+        var TeacherId = document.getElementById('ddlTeacherId').value;
+        var Date = document.getElementById('Date').value;
+
+        if (document.getElementById('PageSize') != null) {
+            PageSize = document.getElementById('PageSize').value;
+        }
+        else {
+            PageSize = 10;
+        }
+        if (page == undefined) {
+            page = 1;
+        }
+        var PageIndex = page;
+
+        PageIndex = page;
+        var cls = {
+            Id: Id,
+            TeacherId: TeacherId,
+            Date: Date,
+            PageSize: PageSize,
+            PageIndex: PageIndex,
+        }
+        ShowWait();
+        $.ajax({
+            url: '/TeacherAttandence/GetTeacherAttandenceee',
+            contentType: "application/json; charset=utf-8",
+            type: "POST",
+            data: JSON.stringify({
+                cls: cls
+            }),
+            success: function (data) {
+                $('#tblBody1').empty();
+                $('#tblBody1').append(data);
+                HideWait();
+            },
+            error: function (xhr) {
+                HideWait();
+                alert('errors');
             }
         });
     }

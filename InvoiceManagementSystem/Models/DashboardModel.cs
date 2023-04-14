@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
@@ -16,10 +17,17 @@ namespace InvoiceManagementSystem.Models
         public int TotalClassRoom { get; set; }
         public int TotalStudent { get; set; }
         public int TotalTeacher { get; set; }
+        public int TotalTeacherSubject { get; set; }
+       
         public int TotalSubject { get; set; }
+        
+        public decimal TotalAttendance { get; set; }
+        public decimal PresentDays { get; set; }
+        public decimal AbsentDays { get; set; }
         public string Response { get; set; }
         public string Dob { get; set; }
         public string Name { get; set; }
+        
         public string ClassNo { get; set; }
         public int Type { get; set; }
         public List<DashboardModel> LSTDashBoardList { get; set; }
@@ -49,6 +57,46 @@ namespace InvoiceManagementSystem.Models
                         obj.TotalStudent = Convert.ToInt32(dt.Rows[i]["TotalStudent"] == null || dt.Rows[i]["TotalStudent"].ToString().Trim() == "" ? null : dt.Rows[i]["TotalStudent"].ToString());
                         obj.TotalTeacher = Convert.ToInt32(dt.Rows[i]["TotalTeacher"] == null || dt.Rows[i]["TotalTeacher"].ToString().Trim() == "" ? null : dt.Rows[i]["TotalTeacher"].ToString());
                         obj.TotalSubject = Convert.ToInt32(dt.Rows[i]["TotalSubject"] == null || dt.Rows[i]["TotalSubject"].ToString().Trim() == "" ? null : dt.Rows[i]["TotalSubject"].ToString());
+
+                        LSTList.Add(obj);
+                    }
+                }
+                cls.LSTDashBoardList = LSTList;
+                return cls;
+            }
+            catch (Exception ex)
+            {
+                if (conn.State == ConnectionState.Open)
+                {
+                    conn.Close();
+                }
+                throw ex;
+            }
+        }
+
+        public DashboardModel GetTeacherDashboardCount(DashboardModel cls)
+        {
+            try
+            {
+                List<DashboardModel> LSTList = new List<DashboardModel>();
+                conn.Open();
+                SqlCommand cmd = new SqlCommand("GetTeacherDashboardCountList", conn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@TeacherId", objCommon.getTeacherIdFromSession());
+                //cmd.Parameters.AddWithValue("@intUserType", objCommon.getUserTypeFromSession());
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                DataTable dt = new DataTable();
+                da.Fill(dt);
+                conn.Close();
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    for (var i = 0; i < dt.Rows.Count; i++)
+                    {
+                        DashboardModel obj = new DashboardModel();
+                        obj.ClassNo = dt.Rows[i]["ClassRoom"] == null || dt.Rows[i]["ClassRoom"].ToString().Trim() == "" ? null : dt.Rows[i]["ClassRoom"].ToString();
+                        obj.TotalStudent = Convert.ToInt32(dt.Rows[i]["TotalStudent"] == null || dt.Rows[i]["TotalStudent"].ToString().Trim() == "" ? null : dt.Rows[i]["TotalStudent"].ToString());
+                        obj.TotalTeacherSubject = Convert.ToInt32(dt.Rows[i]["TotalTeacherSubject"] == null || dt.Rows[i]["TotalTeacherSubject"].ToString().Trim() == "" ? null : dt.Rows[i]["TotalTeacherSubject"].ToString());
+                        obj.PresentDays = Convert.ToDecimal(dt.Rows[i]["AbsentDays"] == null || dt.Rows[i]["AbsentDays"].ToString().Trim() == "" ? null : dt.Rows[i]["AbsentDays"]);
 
                         LSTList.Add(obj);
                     }

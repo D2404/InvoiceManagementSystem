@@ -824,6 +824,9 @@
     <Content Include="Views\Home\_StudentList.cshtml" />
     <Content Include="Views\Exam\ExamDetails.cshtml" />
     <Content Include="Views\Exam\_ExamDetailsListPartial.cshtml" />
+    <Content Include="Views\Home\_TeacherSubjectList.cshtml" />
+    <Content Include="Views\Home\_TeacherAttendanceList.cshtml" />
+    <Content Include="Views\TeacherAttandence\_FilterTeacherAttandenceListPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
