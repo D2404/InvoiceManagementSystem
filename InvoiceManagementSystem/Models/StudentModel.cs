@@ -15,6 +15,7 @@ namespace InvoiceManagementSystem.Models
 
         SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString);
         public int Id { get; set; }
+        public int RoleId { get; set; }
         public string RollNo { get; set; }
         public string FullName { get; set; }
         public string UserName { get; set; }
@@ -89,7 +90,8 @@ namespace InvoiceManagementSystem.Models
                 cmd.Parameters.Add("@Gender", SqlDbType.Bit).Value = cls.Gender;
                 cmd.Parameters.AddWithValue("@Profile", SqlDbType.VarChar).Value = cls.ProfileImg;
                 cmd.Parameters.AddWithValue("@UserId", objCommon.getUserIdFromSession());
-                cmd.Parameters.AddWithValue("@RoleId", SessionModel.RoleId);
+                cmd.Parameters.AddWithValue("@TeacherId", objCommon.getTeacherIdFromSession());
+                cmd.Parameters.AddWithValue("@RoleId", cls.RoleId);
 
                 SqlDataAdapter da = new SqlDataAdapter(cmd);
                 cmd.CommandTimeout = 0;

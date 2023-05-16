@@ -7,7 +7,7 @@
             <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Student</th>
             <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Status</th>
             <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Date</th>
-            @if (InvoiceManagementSystem.Models.SessionModel.RoleId == 1)
+            @if (InvoiceManagementSystem.Models.SessionModel.RoleId == 2)
             {
 <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Action</th>            }
 
@@ -21,7 +21,7 @@
         var item = Model.LSTStudentAttandenceList[i];
 <tr>
     <td>
-        <p class="text-xs font-weight-bold mb-0" style="text-align: center;">@item.ROWNUMBER</p>
+        <p class="text-xs font-weight-bold mb-0" style="margin-left:22px;">@item.ROWNUMBER</p>
         @*<p class="text-xs text-secondary mb-0">Organization</p>*@
     </td>
     <td>
@@ -43,7 +43,7 @@ else
         <p class="text-xs font-weight-bold mb-0" style="text-align: left;">@item.Date</p>
         @*<p class="text-xs text-secondary mb-0">Organization</p>*@
     </td>
-    @if (InvoiceManagementSystem.Models.SessionModel.RoleId == 1)
+    @if (InvoiceManagementSystem.Models.SessionModel.RoleId == 2)
     {
 <td class="align-middle text-center">
     <div class="dropdown">
@@ -60,8 +60,8 @@ else
 {
 <a class="dropdown-item" style="font-size: 14px;padding-top: 1px;padding-right: 25px" data-bs-toggle="modal" data-bs-target="#status" onclick="openstatusModel(@item.Id)">&nbsp;&nbsp;<i class="fa fa-times" aria-hidden="true" style="color: black">&nbsp;&nbsp;Status</i></a>}
 
-            <a href="javascript:;" title="Edit Teacher Attandence" style="cursor: pointer; font-size: 14px; padding-top: 1px;padding-right: 25px " data-bs-toggle="modal" data-bs-target="#TeacherAttandence" onclick="GetSingleTeacherAttandenceData(@item.Id)"><i class="fa fa-pen cursor-pointer" aria-hidden="true" style="color: black">&nbsp;&nbsp;Edit</i></a>
-            <a href="javascript:;" style="font-size: 14px;padding-top:1px;padding-right:25px" data-bs-toggle="modal" data-bs-target="#delete_TeacherAttandence" onclick="opendeleteModel(@item.Id);">&nbsp;&nbsp;<i class="fa fa-trash" aria-hidden="true" style="color: black">&nbsp;&nbsp;Delete</i></a>
+            <a href="javascript:;" title="Edit Student Attandence" style="cursor: pointer; font-size: 14px; padding-top: 1px;padding-right: 25px " data-bs-toggle="modal" data-bs-target="#StudentAttandence" onclick="GetSingleStudentAttandenceData(@item.Id)"><i class="fa fa-pen cursor-pointer" aria-hidden="true" style="color: black">&nbsp;&nbsp;Edit</i></a>
+            <a href="javascript:;" style="font-size: 14px;padding-top:1px;padding-right:25px" data-bs-toggle="modal" data-bs-target="#delete_StudentAttandence" onclick="opendeleteModel(@item.Id);">&nbsp;&nbsp;<i class="fa fa-trash" aria-hidden="true" style="color: black">&nbsp;&nbsp;Delete</i></a>
         </div>
     </div>
 </td>}

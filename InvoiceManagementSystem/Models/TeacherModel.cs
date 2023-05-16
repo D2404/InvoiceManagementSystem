@@ -95,8 +95,6 @@ namespace InvoiceManagementSystem.Models
                 cmd.Parameters.AddWithValue("@UserId", objCommon.getUserIdFromSession());
                 cmd.Parameters.AddWithValue("@RoleId", cls.RoleId);
                 cmd.Parameters.AddWithValue("@ClassId", cls.ClassId);
-                cmd.Parameters.AddWithValue("@TeacherId", cls.TeacherId);
-
                 SqlDataAdapter da = new SqlDataAdapter(cmd);
                 cmd.CommandTimeout = 0;
                 da.ReturnProviderSpecificTypes = true;

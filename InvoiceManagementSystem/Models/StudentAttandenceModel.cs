@@ -15,6 +15,8 @@ namespace InvoiceManagementSystem.Models
         clsCommon objCommon = new clsCommon();
         SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString);
         public int Id { get; set; }
+        public int MonthId { get; set; }
+        public int YearId { get; set; }
         public string Name { get; set; }
         public string StudentName { get; set; }
         public int StudentId { get; set; }
@@ -49,12 +51,15 @@ namespace InvoiceManagementSystem.Models
                 SqlCommand cmd = new SqlCommand("AddUpdateStudentAttandence", conn);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add("@Id", SqlDbType.Int).Value = cls.Id;
+
+                cmd.Parameters.Add("@MonthId", SqlDbType.Int).Value = cls.MonthId;
+                cmd.Parameters.Add("@YearId", SqlDbType.Int).Value = cls.YearId;
                 cmd.Parameters.AddWithValue("@StudentId", cls.StudentId);
-                cmd.Parameters.Add("@Date", SqlDbType.DateTime).Value = cls.Date;
+                cmd.Parameters.Add("@Date", SqlDbType.NVarChar).Value = cls.Date;
                 cmd.Parameters.Add("@Status", SqlDbType.Bit).Value = cls.Status;
                 cmd.Parameters.Add("@LeaveType", SqlDbType.Int).Value = cls.LeaveType;
                 cmd.Parameters.Add("@Reason", SqlDbType.NVarChar).Value = cls.Reason;
-                //cmd.Parameters.AddWithValue("@UserId", objCommon.getUserIdFromSession());
+                cmd.Parameters.AddWithValue("@UserId", objCommon.getUserIdFromSession());
 
 
                 SqlDataAdapter da = new SqlDataAdapter(cmd);

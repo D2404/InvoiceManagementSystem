@@ -327,7 +327,7 @@
         var MobileNo = $('#MobileNo').val();
         var Dob = $('#Dob').val();
         var Address = $('#Address').val();
-
+        var RoleId = 3
 
         if (FullName == "" || /\S/.test(FullName) == false) {
             $("#errFullName").html("Please enter first name.");
@@ -423,6 +423,7 @@
         }
 
         formData.append('Id', Id);
+        formData.append('RoleId', RoleId);
         formData.append('FullName', FullName);
         formData.append('UserName', UserName);
         formData.append('Email', Email);
