@@ -32,6 +32,34 @@ namespace InvoiceManagementSystem.Models
             get { return HttpContext.Current.Session["Username"] == null ? "" : (Convert.ToString(HttpContext.Current.Session["Username"])); }
             set { HttpContext.Current.Session["Username"] = value; }
         }
+        public static string Fullname
+        {
+            get { return HttpContext.Current.Session["Fullname"] == null ? "" : (Convert.ToString(HttpContext.Current.Session["Fullname"])); }
+            set { HttpContext.Current.Session["Fullname"] = value; }
+        }
+        public static string RoleName
+        {
+            get { return HttpContext.Current.Session["RoleName"] == null ? "" : (Convert.ToString(HttpContext.Current.Session["RoleName"])); }
+            set { HttpContext.Current.Session["RoleName"] = value; }
+        }
+        public static string Profile
+        {
+            get { return HttpContext.Current.Session["Profile"] == null ? "" : (Convert.ToString(HttpContext.Current.Session["Profile"])); }
+            set { HttpContext.Current.Session["Profile"] = value; }
+        }
+        public static string Address
+        {
+            get { return HttpContext.Current.Session["Address"] == null ? "" : (Convert.ToString(HttpContext.Current.Session["Address"])); }
+            set { HttpContext.Current.Session["Address"] = value; }
+        }
+
+        public static string Mobile
+        {
+            get { return HttpContext.Current.Session["Mobile"] == null ? "" : (Convert.ToString(HttpContext.Current.Session["Mobile"])); }
+            set { HttpContext.Current.Session["Mobile"] = value; }
+        }
+
+
 
 
         public static void ClearSession()

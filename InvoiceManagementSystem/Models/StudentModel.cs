@@ -18,6 +18,7 @@ namespace InvoiceManagementSystem.Models
         public int RoleId { get; set; }
         public string RollNo { get; set; }
         public string FullName { get; set; }
+        public string TeacherName { get; set; }
         public string UserName { get; set; }
         public string ClassNo { get; set; }
         public int ClassId { get; set; }

@@ -16,6 +16,14 @@ namespace InvoiceManagementSystem.Controllers
             cls = cls.MyProfile(cls);
             return View(cls);
         }
+
+
+        public ActionResult MyProfile1(AccountModel cls)
+        {
+            cls.Id = objCommon.getUserIdFromSession();
+            cls = cls.MyProfile(cls);
+            return View(cls);
+        }
         public ActionResult ChangePassword()
         {
             return View();
@@ -57,7 +65,12 @@ namespace InvoiceManagementSystem.Controllers
 
                     Session["Id"] = cls.Id;
                     Session["UserName"] = cls.UserName;
+                    Session["FullName"] = cls.FullName;
                     Session["RoleId"] = cls.RoleId;
+                    Session["RoleName"] = cls.RoleName;
+                    Session["Mobile"] = cls.Mobile;
+                    Session["Address"] = cls.Address;
+                    Session["Profile"] = cls.Profile;
                     Session["TeacherId"] = cls.TeacherId;
                     Session["StudentId"] = cls.StudentId;
                     Session["ClassId"] = cls.ClassId;

@@ -220,14 +220,13 @@ namespace InvoiceManagementSystem.Controllers
 
 
         public ActionResult GetStudentByTeacher(StudentModel cls)
-
         {
             try
             {
                 List<StudentModel> lstClassRoomList = new List<StudentModel>();
                 SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString);
                 conn.Open();
-                SqlCommand cmd = new SqlCommand("GetTeacherByClassRoom", conn);
+                SqlCommand cmd = new SqlCommand("GetStudentByTeacher", conn);
                 cmd.Parameters.AddWithValue("@TeacherId", cls.TeacherId);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandTimeout = 0;
@@ -248,6 +247,7 @@ namespace InvoiceManagementSystem.Controllers
                         obj.Id = Convert.ToInt32(dt.Rows[i]["Id"] == null || dt.Rows[i]["Id"].ToString().Trim() == "" ? null : dt.Rows[i]["Id"].ToString());
                         obj.ClassId = Convert.ToInt32(dt.Rows[i]["ClassId"] == null || dt.Rows[i]["ClassId"].ToString().Trim() == "" ? null : dt.Rows[i]["ClassId"].ToString());
                         obj.ClassNo = dt.Rows[i]["ClassNo"] == null || dt.Rows[i]["ClassNo"].ToString().Trim() == "" ? null : dt.Rows[i]["ClassNo"].ToString();
+                        obj.TeacherName = dt.Rows[i]["TeacherName"] == null || dt.Rows[i]["TeacherName"].ToString().Trim() == "" ? null : dt.Rows[i]["TeacherName"].ToString();
                         obj.FullName = dt.Rows[i]["FullName"] == null || dt.Rows[i]["FullName"].ToString().Trim() == "" ? null : dt.Rows[i]["FullName"].ToString();
                         obj.UserName = dt.Rows[i]["UserName"] == null || dt.Rows[i]["UserName"].ToString().Trim() == "" ? null : dt.Rows[i]["UserName"].ToString();
                         obj.Email = dt.Rows[i]["Email"] == null || dt.Rows[i]["Email"].ToString().Trim() == "" ? null : dt.Rows[i]["Email"].ToString();
@@ -263,7 +263,7 @@ namespace InvoiceManagementSystem.Controllers
                 }
                 cls.LSTStudentList = lstClassRoomList;
 
-                return PartialView("_TeacherByClassRoomList", cls);
+                return PartialView("_StudentByTeacherList", cls);
 
             }
             catch (Exception ex)
@@ -419,7 +419,7 @@ namespace InvoiceManagementSystem.Controllers
                 cmd.Parameters.AddWithValue("@PageSize", cls.PageSize);
                 cmd.Parameters.AddWithValue("@PageIndex", cls.PageIndex);
                 
-                cmd.Parameters.AddWithValue("@UserId", objCommon.getUserIdFromSession());
+                //cmd.Parameters.AddWithValue("@UserId", objCommon.getUserIdFromSession());
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandTimeout = 0;
                 SqlDataAdapter da = new SqlDataAdapter(cmd);

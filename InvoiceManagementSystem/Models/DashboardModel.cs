@@ -42,7 +42,7 @@ namespace InvoiceManagementSystem.Models
                 conn.Open();
                 SqlCommand cmd = new SqlCommand("GetDashboardCountList", conn);
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("@UserId", objCommon.getUserIdFromSession());
+                //cmd.Parameters.AddWithValue("@UserId", objCommon.getUserIdFromSession());
                 //cmd.Parameters.AddWithValue("@intUserType", objCommon.getUserTypeFromSession());
                 SqlDataAdapter da = new SqlDataAdapter(cmd);
                 DataTable dt = new DataTable();
@@ -93,10 +93,10 @@ namespace InvoiceManagementSystem.Models
                     for (var i = 0; i < dt.Rows.Count; i++)
                     {
                         DashboardModel obj = new DashboardModel();
-                        obj.ClassNo = dt.Rows[i]["ClassRoom"] == null || dt.Rows[i]["ClassRoom"].ToString().Trim() == "" ? null : dt.Rows[i]["ClassRoom"].ToString();
+                        //obj.ClassNo = dt.Rows[i]["ClassRoom"] == null || dt.Rows[i]["ClassRoom"].ToString().Trim() == "" ? null : dt.Rows[i]["ClassRoom"].ToString();
                         obj.TotalStudent = Convert.ToInt32(dt.Rows[i]["TotalStudent"] == null || dt.Rows[i]["TotalStudent"].ToString().Trim() == "" ? null : dt.Rows[i]["TotalStudent"].ToString());
-                        obj.TotalTeacherSubject = Convert.ToInt32(dt.Rows[i]["TotalTeacherSubject"] == null || dt.Rows[i]["TotalTeacherSubject"].ToString().Trim() == "" ? null : dt.Rows[i]["TotalTeacherSubject"].ToString());
-                        obj.TotalAttendance = Convert.ToDecimal(dt.Rows[i]["PresentDays"] == null || dt.Rows[i]["PresentDays"].ToString().Trim() == "" ? null : dt.Rows[i]["PresentDays"]);
+                        //obj.TotalTeacherSubject = Convert.ToInt32(dt.Rows[i]["TotalTeacherSubject"] == null || dt.Rows[i]["TotalTeacherSubject"].ToString().Trim() == "" ? null : dt.Rows[i]["TotalTeacherSubject"].ToString());
+                        //obj.TotalAttendance = Convert.ToDecimal(dt.Rows[i]["PresentDays"] == null || dt.Rows[i]["PresentDays"].ToString().Trim() == "" ? null : dt.Rows[i]["PresentDays"]);
 
                         LSTList.Add(obj);
                     }

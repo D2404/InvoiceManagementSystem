@@ -5,7 +5,6 @@
 }
 
 <style>
-
 </style>
 <!-- Navbar -->
 <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl " id="navbarBlur" data-scroll="false">
@@ -597,7 +596,6 @@
             <div class="card mb-4" style="background: linear-gradient(to right, #15282e, #4890b1) !important ">
                 <div class="card-header pb-0" style="background: linear-gradient(to right, #15282e, #4890b1) !important ">
                     <h6 style="color:white">ClassRoom List</h6>
-                    <a href="#" class="btn bg-gradient-success" id="exportButton" title="Export"><i class="fa fa-file-excel-o" style="font-size:20px"></i></a>
                 </div>
 
                 <div class="card-body px-0 pt-0 pb-2">
@@ -663,7 +661,7 @@
             <div class="card mb-4" style="background: linear-gradient(to right, #15282e, #4890b1) !important ">
                 <div class="card-header pb-0" style="background: linear-gradient(to right, #15282e, #4890b1) !important ">
                     <h6 style="color:white">Teacher List</h6>
-                    
+
                 </div>
                 <div class="card-body px-0 pt-0 pb-2">
                     <div class="table-responsive p-0">
@@ -769,397 +767,445 @@
             </div>
         </div>
     </div>
-</div>
+    <div class="row">
+        <div class="col-lg-5">gdfgfgf
+            <div class="card card-carousel overflow-hidden h-100 p-0">
+                <div id="carouselExampleCaptions" class="carousel slide h-100" data-bs-ride="carousel">
+                    <div class="carousel-inner border-radius-lg h-100">
+                        <div class="carousel-item h-100" style="background-image: url('../assets/img/carousel-1.jpg');
+      background-size: cover;">
+                            <div class="carousel-caption d-none d-md-block bottom-0 text-start start-0 ms-5">
+                                <div class="icon icon-shape icon-sm bg-white text-center border-radius-md mb-3">
+                                    <i class="ni ni-camera-compact text-dark opacity-10"></i>
+                                </div>
+                                <h5 class="text-white mb-1">Get started with Argon</h5>
+                                <p>There’s nothing I really wanted to do in life that I wasn’t able to get good at.</p>
+                            </div>
+                        </div>
+                        <div class="carousel-item h-100" style="background-image: url('../assets/img/carousel-2.jpg');
+      background-size: cover;">
+                            <div class="carousel-caption d-none d-md-block bottom-0 text-start start-0 ms-5">
+                                <div class="icon icon-shape icon-sm bg-white text-center border-radius-md mb-3">
+                                    <i class="ni ni-bulb-61 text-dark opacity-10"></i>
+                                </div>
+                                <h5 class="text-white mb-1">Faster way to create web pages</h5>
+                                <p>That’s my skill. I’m not really specifically talented at anything except for the ability to learn.</p>
+                            </div>
+                        </div>
+                        <div class="carousel-item h-100 active" style="background-image: url('../assets/img/carousel-3.jpg');
+      background-size: cover;">
+                            <div class="carousel-caption d-none d-md-block bottom-0 text-start start-0 ms-5">
+                                <div class="icon icon-shape icon-sm bg-white text-center border-radius-md mb-3">
+                                    <i class="ni ni-trophy text-dark opacity-10"></i>
+                                </div>
+                                <h5 class="text-white mb-1">Share with us your design tips!</h5>
+                                <p>Don’t be afraid to be wrong because you can’t learn anything from a compliment.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="carousel-control-prev w-5 me-3" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next w-5 me-3" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
 
-<!--End of Datetime js/css-->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script>
+    <!--End of Datetime js/css-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
 
-    $(document).ready(function () {
-        $('#Class').hide();
-        $('#Subject').hide();
-        $('#Teacher').hide();
-        $('#Student').hide();
-        $('#TeacherSubject').hide();
-        $('#TeacherAttendance').hide();
-    });
-
-    function GoBack(page) {
-        debugger
-        $('#Subject').hide();
-        $('#Teacher').hide();
-        $('#Student').hide();
-        $('#TeacherSubject').hide();
-        $('#TeacherAttendance').hide();
-        $('#Class').show();
-        var Id = 0;
-        if (document.getElementById('PageSize') != null) {
-            PageSize = document.getElementById('PageSize').value;
-        }
-        else {
-            PageSize = 10;
-        }
-        if (page == undefined) {
-            page = 1;
-        }
-        var PageIndex = page;
-
-        PageIndex = page;
-        var cls = {
-            Id: Id,
-            PageSize: PageSize,
-            PageIndex: PageIndex,
-        }
-        ShowWait();
-        $.ajax({
-            url: '/Home/GetClassRoom',
-            contentType: "application/json; charset=utf-8",
-            type: "POST",
-            data: JSON.stringify({
-                cls: cls
-            }),
-            success: function (data) {
-
-                $('#ClassRoomList').empty();
-                $('#ClassRoomList').append(data);
-                HideWait();
-            },
-            error: function (xhr) {
-                HideWait();
-                alert('errors');
-            }
+        $(document).ready(function () {
+            $('#Class').hide();
+            $('#Subject').hide();
+            $('#Teacher').hide();
+            $('#Student').hide();
+            $('#TeacherSubject').hide();
+            $('#TeacherAttendance').hide();
         });
-    }
 
-    function ClassRoom(page) {
-        $('#Subject').hide();
-        $('#Teacher').hide();
-        $('#Student').hide();
-        $('#TeacherSubject').hide();
-        $('#TeacherAttendance').hide();
-        $('#Class').show();
-        var Id = 0;
-        if (document.getElementById('PageSize') != null) {
-            PageSize = document.getElementById('PageSize').value;
-        }
-        else {
-            PageSize = 10;
-        }
-        if (page == undefined) {
-            page = 1;
-        }
-        var PageIndex = page;
-
-        PageIndex = page;
-        var cls = {
-            Id: Id,
-            PageSize: PageSize,
-            PageIndex: PageIndex,
-        }
-        ShowWait();
-        $.ajax({
-            url: '/Home/GetClassRoom',
-            contentType: "application/json; charset=utf-8",
-            type: "POST",
-            data: JSON.stringify({
-                cls: cls
-            }),
-            success: function (data) {
-
-                $('#ClassRoomList').empty();
-                $('#ClassRoomList').append(data);
-                HideWait();
-            },
-            error: function (xhr) {
-                HideWait();
-                alert('errors');
+        function GoBack(page) {
+            debugger
+            $('#Subject').hide();
+            $('#Teacher').hide();
+            $('#Student').hide();
+            $('#TeacherSubject').hide();
+            $('#TeacherAttendance').hide();
+            $('#Class').show();
+            var Id = 0;
+            if (document.getElementById('PageSize') != null) {
+                PageSize = document.getElementById('PageSize').value;
             }
-        });
-    }
-
-    function GetTeacherDataByClassRoom(ClassId) {
-
-        $('#Class').hide();
-        $('#Teacher').show();
-        ShowWait();
-        $.ajax({
-            url: '/Home/GetTeacherByClassRoom',
-            contentType: "application/json; charset=utf-8",
-            type: "POST",
-            data: JSON.stringify({
-                ClassId: ClassId
-            }),
-            success: function (data) {
-                debugger
-                $('#TeacherList').empty();
-                $('#TeacherList').append(data);
-                HideWait();
-            },
-            error: function (xhr) {
-                HideWait();
-                alert('errors');
+            else {
+                PageSize = 10;
             }
-        });
-    }
-
-
-    function GetStudentDataByTeacher(TeacherId) {
-
-        $('#Class').hide();
-        $('#Teacher').show();
-        ShowWait();
-        $.ajax({
-            url: '/Home/GetStudentByTeacher',
-            contentType: "application/json; charset=utf-8",
-            type: "POST",
-            data: JSON.stringify({
-                TeacherId: TeacherId
-            }),
-            success: function (data) {
-                debugger
-                $('#StudentList').empty();
-                $('#StudentList').append(data);
-                HideWait();
-            },
-            error: function (xhr) {
-                HideWait();
-                alert('errors');
+            if (page == undefined) {
+                page = 1;
             }
-        });
-    }
+            var PageIndex = page;
 
-
-    function Subject(page) {
-        $('#Class').hide();
-        $('#Teacher').hide();
-        $('#Student').hide();
-        $('#TeacherSubject').hide();
-        $('#TeacherAttendance').hide();
-
-        $('#Subject').show();
-        var Id = 0;
-        if (document.getElementById('PageSize') != null) {
-            PageSize = document.getElementById('PageSize').value;
-        }
-        else {
-            PageSize = 10;
-        }
-        if (page == undefined) {
-            page = 1;
-        }
-        var PageIndex = page;
-
-        PageIndex = page;
-        var cls = {
-            Id: Id,
-            PageSize: PageSize,
-            PageIndex: PageIndex,
-        }
-        ShowWait();
-        $.ajax({
-            url: '/Home/GetSubject',
-            contentType: "application/json; charset=utf-8",
-            type: "POST",
-            data: JSON.stringify({
-                cls: cls
-            }),
-            success: function (data) {
-
-                $('#SubjectList').empty();
-                $('#SubjectList').append(data);
-                HideWait();
-            },
-            error: function (xhr) {
-                HideWait();
-                alert('errors');
+            PageIndex = page;
+            var cls = {
+                Id: Id,
+                PageSize: PageSize,
+                PageIndex: PageIndex,
             }
-        });
-    }
+            ShowWait();
+            $.ajax({
+                url: '/Home/GetTeacherByClassRoom',
+                contentType: "application/json; charset=utf-8",
+                type: "POST",
+                data: JSON.stringify({
+                    cls: cls
+                }),
+                success: function (data) {
 
-    function Teacher(page) {
-        $('#Class').hide();
-        $('#Subject').hide();
-        $('#Student').hide();
-        $('#TeacherSubject').hide();
-        $('#TeacherAttendance').hide();
-        $('#Teacher').show();
-        var Id = 0;
-        if (document.getElementById('PageSize') != null) {
-            PageSize = document.getElementById('PageSize').value;
+                    $('#TeacherList').empty();
+                    $('#TeacherList').append(data);
+                    HideWait();
+                },
+                error: function (xhr) {
+                    HideWait();
+                    alert('errors');
+                }
+            });
         }
-        else {
-            PageSize = 10;
-        }
-        if (page == undefined) {
-            page = 1;
-        }
-        var PageIndex = page;
 
-        PageIndex = page;
-        var cls = {
-            Id: Id,
-            PageSize: PageSize,
-            PageIndex: PageIndex,
-        }
-        ShowWait();
-        $.ajax({
-            url: '/Home/GetTeacher',
-            contentType: "application/json; charset=utf-8",
-            type: "POST",
-            data: JSON.stringify({
-                cls: cls
-            }),
-            success: function (data) {
-
-                $('#TeacherList').empty();
-                $('#TeacherList').append(data);
-                HideWait();
-            },
-            error: function (xhr) {
-                HideWait();
-                alert('errors');
+        function ClassRoom(page) {
+            $('#Subject').hide();
+            $('#Teacher').hide();
+            $('#Student').hide();
+            $('#TeacherSubject').hide();
+            $('#TeacherAttendance').hide();
+            $('#Class').show();
+            var Id = 0;
+            if (document.getElementById('PageSize') != null) {
+                PageSize = document.getElementById('PageSize').value;
             }
-        });
-    }
-
-    function Student(page) {
-        $('#Class').hide();
-        $('#Subject').hide();
-        $('#Teacher').hide();
-        $('#TeacherSubject').hide();
-        $('#TeacherAttendance').hide();
-
-        $('#Student').show();
-        var Id = 0;
-        if (document.getElementById('PageSize') != null) {
-            PageSize = document.getElementById('PageSize').value;
-        }
-        else {
-            PageSize = 10;
-        }
-        if (page == undefined) {
-            page = 1;
-        }
-        var PageIndex = page;
-
-        PageIndex = page;
-        var cls = {
-            Id: Id,
-            PageSize: PageSize,
-            PageIndex: PageIndex,
-        }
-        ShowWait();
-        $.ajax({
-            url: '/Home/GetStudent',
-            contentType: "application/json; charset=utf-8",
-            type: "POST",
-            data: JSON.stringify({
-                cls: cls
-            }),
-            success: function (data) {
-
-                $('#StudentList').empty();
-                $('#StudentList').append(data);
-                HideWait();
-            },
-            error: function (xhr) {
-                HideWait();
-                alert('errors');
+            else {
+                PageSize = 10;
             }
-        });
-    }
-
-    function TeacherSubject(page) {
-        $('#Class').hide();
-        $('#Subject').hide();
-        $('#Teacher').hide();
-        $('#Student').hide();
-        $('#TeacherAttendance').hide();
-        $('#TeacherSubject').show();
-        var Id = 0;
-        if (document.getElementById('PageSize') != null) {
-            PageSize = document.getElementById('PageSize').value;
-        }
-        else {
-            PageSize = 10;
-        }
-        if (page == undefined) {
-            page = 1;
-        }
-        var PageIndex = page;
-
-        PageIndex = page;
-        var cls = {
-            Id: Id,
-            PageSize: PageSize,
-            PageIndex: PageIndex,
-        }
-        ShowWait();
-        $.ajax({
-            url: '/Home/GetTeacherSubject',
-            contentType: "application/json; charset=utf-8",
-            type: "POST",
-            data: JSON.stringify({
-                cls: cls
-            }),
-            success: function (data) {
-
-                $('#TeacherSubjectList').empty();
-                $('#TeacherSubjectList').append(data);
-                HideWait();
-            },
-            error: function (xhr) {
-                HideWait();
-                alert('errors');
+            if (page == undefined) {
+                page = 1;
             }
-        });
-    }
+            var PageIndex = page;
 
-    function TeacherAttendance(page) {
-        $('#Class').hide();
-        $('#Subject').hide();
-        $('#Teacher').hide();
-        $('#Student').hide();
-        $('#TeacherSubject').hide();
-        $('#TeacherAttendance').show();
-
-        var Id = 0;
-        if (document.getElementById('PageSize') != null) {
-            PageSize = document.getElementById('PageSize').value;
-        }
-        else {
-            PageSize = 10;
-        }
-        if (page == undefined) {
-            page = 1;
-        }
-        var PageIndex = page;
-
-        PageIndex = page;
-        var cls = {
-            Id: Id,
-            PageSize: PageSize,
-            PageIndex: PageIndex,
-        }
-        ShowWait();
-        $.ajax({
-            url: '/Home/GetTeacherAttandence',
-            contentType: "application/json; charset=utf-8",
-            type: "POST",
-            data: JSON.stringify({
-                cls: cls
-            }),
-            success: function (data) {
-
-                $('#TeacherAttendanceList').empty();
-                $('#TeacherAttendanceList').append(data);
-                HideWait();
-            },
-            error: function (xhr) {
-                HideWait();
-                alert('errors');
+            PageIndex = page;
+            var cls = {
+                Id: Id,
+                PageSize: PageSize,
+                PageIndex: PageIndex,
             }
-        });
-    }
+            ShowWait();
+            $.ajax({
+                url: '/Home/GetClassRoom',
+                contentType: "application/json; charset=utf-8",
+                type: "POST",
+                data: JSON.stringify({
+                    cls: cls
+                }),
+                success: function (data) {
 
-</script>
+                    $('#ClassRoomList').empty();
+                    $('#ClassRoomList').append(data);
+                    HideWait();
+                },
+                error: function (xhr) {
+                    HideWait();
+                    alert('errors');
+                }
+            });
+        }
+
+        function GetTeacherDataByClassRoom(ClassId) {
+
+            $('#Class').hide();
+            $('#Teacher').show();
+            ShowWait();
+            $.ajax({
+                url: '/Home/GetTeacherByClassRoom',
+                contentType: "application/json; charset=utf-8",
+                type: "POST",
+                data: JSON.stringify({
+                    ClassId: ClassId
+                }),
+                success: function (data) {
+                    debugger
+                    $('#TeacherList').empty();
+                    $('#TeacherList').append(data);
+                    HideWait();
+                },
+                error: function (xhr) {
+                    HideWait();
+                    alert('errors');
+                }
+            });
+        }
+
+
+        function GetStudentByTeacher(TeacherId) {
+            debugger
+            $('#Teacher').hide();
+            $('#Student').show();
+            ShowWait();
+            $.ajax({
+                url: '/Home/GetStudentByTeacher',
+                contentType: "application/json; charset=utf-8",
+                type: "POST",
+                data: JSON.stringify({
+                    TeacherId: TeacherId
+                }),
+                success: function (data) {
+                    debugger
+                    $('#StudentList').empty();
+                    $('#StudentList').append(data);
+                    HideWait();
+                },
+                error: function (xhr) {
+                    HideWait();
+                    alert('errors');
+                }
+            });
+        }
+
+
+        function Subject(page) {
+            $('#Class').hide();
+            $('#Teacher').hide();
+            $('#Student').hide();
+            $('#TeacherSubject').hide();
+            $('#TeacherAttendance').hide();
+
+            $('#Subject').show();
+            var Id = 0;
+            if (document.getElementById('PageSize') != null) {
+                PageSize = document.getElementById('PageSize').value;
+            }
+            else {
+                PageSize = 10;
+            }
+            if (page == undefined) {
+                page = 1;
+            }
+            var PageIndex = page;
+
+            PageIndex = page;
+            var cls = {
+                Id: Id,
+                PageSize: PageSize,
+                PageIndex: PageIndex,
+            }
+            ShowWait();
+            $.ajax({
+                url: '/Home/GetSubject',
+                contentType: "application/json; charset=utf-8",
+                type: "POST",
+                data: JSON.stringify({
+                    cls: cls
+                }),
+                success: function (data) {
+
+                    $('#SubjectList').empty();
+                    $('#SubjectList').append(data);
+                    HideWait();
+                },
+                error: function (xhr) {
+                    HideWait();
+                    alert('errors');
+                }
+            });
+        }
+
+        function Teacher(page) {
+            $('#Class').hide();
+            $('#Subject').hide();
+            $('#Student').hide();
+            $('#TeacherSubject').hide();
+            $('#TeacherAttendance').hide();
+            $('#Teacher').show();
+            var Id = 0;
+            if (document.getElementById('PageSize') != null) {
+                PageSize = document.getElementById('PageSize').value;
+            }
+            else {
+                PageSize = 10;
+            }
+            if (page == undefined) {
+                page = 1;
+            }
+            var PageIndex = page;
+
+            PageIndex = page;
+            var cls = {
+                Id: Id,
+                PageSize: PageSize,
+                PageIndex: PageIndex,
+            }
+            ShowWait();
+            $.ajax({
+                url: '/Home/GetTeacher',
+                contentType: "application/json; charset=utf-8",
+                type: "POST",
+                data: JSON.stringify({
+                    cls: cls
+                }),
+                success: function (data) {
+
+                    $('#TeacherList').empty();
+                    $('#TeacherList').append(data);
+                    HideWait();
+                },
+                error: function (xhr) {
+                    HideWait();
+                    alert('errors');
+                }
+            });
+        }
+
+        function Student(page) {
+            $('#Class').hide();
+            $('#Subject').hide();
+            $('#Teacher').hide();
+            $('#TeacherSubject').hide();
+            $('#TeacherAttendance').hide();
+
+            $('#Student').show();
+            var Id = 0;
+            if (document.getElementById('PageSize') != null) {
+                PageSize = document.getElementById('PageSize').value;
+            }
+            else {
+                PageSize = 10;
+            }
+            if (page == undefined) {
+                page = 1;
+            }
+            var PageIndex = page;
+
+            PageIndex = page;
+            var cls = {
+                Id: Id,
+                PageSize: PageSize,
+                PageIndex: PageIndex,
+            }
+            ShowWait();
+            $.ajax({
+                url: '/Home/GetStudent',
+                contentType: "application/json; charset=utf-8",
+                type: "POST",
+                data: JSON.stringify({
+                    cls: cls
+                }),
+                success: function (data) {
+
+                    $('#StudentList').empty();
+                    $('#StudentList').append(data);
+                    HideWait();
+                },
+                error: function (xhr) {
+                    HideWait();
+                    alert('errors');
+                }
+            });
+        }
+
+        function TeacherSubject(page) {
+            $('#Class').hide();
+            $('#Subject').hide();
+            $('#Teacher').hide();
+            $('#Student').hide();
+            $('#TeacherAttendance').hide();
+            $('#TeacherSubject').show();
+            var Id = 0;
+            if (document.getElementById('PageSize') != null) {
+                PageSize = document.getElementById('PageSize').value;
+            }
+            else {
+                PageSize = 10;
+            }
+            if (page == undefined) {
+                page = 1;
+            }
+            var PageIndex = page;
+
+            PageIndex = page;
+            var cls = {
+                Id: Id,
+                PageSize: PageSize,
+                PageIndex: PageIndex,
+            }
+            ShowWait();
+            $.ajax({
+                url: '/Home/GetTeacherSubject',
+                contentType: "application/json; charset=utf-8",
+                type: "POST",
+                data: JSON.stringify({
+                    cls: cls
+                }),
+                success: function (data) {
+
+                    $('#TeacherSubjectList').empty();
+                    $('#TeacherSubjectList').append(data);
+                    HideWait();
+                },
+                error: function (xhr) {
+                    HideWait();
+                    alert('errors');
+                }
+            });
+        }
+
+        function TeacherAttendance(page) {
+            $('#Class').hide();
+            $('#Subject').hide();
+            $('#Teacher').hide();
+            $('#Student').hide();
+            $('#TeacherSubject').hide();
+            $('#TeacherAttendance').show();
+
+            var Id = 0;
+            if (document.getElementById('PageSize') != null) {
+                PageSize = document.getElementById('PageSize').value;
+            }
+            else {
+                PageSize = 10;
+            }
+            if (page == undefined) {
+                page = 1;
+            }
+            var PageIndex = page;
+
+            PageIndex = page;
+            var cls = {
+                Id: Id,
+                PageSize: PageSize,
+                PageIndex: PageIndex,
+            }
+            ShowWait();
+            $.ajax({
+                url: '/Home/GetTeacherAttandence',
+                contentType: "application/json; charset=utf-8",
+                type: "POST",
+                data: JSON.stringify({
+                    cls: cls
+                }),
+                success: function (data) {
+
+                    $('#TeacherAttendanceList').empty();
+                    $('#TeacherAttendanceList').append(data);
+                    HideWait();
+                },
+                error: function (xhr) {
+                    HideWait();
+                    alert('errors');
+                }
+            });
+        }
+
+    </script>

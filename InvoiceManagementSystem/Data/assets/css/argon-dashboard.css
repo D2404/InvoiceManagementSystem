@@ -10581,10 +10581,11 @@ fieldset:disabled .btn {
 
 .bg-primary {
     background-color: #5e72e4 !important;
+    background-image: url('../../../../Data/Profile/BackgroundImage.jpg');
 }
 
 .bg-primary1 {
-    /*background: linear-gradient(to right,#000000,#0fb3c2);*/
+    background-color: #5e72e4 !important;
     background-image: url('../../../../Data/Profile/BackgroundImage.jpg');
     /*height: 120%;*/
 }
@@ -10618,7 +10619,8 @@ fieldset:disabled .btn {
 }
 
 .bg-white {
-    background-color: #fff !important;
+    
+    background-color: #d0d5d9bf !important;
 }
 
 .bg-body {

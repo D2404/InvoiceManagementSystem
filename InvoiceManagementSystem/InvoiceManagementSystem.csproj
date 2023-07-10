@@ -812,6 +812,9 @@
     <Content Include="Views\TeacherAttandence\_FilterTeacherAttandenceListPartial.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\_TeacherByClassRoomList.cshtml" />
+    <Content Include="Views\Home\_StudentByTeacherList.cshtml" />
+    <Content Include="Views\Account\MyProfile1.cshtml" />
+    <Content Include="Views\Home\Index1.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
