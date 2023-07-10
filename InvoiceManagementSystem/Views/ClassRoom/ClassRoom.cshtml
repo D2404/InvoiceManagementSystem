@@ -86,9 +86,10 @@
 <div class="row">
 
     <div style="margin-left:843px">
+        <a href="#" class="btn bg-gradient-success" onclick="Export()" title="Export"><i class="fa fa-file-excel-o" style="font-size:20px"></i></a>
         <a href="#" class="btn bg-gradient-dark" onclick="ShowFilter()" title="Filter"><i class="fa fa-filter"></i></a>
         @*<a href="#" class="btn bg-gradient-dark" onclick="ShowFilter()" style="margin-left: 843px; margin-bottom: -64px;"><i class="fa fa-filter"></i></a>*@
-    <a class="btn bg-gradient-info" title="Add Subject" data-bs-toggle="modal" data-bs-target="#ClassRoom" onclick="Clear()">Add ClassRoom </a>
+        <a class="btn bg-gradient-info" title="Add Subject" data-bs-toggle="modal" data-bs-target="#ClassRoom" onclick="Clear()">Add ClassRoom </a>
     </div>
 </div>
 
@@ -198,6 +199,7 @@
 <!--End of Datetime js/css-->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script>
+
     var type = 1
 
     function ShowFilter() {
@@ -210,6 +212,40 @@
             type = 1;
         }
     }
+
+    function Export() {
+        debugger
+        var tab_text = "<table border='2px'><tr>";
+        var textRange; var j = 0;
+        tab = document.getElementById('ClassRoom'); // id of table
+
+        for (j = 0; j < tab.rows.length; j++) {
+            tab_text = tab_text + tab.rows[j].innerHTML + "</tr>";
+            //tab_text=tab_text+"</tr>";
+        }
+
+        tab_text = tab_text + "</table>";
+        tab_text = tab_text.replace(/<A[^>]*>|<\/A>/g, "");//remove if u want links in your table
+        tab_text = tab_text.replace(/<img[^>]*>/gi, ""); // remove if u want images in your table
+        tab_text = tab_text.replace(/<input[^>]*>|<\/input>/gi, ""); // reomves input params
+
+        var ua = window.navigator.userAgent;
+        var msie = ua.indexOf("MSIE ");
+
+        if (msie > 0 || !!navigator.userAgent.match(/Trident.*rv\:11\./))      // If Internet Explorer
+        {
+            txtArea1.document.open("txt/html", "replace");
+            txtArea1.document.write(tab_text);
+            txtArea1.document.close();
+            txtArea1.focus();
+            sa = txtArea1.document.execCommand("SaveAs", true, "Say Thanks to Sumit.xls");
+        }
+        else                 //other browser not tested on IE 11
+            sa = window.open('data:application/vnd.ms-excel,' + encodeURIComponent(tab_text));
+
+        return (sa);
+    }
+
 </script>
 <script>
     $(document).ready(function () {
