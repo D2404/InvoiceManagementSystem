@@ -18,22 +18,15 @@ namespace InvoiceManagementSystem.Controllers
         }
 
 
-        public ActionResult MyProfile1(AccountModel cls)
-        {
-            cls.Id = objCommon.getUserIdFromSession();
-            cls = cls.MyProfile(cls);
-            return View(cls);
-        }
-        public ActionResult ChangePassword()
-        {
-            return View();
-        }
+     
+        
         public ActionResult GetMyProfile(AccountModel cls)
         {
             cls.Id = objCommon.getUserIdFromSession();
             cls = cls.MyProfile(cls);
             return Json(cls, JsonRequestBehavior.AllowGet);
         }
+
         public ActionResult UpdateProfile(AccountModel cls)
         {
             //Parameter param = new Parameter();
@@ -70,7 +63,7 @@ namespace InvoiceManagementSystem.Controllers
                     Session["RoleName"] = cls.RoleName;
                     Session["Mobile"] = cls.Mobile;
                     Session["Address"] = cls.Address;
-                    Session["Profile"] = cls.Profile;
+                    Session["Profile"] = cls.ProfileImg;
                     Session["TeacherId"] = cls.TeacherId;
                     Session["StudentId"] = cls.StudentId;
                     Session["ClassId"] = cls.ClassId;

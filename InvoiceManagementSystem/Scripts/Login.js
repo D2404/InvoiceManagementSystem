@@ -118,6 +118,49 @@ function Login() {
     });
 }
 
+function CheckPassword() {
+    debugger
+    var val = true;
+    var Password = document.getElementById('oldPassword').value;
+   
+    if (val == false) {
+        return;
+    }
+
+    var cls = {
+        Password: oldPassword
+    }
+    $.ajax({
+        url: '/Account/CheckPassword',
+        contentType: "application/json; charset=utf-8",
+        type: "POST",
+        data: JSON.stringify({
+            cls: cls
+        }),
+        success: function (data) {
+
+            if (data == 'Success') {
+                window.location.href = '/Home/Index';
+
+            }
+            //else if (data.intId == 0) {
+            //    alert(data.strResponse);
+            //}
+            else if (data == 'Error' || data == null) {
+                toastr.error('Invalid Username or Password.');
+            }
+            document.getElementById('Email').value = '';
+            document.getElementById('Password').value = '';
+        },
+        error: function (xhr) {
+
+            alert('errors');
+        }
+    });
+}
+
+
+
 function MyProfile() {
     ShowWait();
     $.ajax({
@@ -133,6 +176,7 @@ function MyProfile() {
                 document.getElementById('MobileNo').value = data.LSTAccountList[0].Mobile;
                 document.getElementById('Address').value = data.LSTAccountList[0].Address;
                 document.getElementById('UserName').value = data.LSTAccountList[0].UserName;
+              
             }
             else {
                 alert('error');
@@ -148,34 +192,142 @@ function MyProfile() {
 }
 
 
+//function UpdateProfile(id) {
+//    debugger
+//    var val = true;
+//    var Id = id
+
+//    var fileCount = document.getElementById("Profile").files.length;
+//    var Profile = document.getElementById('Profile').value;
+//    if (fileCount > 0) {
+//        for (var i = 0; i < fileCount; i++) {
+//            var Profile = document.getElementById("Profile").files[i];
+//            var ext = Profile.name.split('.').pop();
+//            if (ext.toLowerCase() == "jpg" || ext.toLowerCase() == "jpeg" || ext.toLowerCase() == "png") {
+//                formData.append("Profile", Profile);
+//            }
+//            else {
+//                alert('Please upload valid file.');
+//                return;
+//            }
+//        }
+//    }
+//    var formData = new FormData();
+//    var UserName = document.getElementById('UserName').value;
+//    if (UserName == "" || /\S/.test(UserName) == false) {
+//        $("#errusername").html("Please enter Username.");
+//        val = false;
+//    }
+//    var FullName = document.getElementById('FullName').value;
+//    if (FullName == "" || /\S/.test(FullName) == false) {
+//        $("#errname").html("Please enter FullName.");
+//        val = false;
+//    }
+//    var Email = document.getElementById('Email').value;
+
+//    var MobileNo = document.getElementById('MobileNo').value;
+//    if (MobileNo == "" || /\S/.test(MobileNo) == false) {
+//        $("#errmobile").html("Please enter MobileNo.");
+//        val = false;
+//    }
+//    var Address = document.getElementById('Address').value;
+//    if (Address == "" || /\S/.test(Address) == false) {
+//        $("#erraddress").html("Please enter Address.");
+//        val = false;
+//    }
+//    if (val == false) {
+//        return;
+//    }
+
+//    formData.append('Id', Id);
+//    formData.append('UserName', UserName);
+//    formData.append('Profile', Profile);
+//    formData.append('FullName', FullName);
+//    formData.append('Email', Email);
+//    formData.append('Mobile', Mobile);
+//    formData.append('Address', Address);
+
+    
+//    ShowWait()
+//    $.ajax({
+//        url: '/Account/UpdateProfile',
+//        contentType: "application/json; charset=utf-8",
+//        type: "POST",
+//        data: formData,
+//        success: function (data) {
+
+//            if (data != null) {
+//                if (data.Response == 'Success') {
+//                    toastr.success('Profile updated successfully');
+//                    MyProfile();
+//                }
+//            }
+//            HideWait();
+//        },
+//        error: function (xhr) {
+//            HideWait();
+//            alert('errors');
+//        }
+//    });
+//}
+
+
 function UpdateProfile(id) {
-
-    var Id = id
-    var UserName = document.getElementById('UserName').value;
-    var FullName = document.getElementById('FullName').value;
-    var Email = document.getElementById('Email').value;
-    var MobileNo = document.getElementById('MobileNo').value;
-    var Address = document.getElementById('Address').value;
-
-    var cls = {
-        Id: Id,
-        UserName: UserName,
-        FullName: FullName,
-        Email: Email,
-        Mobile: MobileNo,
-        Address: Address
-
+debugger
+    var val = true;
+    var Id =id;
+    var FullName = $('#FullName').val();
+    var UserName = $('#UserName').val();
+    var Email = $('#Email').val();
+    var MobileNo = $('#MobileNo').val();
+    var Address = $('#Address').val();
+   
+    if (FullName == "" || /\S/.test(FullName) == false) {
+        $("#errFullName").html("Please enter first name.");
+        val = false;
     }
-    ShowWait()
+   
+    if (UserName == "" || /\S/.test(UserName) == false) {
+        $("#errUserName").html("Please enter last name.");
+        val = false;
+    }
+    
+   
+    if (MobileNo == "" || MobileNo.trim() == '') {
+        $("#errMobile").html("Please enter mobile.");
+        val = false;
+    }
+   
+   
+    
+    if (Email == '' || Email.trim() == '') {
+        $("#errEmail").html('Please enter email id.');
+        return;
+    }
+   
+    var formData = new FormData();
+    
+    
+    if (val == false) {
+        return;
+    }
+
+    formData.append('Id', Id);
+    formData.append('FullName', FullName);
+    formData.append('UserName', UserName);
+    formData.append('Email', Email);
+    formData.append('MobileNo', Mobile);
+    formData.append('Address', Address);
+    /*formData.append('Profile', Profile);*/
+    ShowWait();
     $.ajax({
+        type: "POST",
         url: '/Account/UpdateProfile',
         contentType: "application/json; charset=utf-8",
-        type: "POST",
-        data: JSON.stringify({
-            cls: cls
-        }),
+        contentType: false,
+        processData: false,
+        data: formData,
         success: function (data) {
-
             if (data != null) {
                 if (data.Response == 'Success') {
                     toastr.success('Profile updated successfully');
@@ -184,7 +336,7 @@ function UpdateProfile(id) {
             }
             HideWait();
         },
-        error: function (xhr) {
+        error: function (xyz) {
             HideWait();
             alert('errors');
         }
@@ -192,9 +344,44 @@ function UpdateProfile(id) {
 }
 
 
+
+
+
+
 function ChangePassword() {
+    var val = true;
+    var oldPassword = document.getElementById('oldPassword').value;
+    var retypePassword = document.getElementById('retypePassword').value;
     var newPassword = document.getElementById('newPassword').value;
+
+    if (oldPassword == "" || /\S/.test(oldPassword) == false) {
+        $("#errOldPass").html("Please enter old Password.");
+        val = false;
+    }
+    if (retypePassword == "" || /\S/.test(retypePassword) == false) {
+        $("#errRetypePass").html("Please enter re-type Password.");
+        val = false;
+    }
+    if (newPassword == "" || /\S/.test(newPassword) == false) {
+        $("#errNewPass").html("Please enter New Password.");
+        val = false;
+    }
+    if (oldPassword !== retypePassword ) {
+        toastr.error('OldPassword and Re-TypePassword do not match.');
+        val = false;
+    }
+    if (newPassword == oldPassword && newPassword != "" && oldPassword != "") {
+        toastr.error('NewPassword and OldPassword are same.');
+        val = false;
+    }
+
+    if (val == false) {
+        return;
+    }
+
     var cls = {
+        Password: oldPassword,
+        Password: retypePassword,
         Password: newPassword
     }
     ShowWait()
@@ -209,7 +396,7 @@ function ChangePassword() {
 
             if (data != null) {
                 if (data.Response == 'Success') {
-                    toastr.success('Profile updated successfully');
+                    toastr.success('Password changed successfully');
                     MyProfile();
                 }
             }

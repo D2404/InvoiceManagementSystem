@@ -478,6 +478,7 @@
     <Content Include="Data\Profile\b3ffb2857c6422fa3d13a3d474032194.jpg" />
     <Content Include="Data\Profile\BackgroundImage.jpg" />
     <Content Include="Data\Profile\bg.jpg" />
+    <Content Include="Data\Profile\download.jpg" />
     <Content Include="Data\Profile\istockphoto-818533812-612x612.jpg" />
     <Content Include="Data\Profile\noimage.jpg" />
     <Content Include="Data\Profile\Profile_0_638118821277851663.png" />
@@ -689,6 +690,7 @@
     <Content Include="Scripts\bootstrap-datetimepicker.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\Chosen.js" />
     <Content Include="Scripts\Datepickermanual.js" />
     <Content Include="Scripts\i18n\af.js" />
     <Content Include="Scripts\i18n\ar.js" />
@@ -782,7 +784,6 @@
     <Content Include="Views\Student\Student.cshtml" />
     <Content Include="Views\Student\_StudentListPartial.cshtml" />
     <Content Include="Views\Account\MyProfile.cshtml" />
-    <Content Include="Views\Account\ChangePassword.cshtml" />
     <Content Include="Views\Subject\_SubjectListPartial.cshtml" />
     <Content Include="Views\Subject\Subject.cshtml" />
     <Content Include="Views\ClassRoom\ClassRoom.cshtml" />
@@ -813,7 +814,6 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\_TeacherByClassRoomList.cshtml" />
     <Content Include="Views\Home\_StudentByTeacherList.cshtml" />
-    <Content Include="Views\Account\MyProfile1.cshtml" />
     <Content Include="Views\Home\Index1.cshtml" />
   </ItemGroup>
   <ItemGroup>

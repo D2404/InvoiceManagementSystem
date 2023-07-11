@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
+using System.IO;
 using System.Linq;
 using System.Web;
 
@@ -14,7 +15,10 @@ namespace InvoiceManagementSystem.Models
         clsCommon objCommon = new clsCommon();
         public int? Id { get; set; }
         public string FullName { get; set; }
-        public string Profile { get; set; }
+        public HttpPostedFileBase[] Profile { get; set; }
+
+        public string ProfileImg { get; set; }
+
         public string UserName { get; set; }
         public string Email { get; set; }
         public string Mobile { get; set; }
@@ -112,7 +116,7 @@ namespace InvoiceManagementSystem.Models
                     obj.FullName = dt.Rows[0]["FullName"] == null || dt.Rows[0]["FullName"].ToString().Trim() == "" ? "" : dt.Rows[0]["FullName"].ToString();
                     obj.Email = dt.Rows[0]["Email"] == null || dt.Rows[0]["Email"].ToString().Trim() == "" ? "" : dt.Rows[0]["Email"].ToString();
                     obj.Mobile = dt.Rows[0]["Mobile"] == null || dt.Rows[0]["Mobile"].ToString().Trim() == "" ? "" : dt.Rows[0]["Mobile"].ToString();
-                    obj.Profile = dt.Rows[0]["Profile"] == null || dt.Rows[0]["Profile"].ToString().Trim() == "" ? "" : dt.Rows[0]["Profile"].ToString();
+                    obj.ProfileImg = dt.Rows[0]["Profile"] == null || dt.Rows[0]["Profile"].ToString().Trim() == "" ? "" : dt.Rows[0]["Profile"].ToString();
                     obj.RoleName = dt.Rows[0]["RoleName"] == null || dt.Rows[0]["RoleName"].ToString().Trim() == "" ? "" : dt.Rows[0]["RoleName"].ToString();
                     obj.Password = dt.Rows[0]["Password"] == null || dt.Rows[0]["Password"].ToString().Trim() == "" ? "" : dt.Rows[0]["Password"].ToString();
                     obj.RoleId = Convert.ToInt32(dt.Rows[0]["RoleId"] == null || dt.Rows[0]["RoleId"].ToString().Trim() == "" ? "0" : dt.Rows[0]["RoleId"].ToString());
@@ -140,6 +144,29 @@ namespace InvoiceManagementSystem.Models
         {
             try
             {
+                if (cls.Profile != null && cls.Profile.Length > 0)
+                {
+                    string Profile = ("Profile_" + cls.Id + "_" + DateTime.Now.Ticks).ToString();
+                    string strOriginalFile = cls.Profile[0].FileName;
+                    string ext = System.IO.Path.GetExtension(cls.Profile[0].FileName).ToLower();
+                    string fileLocation = HttpContext.Current.Server.MapPath("/Data/Profile/");
+                    if (!Directory.Exists(fileLocation))
+                    {
+                        Directory.CreateDirectory(fileLocation);
+                    }
+                    if (ext == ".jpeg" || ext == ".jpg" || ext == ".png")
+                    {
+                        Profile = Profile + ext;
+                        cls.Profile[0].SaveAs(fileLocation + Profile);
+                    }
+                    var strPath = fileLocation + cls.Profile;
+                    FileInfo file = new FileInfo(strPath);
+                    if (file.Exists)//check file exsit or not
+                    {
+                        file.Delete();
+                    }
+                    cls.ProfileImg = Profile;
+                }
                 List<AccountModel> LSTList = new List<AccountModel>();
                 conn.Open();
                 SqlCommand cmd = new SqlCommand("sp_GetMyProfile", conn);
@@ -157,7 +184,7 @@ namespace InvoiceManagementSystem.Models
                         obj.Id = Convert.ToInt32(dt.Rows[i]["Id"] == null || dt.Rows[i]["Id"].ToString().Trim() == "" ? null : dt.Rows[i]["Id"].ToString());
                         obj.RoleId = Convert.ToInt32(dt.Rows[i]["RoleId"] == null || dt.Rows[i]["RoleId"].ToString().Trim() == "" ? null : dt.Rows[i]["RoleId"].ToString());
                         obj.FullName = dt.Rows[i]["FullName"] == null || dt.Rows[i]["FullName"].ToString().Trim() == "" ? null : dt.Rows[i]["FullName"].ToString();
-                        obj.Profile = dt.Rows[i]["Profile"] == null || dt.Rows[i]["Profile"].ToString().Trim() == "" ? null : dt.Rows[i]["Profile"].ToString();
+                        obj.ProfileImg = dt.Rows[i]["Profile"] == null || dt.Rows[i]["Profile"].ToString().Trim() == "" ? null : dt.Rows[i]["Profile"].ToString();
                         obj.UserName = dt.Rows[i]["UserName"] == null || dt.Rows[i]["UserName"].ToString().Trim() == "" ? null : dt.Rows[i]["UserName"].ToString();
                         obj.Mobile = dt.Rows[i]["MobileNo"] == null || dt.Rows[i]["MobileNo"].ToString().Trim() == "" ? null : dt.Rows[i]["MobileNo"].ToString();
                         obj.Email = dt.Rows[i]["Email"] == null || dt.Rows[i]["Email"].ToString().Trim() == "" ? null : dt.Rows[i]["Email"].ToString();
@@ -182,6 +209,8 @@ namespace InvoiceManagementSystem.Models
             AccountModel res = new AccountModel();
             try
             {
+
+                
                 conn.Open();
                 SqlCommand cmd = new SqlCommand("Sp_UpdateProfile", conn);
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
@@ -192,6 +221,7 @@ namespace InvoiceManagementSystem.Models
                 cmd.Parameters.AddWithValue("@Email", cls.Email);
                 cmd.Parameters.AddWithValue("@UserName", cls.UserName);
                 cmd.Parameters.AddWithValue("@Address", cls.Address);
+                //cmd.Parameters.AddWithValue("@Profile", cls.ProfileImg);
 
                 SqlDataAdapter da = new SqlDataAdapter(cmd);
                 cmd.CommandTimeout = 0;
