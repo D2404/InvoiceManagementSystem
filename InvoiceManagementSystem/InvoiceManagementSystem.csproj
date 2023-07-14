@@ -124,6 +124,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\TimetableController.cs" />
     <Compile Include="Controllers\ClassRoomController.cs" />
     <Compile Include="Controllers\FeesController.cs" />
     <Compile Include="Controllers\ExamController.cs" />
@@ -138,6 +139,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountModel.cs" />
+    <Compile Include="Models\TimetableModel.cs" />
     <Compile Include="Models\ClassRoomModel.cs" />
     <Compile Include="Models\DashboardModel.cs" />
     <Compile Include="Models\FeesModel.cs" />
@@ -815,6 +817,8 @@
     <Content Include="Views\Home\_TeacherByClassRoomList.cshtml" />
     <Content Include="Views\Home\_StudentByTeacherList.cshtml" />
     <Content Include="Views\Home\Index1.cshtml" />
+    <Content Include="Views\Timetable\_TimetableListPartial.cshtml" />
+    <Content Include="Views\Timetable\Timetable.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

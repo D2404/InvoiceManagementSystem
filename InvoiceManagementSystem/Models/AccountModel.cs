@@ -209,8 +209,30 @@ namespace InvoiceManagementSystem.Models
             AccountModel res = new AccountModel();
             try
             {
+                if (cls.Profile != null && cls.Profile.Length > 0)
+                {
+                    string Profile = ("Profile_" + cls.Id + "_" + DateTime.Now.Ticks).ToString();
+                    string strOriginalFile = cls.Profile[0].FileName;
+                    string ext = System.IO.Path.GetExtension(cls.Profile[0].FileName).ToLower();
+                    string fileLocation = HttpContext.Current.Server.MapPath("/Data/Profile/");
+                    if (!Directory.Exists(fileLocation))
+                    {
+                        Directory.CreateDirectory(fileLocation);
+                    }
+                    if (ext == ".jpeg" || ext == ".jpg" || ext == ".png")
+                    {
+                        Profile = Profile + ext;
+                        cls.Profile[0].SaveAs(fileLocation + Profile);
+                    }
+                    var strPath = fileLocation + cls.Profile;
+                    FileInfo file = new FileInfo(strPath);
+                    if (file.Exists)//check file exsit or not
+                    {
+                        file.Delete();
+                    }
+                    cls.ProfileImg = Profile;
+                }
 
-                
                 conn.Open();
                 SqlCommand cmd = new SqlCommand("Sp_UpdateProfile", conn);
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
@@ -221,7 +243,7 @@ namespace InvoiceManagementSystem.Models
                 cmd.Parameters.AddWithValue("@Email", cls.Email);
                 cmd.Parameters.AddWithValue("@UserName", cls.UserName);
                 cmd.Parameters.AddWithValue("@Address", cls.Address);
-                //cmd.Parameters.AddWithValue("@Profile", cls.ProfileImg);
+                cmd.Parameters.AddWithValue("@Profile", cls.ProfileImg);
 
                 SqlDataAdapter da = new SqlDataAdapter(cmd);
                 cmd.CommandTimeout = 0;

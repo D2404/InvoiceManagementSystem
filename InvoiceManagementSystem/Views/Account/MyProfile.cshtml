@@ -71,7 +71,7 @@
                                 <br />
                                 <div class="row">
                                     <input type="hidden" id="hdnintId" value="@Session["Id"]" />
-                                    <div class="col-md-6">
+                                    @*<div class="col-md-6">
                                         <div class="form-group">
 
                                             <div class="avatar avatar-xl position-relative">
@@ -79,11 +79,18 @@
                                             </div>
                                         </div>
 
-                                    </div>
+                                    </div>*@
+
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="example-text-input" class="form-control-label">Profile</label>
+                                            <input type="hidden" id="hdnfile" />
+                                            <label for="example-text-input" class="form-control-label">Profile&nbsp;&nbsp;
+                                            <i class="fa fa-info-circle btn-tooltip"  data-bs-toggle="tooltip" data-bs-placement="top" title="
+Re-login is required after profile change" aria-hidden="true" style="font-size: 21px;color: dodgerblue;"></i></label>
                                             <input class="form-control form-control" id="Profile" type="file">
+                                        </div>
+                                        <div class="form-group" id="divFile" style="display:none">
+
                                         </div>
                                     </div>
                                     <div class="col-md-6">
@@ -113,10 +120,10 @@
                                             <span id="errmobile" class="text-xs font-weight-bold mb-0" style="color:red"></span>
                                         </div>
                                     </div>
-                                    <div class="col-md-12">
+                                    <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="example-text-input" class="form-control-label">Address <span style="color: red">*</span></label>
-                                            <input class="form-control form-control" id="Address" type="text" value="@Model.LSTAccountList[0].Address">
+                                            <textarea class="form-control form-control" id="Address"  value="@Model.LSTAccountList[0].Address"></textarea>
                                             <span id="erraddress" class="text-xs font-weight-bold mb-0" style="color:red"></span>
                                         </div>
                                     </div>

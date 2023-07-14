@@ -185,7 +185,7 @@
                             <span id="errEmail" class="text-xs font-weight-bold mb-0" style="color:red"></span>
                         </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-6"id="Passworddiv">
                         <div class="form-group">
                             <label for="example-text-input" class="form-control-label">Password <span class="text-danger">*</span></label>
                             <input class="form-control form-control-alternative" type="text" id="Password" placeholder="Enter Password">
@@ -208,7 +208,7 @@
                             <span id="errClassId" class="text-xs font-weight-bold mb-0" style="color:red"></span>
                         </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-6"id="Dobdiv">
                         <div class="form-group">
                             <label for="example-text-input" class="form-control-label">Date Of Birth</label>
                             <input class="form-control form-control-alternative floating datetimepicker" type="date" id="Dob" autocomplete="off">
@@ -238,7 +238,7 @@
                             <textarea class="form-control form-control-alternative" id="Address"></textarea>
                         </div>
                     </div>
-                    <div class="col-sm-6">
+                    <div class="col-sm-6" id="Profilediv">
                         <div class="form-group">
                             <div class="form-group" id="divUploadFile" style="display:block">
                                 <input type="hidden" id="hdnfile" />
@@ -251,6 +251,8 @@
 
                         </div>
                     </div>
+
+
                 </div>
             </div>
             <div class="modal-footer">
@@ -439,10 +441,6 @@
 
         if (hdnfile == null || hdnfile == "") {
             var Profile = document.getElementById('Profile').value;
-            if (Profile == null || Profile == "") {
-                $("#errProfile").html("Please select Profile.");
-                return;
-            }
             if (fileCount > 0) {
                 for (var i = 0; i < fileCount; i++) {
                     var Profile = document.getElementById("Profile").files[i];
@@ -590,6 +588,9 @@
     }
 
     function GetSingleTeacherData(id) {
+        $('#Passworddiv').hide();
+        $('#Dobdiv').hide();
+        $('#Profilediv').hide();
         $('#errName').html("");
         document.getElementById('btnAdd').innerHTML = "Update";
         $("#btnAdd").attr('title', 'Update');

@@ -126,19 +126,19 @@
                         {
                             if (Model.LSTTeacherList[i].Dob != null && Model.LSTTeacherList[i].Type == 1)
                             {
-                                <div class="card" id="box" style="background: linear-gradient(to right, #fa7000ad, #5848b1b5) !important ">
+                                <div class="card" id="box">
                                     <div class="card-body p-3">
                                         <div class="row">
                                             <div class="col-8">
                                                 <div class="numbers">
-                                                    <p style="text-decoration:underline;color:white" class="text-sm mb-0 text-uppercase font-weight-bold">Teacher's Today's Birthday</p>
+                                                    <p style="text-decoration:underline;color:black" class="text-sm mb-0 text-uppercase font-weight-bold">Teacher's Today's Birthday</p>
                                                     <br />
                                                     @foreach (var item in Model.LSTTeacherList)
                                                     {
                                                         if (item.Dob != null && item.Type == 1)
                                                         {
                                                             <div class="dash-card-container">
-                                                                <h6 class="font-weight-bolder" style="color: white">@item.Dob <br /> @item.Name</h6>
+                                                                <h6 class="font-weight-bolder" style="color: black">@item.Dob <br /> @item.Name</h6>
                                                             </div>
                                                         }
                                                     }
@@ -154,21 +154,21 @@
                                     </div>
                                 </div>
                             }
-                            else if (Model.LSTTeacherList[i].Type == 2)
+                            else 
                             {
-                                <div class="card" id="box" style="background: linear-gradient(to right, #fa7000ad, #5848b1b5) !important ">
+                                <div class="card" id="box" >
                                     <div class="card-body p-3">
                                         <div class="row">
                                             <div class="col-8">
                                                 <div class="numbers">
-                                                    <p style="text-decoration: underline; color: white" class="text-sm mb-0 text-uppercase font-weight-bold">Today's Birthday</p>
+                                                    <p style="text-decoration: underline; color: black" class="text-sm mb-0 text-uppercase font-weight-bold"><b>Today's Birthday</b></p>
                                                     <br />
                                                     <div class="dash-card-container">
-                                                        <h6 style="font-size: 14px; color: white" class="font-weight-bolder">Today is no one's birthday</h6>
+                                                        <h6 style="font-size: 14px; color: black" class="font-weight-bolder">Today is no one's birthday</h6>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-4 text-end">
+                                            <div class="col-4 text-end">    
                                                 <div class="icon icon-shape bg-gradient-dark shadow-dark text-center rounded-circle">
                                                     <i class="fa fa-birthday-cake text-lg opacity-10" aria-hidden="true"></i>
                                                 </div>
@@ -190,19 +190,19 @@
                         {
                             if (Model.LSTTeacherList[i].Dob != null && Model.LSTTeacherList[i].Type == 2)
                             {
-                                <div class="card" id="box" style="background: linear-gradient(to right, #00fae3ad, #124ba1c2) !important ">
+                                <div class="card" id="box">
                                     <div class="card-body p-3">
                                         <div class="row">
                                             <div class="col-8">
                                                 <div class="numbers">
-                                                    <h5 style="text-decoration:underline;color:white" class="text-sm mb-0 text-uppercase font-weight-bold">Teacher's Upcoming Birthday</h5>
+                                                    <h5 style="text-decoration:underline;color:black" class="text-sm mb-0 text-uppercase font-weight-bold">Teacher's Upcoming Birthday</h5>
                                                     <br />
                                                     @foreach (var item in Model.LSTTeacherList)
                                                     {
                                                         if (item.Dob != null && item.Type == 2)
                                                         {
                                                             <div class="dash-card-container">
-                                                                <h6 style="font-size:14px;color:white " class="font-weight-bolder">@item.Dob - @item.Name - @item.ClassNo</h6>
+                                                                <h6 style="font-size:14px;color:black " class="font-weight-bolder"> @item.ClassNo - @item.Name - @item.Dob </h6>
                                                             </div>
                                                         }
                                                     }

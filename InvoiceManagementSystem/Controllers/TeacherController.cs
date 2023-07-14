@@ -46,7 +46,7 @@ namespace InvoiceManagementSystem.Controllers
                 List<TeacherModel> lstTeacherList = new List<TeacherModel>();
                 SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString);
                 conn.Open();
-                SqlCommand cmd = new SqlCommand("Sp_GetTeacherList", conn);
+                SqlCommand cmd = new SqlCommand("sp_GetTimetableList", conn);
                 cmd.Parameters.AddWithValue("@PageSize", cls.PageSize);
                 cmd.Parameters.AddWithValue("@PageIndex", cls.PageIndex);
                 cmd.Parameters.AddWithValue("@Search", cls.SearchText);

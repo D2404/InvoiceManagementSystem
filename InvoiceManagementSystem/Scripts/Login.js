@@ -169,6 +169,7 @@ function MyProfile() {
         type: "POST",
         data: {},
         success: function (data) {
+            debugger
             if (data != null) {
                 document.getElementById('hdnintId').value = data.LSTAccountList[0].Id;
                 document.getElementById('FullName').value = data.LSTAccountList[0].FullName;
@@ -176,7 +177,7 @@ function MyProfile() {
                 document.getElementById('MobileNo').value = data.LSTAccountList[0].Mobile;
                 document.getElementById('Address').value = data.LSTAccountList[0].Address;
                 document.getElementById('UserName').value = data.LSTAccountList[0].UserName;
-              
+               // document.getElementById('hdnfile').value = data.ProfileImg;
             }
             else {
                 alert('error');
@@ -306,7 +307,34 @@ debugger
     }
    
     var formData = new FormData();
-    
+    var fileCount = document.getElementById("Profile").files.length;
+    var hdnfile = document.getElementById("hdnfile").value;
+
+    if (hdnfile == null || hdnfile == "") {
+        var Profile = document.getElementById('Profile').value;
+        if (Profile == null || Profile == "") {
+            $("#errProfile").html("Please select Profile.");
+            return;
+        }
+        if (fileCount > 0) {
+            for (var i = 0; i < fileCount; i++) {
+                var Profile = document.getElementById("Profile").files[i];
+                var ext = Profile.name.split('.').pop();
+                if (ext.toLowerCase() == "jpg" || ext.toLowerCase() == "jpeg" || ext.toLowerCase() == "png") {
+                    formData.append("Profile", Profile);
+                }
+                else {
+                    alert('Please upload valid file.');
+                    return;
+                }
+            }
+        }
+    }
+    else {
+
+        var ProfileImg = Profile;
+
+    }
     
     if (val == false) {
         return;
@@ -316,8 +344,10 @@ debugger
     formData.append('FullName', FullName);
     formData.append('UserName', UserName);
     formData.append('Email', Email);
-    formData.append('MobileNo', Mobile);
+    formData.append('Mobile', MobileNo);
     formData.append('Address', Address);
+    formData.append('Profile', Profile);
+    formData.append('ProfileImg', ProfileImg);
     /*formData.append('Profile', Profile);*/
     ShowWait();
     $.ajax({

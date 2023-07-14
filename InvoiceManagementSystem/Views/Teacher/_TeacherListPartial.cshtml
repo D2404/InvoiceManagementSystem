@@ -27,7 +27,7 @@
         <p class="text-xs font-weight-bold mb-0" style="text-align: center;">@item.ROWNUMBER</p>
         @*<p class="text-xs text-secondary mb-0">Organization</p>*@
     </td>
-    @if (item.ProfileImg == null || item.ProfileImg == "")
+    @if (item.ProfileImg == null || item.ProfileImg == "" || item.ProfileImg == "undefined" )
     {
 <td> <img src="~/Data/Profile/noimage.jpg" width="50" height="50" /></td> }
                     else
