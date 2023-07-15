@@ -40,7 +40,7 @@
 <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl " id="navbarBlur" data-scroll="false">
     <div class="container-fluid py-1 px-3">
         <nav aria-label="breadcrumb">
-            <h5 class="font-weight-bolder text-white mb-0" style="margin-top:25px">Subject List</h5>
+            <h5 class="font-weight-bolder text-white mb-0" style="margin-top:25px"><i class="fa fa-book text-lg" style="color:white"></i>&nbsp;&nbsp;Subject List</h5>
         </nav>
     </div>
 </nav>
@@ -67,11 +67,11 @@
         </div>
     </div>
     <div class="col-sm-6 col-md-1">
-
-        <a class="btn bg-gradient-info" onclick="GetSubjectList(1)">Search</a>
+        <a href="#" class="btn bg-gradient-success btn-tooltip" data-bs-toggle="tooltip" data-bs-placement="top" title="Search" data-container="body" data-animation="true" onclick="GetSubjectList(1)"><i class="fa fa-search" style="color:white"></i></a>
+        @*<a class="btn bg-gradient-success btn-tooltip" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Filter" onclick="GetSubjectList(1)"><i class="fa fa-search" style="color:white"></i></a>*@
     </div>
-    <div class="col-sm-6 col-md-1">
-        <a class="btn bg-gradient-dark" title="Clear" onclick="ClearData(2)"> Clear </a>
+    <div class="col-sm-3 col-md-1">
+        <a class="btn bg-gradient-secondary" title="Clear" onclick="ClearData(2)"><i class="fa fa-remove" style="color:white"></i></a>
 
     </div>
 </div>
@@ -80,7 +80,7 @@
     <div style="margin-left:868px">
         <a href="#" class="btn bg-gradient-dark" onclick="ShowFilter()" title="Filter"><i class="fa fa-filter"></i></a>
         @*<a href="#" class="btn bg-gradient-dark" onclick="ShowFilter()" style="margin-left: 843px; margin-bottom: -64px;"><i class="fa fa-filter"></i></a>*@
-        <a class="btn bg-gradient-info" title="Add Subject" data-bs-toggle="modal" data-bs-target="#Subject" onclick="Clear()">Add Subject </a>
+        <a class="btn bg-gradient-info" title="Add Subject" data-bs-toggle="modal" data-bs-target="#Subject" onclick="Clear()"><i class="fa fa-plus" style="color:white"></i>&nbsp;Add Subject </a>
     </div>
 </div>
 
@@ -145,8 +145,8 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" id="btnAdd" class="btn bg-gradient-info" onclick="InsertData()">Add</button>
-                <button type="button" class="btn bg-gradient-dark" onclick="ClearData(1)">Clear</button>
+                <button type="button" id="btnAdd" class="btn bg-gradient-info" onclick="InsertData()"><i class="fa fa-save" style="color:white"></i>&nbsp;Add</button>
+                <button type="button" class="btn bg-gradient-dark" onclick="ClearData(1)"><i class="fa fa-remove" style="color:white"></i>&nbsp;Clear</button>
                 <input type="hidden" id="hdnintId" value="0" />
             </div>
         </div>

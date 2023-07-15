@@ -10619,7 +10619,8 @@ fieldset:disabled .btn {
 }
 
 .bg-white {
-    background-image: linear-gradient(to top,#f3390cbd -17%,#fdfdfd 71%,#ffffff 100%) /*background-color: #d0d5d9bf !important;*/;
+    background-image: linear-gradient(to top,#f3390cbd 47%,#fdfdfd 71%,#ffffff 100%) /*background-color: #d0d5d9bf !important;*/;
+    /*background-image: linear-gradient(to top,#f3390cbd 15%,#ffffff 44%,#139909 100%)*/ /*background-color: #d0d5d9bf !important;*/
     /*background-color: #d0d5d9bf !important;*/
 }
 
