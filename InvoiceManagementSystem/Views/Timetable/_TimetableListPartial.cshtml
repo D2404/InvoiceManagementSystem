@@ -4,9 +4,12 @@
     <thead>
         <tr>
             <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Sr No.</th>
-            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Name</th>
-            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Class No</th>
-            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Status</th>
+            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Day</th>
+            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Teacher</th>
+            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Class</th>
+            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Subject</th>
+            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Start Time</th>
+            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">End Time</th>
             <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Action</th>
 
         </tr>
@@ -27,12 +30,35 @@
 
         </td>
         <td>
+            @if (item.Days == 1)
+            {
+                <a style="margin-left:10px" class="text-xs font-weight-bold mb-0 text-success"><b>Monday</b></a> }
+            else if (item.Days == 2)
+            {
+                <a style="margin-left:10px" class="text-xs font-weight-bold mb-0 text-primary"><b>Tuesday</b></a>}
+
+            else if (item.Days == 3)
+            {
+                <a style="margin-left:10px" class="text-xs font-weight-bold mb-0 text-danger"><b>Wednesday</b></a>}
+
+            else if (item.Days == 4)
+            {
+                <a style="margin-left:10px" class="text-xs font-weight-bold mb-0 text-secondary"><b>Thursday</b></a>}
+
+            else if (item.Days == 5)
+            {
+                <a style="margin-left:10px" class="text-xs font-weight-bold mb-0 text-info"><b>Friday</b></a>}
+
+            else if (item.Days == 6)
+            {
+                <a style="margin-left:10px" class="text-xs font-weight-bold mb-0 text-warning"> <b>Satureday</b></a>}
+        </td>
+        <td>
             <div class="d-flex px-2 py-1">
                 <div class="d-flex flex-column justify-content-center">
-                    <h5 class="text-xs font-weight-bold mb-0" style="text-align: left;">@item.SubjectName</h5>
+                    <h5 class="text-xs font-weight-bold mb-0" style="text-align: left;">@item.TeacherName</h5>
                 </div>
             </div>
-
         </td>
         <td>
             <div class="d-flex px-2 py-1">
@@ -43,13 +69,27 @@
 
         </td>
         <td>
-            @if (item.IsActive == true)
-            {
-            <a style="margin-left:10px" class="text-xs font-weight-bold mb-0"><i class="fa fa-dot-circle-o text-success"></i> Active</a> }
-                        else
-                        {
-    <a style="margin-left:10px" class="text-xs font-weight-bold mb-0"><i class="fa fa-dot-circle-o text-danger"></i> In-Active </a>}
+            <div class="d-flex px-2 py-1">
+                <div class="d-flex flex-column justify-content-center">
+                    <h5 class="text-xs font-weight-bold mb-0" style="text-align: left;">@item.SubjectName</h5>
+                </div>
+            </div>
         </td>
+        <td>
+            <div class="d-flex px-2 py-1">
+                <div class="d-flex flex-column justify-content-center">
+                    <h5 class="text-xs font-weight-bold mb-0" style="text-align: left;">@item.StartTime</h5>
+                </div>
+            </div>
+        </td>
+        <td>
+            <div class="d-flex px-2 py-1">
+                <div class="d-flex flex-column justify-content-center">
+                    <h5 class="text-xs font-weight-bold mb-0" style="text-align: left;">@item.EndTime</h5>
+                </div>
+            </div>
+        </td>
+        
         <td class="align-middle text-center">
             <div class="dropdown">
                 <a href="javascript:;" class="nav-link text-white font-weight-bold px-0">
@@ -57,16 +97,9 @@
                 </a>
 
                 <div class="dropdown-content" style="top: 6px; right: 8px;width:100px">
-                    @if (item.IsActive == true)
-                    {
-
-        <a class="dropdown-item" style="font-size:14px;padding-top:6px;padding-right: 25px" data-bs-toggle="modal" data-bs-target="#status" onclick="openstatusModel(@item.Id)">&nbsp;&nbsp;<i class="fa fa-check" aria-hidden="true" style="color:black">&nbsp;&nbsp;Status</i></a> }
-                            else
-                            {
-        <a class="dropdown-item" style="font-size: 14px;padding-top: 1px;padding-right: 25px" data-bs-toggle="modal" data-bs-target="#status" onclick="openstatusModel(@item.Id)">&nbsp;&nbsp;<i class="fa fa-times" aria-hidden="true" style="color: black">&nbsp;&nbsp;Status</i></a>                    }
-
-                    <a href="javascript:;" title="Edit Subject" style="cursor: pointer; font-size: 14px; padding-top: 1px;padding-right: 25px " data-bs-toggle="modal" data-bs-target="#Subject" onclick="GetSingleSubjectData(@item.Id)"><i class="fa fa-pen cursor-pointer" aria-hidden="true" style="color: black">&nbsp;&nbsp;Edit</i></a>
-                    <a href="javascript:;" style="font-size: 14px;padding-top:1px;padding-right:25px" data-bs-toggle="modal" data-bs-target="#delete_Subject" onclick="opendeleteModel(@item.Id);">&nbsp;&nbsp;<i class="fa fa-trash" aria-hidden="true" style="color: black">&nbsp;&nbsp;Delete</i></a>
+                    
+                    <a href="javascript:;" title="Edit Subject" style="cursor: pointer; font-size: 14px; padding-top: 1px;padding-right: 25px " data-bs-toggle="modal" data-bs-target="#Timetable" onclick="GetSingleTimetableData(@item.Id)"><i class="fa fa-pen cursor-pointer" aria-hidden="true" style="color: black">&nbsp;&nbsp;Edit</i></a>
+                    <a href="javascript:;" style="font-size: 14px;padding-top:1px;padding-right:25px" data-bs-toggle="modal" data-bs-target="#delete_Timetable" onclick="opendeleteModel(@item.Id);">&nbsp;&nbsp;<i class="fa fa-trash" aria-hidden="true" style="color: black">&nbsp;&nbsp;Delete</i></a>
                 </div>
             </div>
         </td>

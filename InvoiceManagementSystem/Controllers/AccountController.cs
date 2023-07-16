@@ -49,7 +49,7 @@ namespace InvoiceManagementSystem.Controllers
         
         [HttpPost, ValidateInput(false)]
         public ActionResult Login(AccountModel cls)
-                {
+        {
             try
             {
                 cls = cls.Login(cls);

@@ -48,7 +48,7 @@
 <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl " id="navbarBlur" data-scroll="false">
     <div class="container-fluid py-1 px-3">
         <nav aria-label="breadcrumb">
-            <h5 class="font-weight-bolder text-white mb-0">Teacher Subject List</h5>
+            <h5 class="font-weight-bolder text-white mb-0">Time Table List</h5>
         </nav>
     </div>
 
@@ -59,24 +59,26 @@
 </nav>
 <div class="row" id="FilterDiv" style="margin-left:19px">
     <div class="col-sm-3 col-md-3">
-        <div class="form-group form-focus">
-            <input type="text" class="form-control floating" id="SearchText" placeholder="Search" maxlength="50">
-        </div>
-    </div>
-    <div class="col-sm-3 col-md-3">
-        <div class="form-group form-focus">
-            <select data-placeholder="Select here.." id="ddlClassId" class="select2-single-placeholder form-control" style="width: 100%"></select>
-        </div>
-    </div>
-    <div class="col-sm-3 col-md-3">
         <div class="form-group form-focus select-focus">
-            <select tabindex="1" data-placeholder="Select here.." id="intActive" name="intActive" class="form-control floating">
-                <option value="3">Select Status</option>
-                <option value="1">Active</option>
-                <option value="2">In-Active</option>
+            <select class="form-control" id="ddlDays">
+                <option value="7" selected>Search by Day</option>
+                <option value="1">Monday</option>
+                <option value="2">Tuesday</option>
+                <option value="3">Wednesday</option>
+                <option value="4">Thursday</option>
+                <option value="5">Friday</option>
+                <option value="6">Saturday</option>
             </select>
         </div>
     </div>
+
+    <div class="col-sm-3 col-md-3">
+        <div class="form-group form-focus">
+            <select data-placeholder="Select here.." id="ddlTeacherId" class="select2-single-placeholder form-control" style="width: 100%"></select>
+        </div>
+    </div>
+
+
     <div class="col-sm-6 col-md-1">
 
         <a class="btn bg-gradient-info" onclick="GetTimetableList(1)">Search</a>
@@ -153,7 +155,7 @@ else
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label for="basicinput"><b>Days</b></label>
-                            <select class="form-control">
+                            <select class="form-control" id="Days">
                                 <option value="7" selected>Select Day</option>
                                 <option value="1">Monday</option>
                                 <option value="2">Tuesday</option>
@@ -166,22 +168,19 @@ else
                     </div>
                     <div class="col-sm-6">
                         <div class="form-group">
+                            <label for="basicinput"><b>Teacher</b></label>
+                            <select class="form-control" id="TeacherId">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
                             <label for="basicinput"><b>Class Room</b></label>
                             <select class="form-control" id="ClassId" onchange="onClass();">
                                 <option value="0">Select here..</option>
                             </select>
                         </div>
                     </div>
-
-                    <div class="col-sm-6">
-                        <div class="form-group">
-                            <label for="basicinput"><b>Teacher</b></label>
-                            <select class="form-control js-example-basic-single" id="TeacherId">
-                                <option value="0">Select here..</option>
-                            </select>
-                        </div>
-                    </div>
-
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label for="basicinput"><b>Subject</b></label>
@@ -200,7 +199,7 @@ else
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="example-text-input" class="form-control-label">End Time<span class="text-danger">*</span></label>
-                            <input class="form-control form-control-alternative" type="time" id="StartTime">
+                            <input class="form-control form-control-alternative" type="time" id="EndTime">
                             <span id="errFullName" class="text-xs font-weight-bold mb-0" style="color:red"></span>
                         </div>
                     </div>
@@ -295,13 +294,15 @@ else
         })
     });
     function InsertData() {
-
+        debugger
         var val = true;
         var Id = $('#hdnintId').val();
         var TeacherId = $('#TeacherId').val();
-        var SearchText = $('#SearchText').val();
         var ClassId = $('#ClassId').val();
         var SubjectId = $('#SubjectId').val();
+        var Days = $('#Days').val();
+        var StartTime = $('#StartTime').val();
+        var EndTime = $('#EndTime').val();
         var formData = new FormData();
         if (val == false) {
             return;
@@ -311,7 +312,9 @@ else
         formData.append('TeacherId', TeacherId);
         formData.append('ClassId', ClassId);
         formData.append('SubjectId', SubjectId);
-        formData.append('SearchText', SearchText);
+        formData.append('Days', Days);
+        formData.append('StartTime', StartTime);
+        formData.append('EndTime', EndTime);
         ShowWait();
         $.ajax({
             type: "POST",
@@ -371,6 +374,31 @@ else
             }
         });
     }
+
+    function GetTeacher() {
+        var cls = {
+        }
+        $.ajax({
+            url: '/TeacherAttandence/GetTeacher',
+            contentType: "application/json; charset=utf-8",
+            type: "GET",
+            data: JSON.stringify({
+                cls: cls
+            }),
+            success: function (data) {
+
+                var html = "";
+                html = html + ' <option value="0" selected>Select Teacher</option>';
+                for (var i = 0; i < data.LSTTeacherList.length; i++) {
+                    html = html + '<option value="' + data.LSTTeacherList[i].Id + '">' + data.LSTTeacherList[i].FullName + '</option>';
+                    $("#TeacherId").empty();
+                    $("#TeacherId").append(html);
+                    $("#ddlTeacherId").empty();
+                    $("#ddlTeacherId").append(html);
+                }
+            }
+        });
+    }
     function GetClassRoom() {
         var cls = {
         }
@@ -389,8 +417,6 @@ else
                     html = html + '<option value="' + data.LSTClassRoomList[i].Id + '">' + data.LSTClassRoomList[i].ClassNo + '</option>';
                     $("#ClassId").empty();
                     $("#ClassId").append(html);
-                    $("#ddlClassId").empty();
-                    $("#ddlClassId").append(html);
                 }
             }
         });
@@ -399,16 +425,16 @@ else
         var ClassId = $('#ClassId').val();
         $.ajax({
             type: "GET",
-            url: '/Timetable/LoadTeacherSubject?ClassId=' + ClassId,
+            url: '/Exam/LoadSubject?ClassId=' + ClassId,
             async: false,
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (data) {
-                $('#TeacherId').empty();
-                $("#TeacherId").append($("<option     />").val("0").text("Select Teacher name.."));
-                $.each(data, function (i, v) {
-                    $("#TeacherId").append($("<option     />").val(v.TeacherId).text(v.TeacherName));
-                });
+                //$('#TeacherId').empty();
+                //$("#TeacherId").append($("<option     />").val("0").text("Select Teacher name.."));
+                //$.each(data, function (i, v) {
+                //    $("#TeacherId").append($("<option     />").val(v.TeacherId).text(v.TeacherName));
+                //});
                 $('#SubjectId').empty();
                 $("#SubjectId").append($("<option     />").val("0").text("Select subject name.."));
                 $.each(data, function (i, v) {
@@ -423,10 +449,10 @@ else
         });
     }
     function GetTimetableList(page) {
+        debugger
         var Id = 0;
-        var SearchText = document.getElementById('SearchText').value;
-        var intActive = document.getElementById('intActive').value;
-        var ClassId = document.getElementById('ddlClassId').value;
+        var Days = document.getElementById('ddlDays').value;
+        var TeacherId = document.getElementById('ddlTeacherId').value;
         if (document.getElementById('PageSize') != null) {
             PageSize = document.getElementById('PageSize').value;
         }
@@ -441,9 +467,9 @@ else
         PageIndex = page;
         var cls = {
             Id: Id,
-            SearchText: SearchText,
-            intActive: intActive,
+            Days: Days,
             ClassId: ClassId,
+            TeacherId: TeacherId,
             PageSize: PageSize,
             PageIndex: PageIndex,
         }
@@ -490,6 +516,9 @@ else
                     $('#ClassId').val(data.LSTTimetableList[0].ClassId).trigger("change");
                     $('#TeacherId').val(data.LSTTimetableList[0].TeacherId).trigger("change");
                     $('#SubjectId').val(data.LSTTimetableList[0].SubjectId).trigger("change");
+                    $('#StartTime').val(data.LSTTimetableList[0].StartTime).trigger("change");
+                    $('#EndTime').val(data.LSTTimetableList[0].EndTime).trigger("change");
+                    $('#Days').val(data.LSTTimetableList[0].Days).trigger("change");
                 }
                 else {
                     alert('error');
@@ -523,7 +552,7 @@ else
                     toastr.success('Timetable deleted successfully');
                     document.getElementById('hdnintId').value = "0";
                     GetTimetableList();
-                    $('#delete_Subject').click();
+                    $('#delete_Timetable').click();
                 }
                 else {
                     alert('error');
@@ -582,7 +611,7 @@ else
         });
     }
     function ClearData(type) {
-
+        debugger
         if (type == 1) {
             var Id = document.getElementById('hdnintId').value;
             document.getElementById('ClassId').value = "0";
@@ -603,9 +632,8 @@ else
             }
         }
         else {
-            document.getElementById('SearchText').value = "";
-            document.getElementById('intActive').value = '3';
-            $("#ddlClassId").val('0').trigger('change');
+            document.getElementById('ddlDays').value = '7';
+            $("#ddlTeacherId").val('0').trigger('change');
             GetTimetableList();
         }
     }

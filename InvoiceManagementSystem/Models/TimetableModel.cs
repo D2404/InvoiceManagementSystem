@@ -58,7 +58,7 @@ namespace InvoiceManagementSystem.Models
                 cmd.Parameters.Add("@ClassId", SqlDbType.Int).Value = cls.ClassId;
                 cmd.Parameters.Add("@SubjectId", SqlDbType.Int).Value = cls.SubjectId;
                 cmd.Parameters.Add("@TeacherId", SqlDbType.Int).Value = cls.TeacherId;
-                cmd.Parameters.Add("@Days", SqlDbType.Int).Value = cls.Days;
+                cmd.Parameters.Add("@Day", SqlDbType.Int).Value = cls.Days;
                 cmd.Parameters.Add("@StartTime", SqlDbType.VarChar).Value = cls.StartTime;
                 cmd.Parameters.Add("@EndTime", SqlDbType.VarChar).Value = cls.EndTime;
                 cmd.Parameters.AddWithValue("@UserId", objCommon.getUserIdFromSession());
