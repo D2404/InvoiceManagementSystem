@@ -69,6 +69,34 @@ namespace InvoiceManagementSystem.Models
             return Convert.ToBase64String(array);
         }
 
+        public string RedirectToLogin(int type = 0)
+        {
+            try
+            {
+                HttpRequest request = HttpContext.Current.Request;
+                string url = request.Url.ToString();
+                string domainName = HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority);
+
+                string ReturnUrl = "";
+                if (type == 1)
+                {
+                    ReturnUrl = domainName + "/Home/Index/index?returnUrl=" + url;
+                }
+                //else if (type == 2)
+                //{
+                //    ReturnUrl = domainName + "/Company/index?returnUrl=" + url;
+                //}
+                //else
+                //{
+                //    ReturnUrl = domainName + "/admin/home/index?returnUrl=" + url;
+                //}
+                return ReturnUrl;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
         public int? getUserIdFromSession()
         {
             int? Id = 0;

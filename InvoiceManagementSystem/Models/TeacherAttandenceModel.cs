@@ -16,6 +16,9 @@ namespace InvoiceManagementSystem.Models
         SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString);
         public int Id { get; set; }
         public int MonthId { get; set; }
+
+        public string strerrorMessage { get; set; }
+        public HttpPostedFileBase[] file { get; set; }
         public int YearId { get; set; }
         public string Name { get; set; }
         public string TeacherName { get; set; }
