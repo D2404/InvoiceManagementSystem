@@ -118,7 +118,7 @@
         </div>
         <br>
         <div class="row" style="margin-left:1px">
-            <div class="col-xl-5 col-sm-6 mb-xl-0 mb-6" style="background-color: #293241">
+            <div class="col-xl-5 col-sm-6 mb-xl-0 mb-6">
                 @if (Model.LSTTeacherList != null)
                 {
                     <div class="row">
@@ -182,7 +182,7 @@
                     </div>
                 }
             </div>
-            <div class="col-xl-5 col-sm-8 mb-xl-0 mb-6" style="margin-left:120px; background-color: #293241">
+            <div class="col-xl-5 col-sm-8 mb-xl-0 mb-6" style="margin-left:120px;">
                 @if (Model.LSTTeacherList != null)
                 {
                     <div class="row">
@@ -349,18 +349,18 @@
 
             <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
                 <div class="card">
-                    <div class="card-body p-3" style="background: linear-gradient( to right, #1658f2, #70e5ff);">
+                    <div class="card-body p-3">
                         <div class="row">
                             <div class="col-8">
                                 <div class="numbers">
-                                    <p class="text-sm mb-0 text-uppercase font-weight-bold" style="color:white">Class Name</p>
+                                    <p class="text-sm mb-0 text-uppercase font-weight-bold" style="color:black">Class Name</p>
                                     <a href="javascript:void(0)">
-                                        <h6 class="font-weight-bolder" style="color: white">@(Model.LSTDashBoardList[0].ClassNo == "" ? null : Model.LSTDashBoardList[0].ClassNo)</h6>
+                                        <h6 class="font-weight-bolder" style="color: #176ce2">@(Model.LSTDashBoardList[0].ClassNo == "" ? null : Model.LSTDashBoardList[0].ClassNo)</h6>
                                     </a>
                                 </div>
                             </div>
                             <div class="col-4 text-end">
-                                <div class="icon icon-shape bg-gradient-dark shadow-success text-center rounded-circle">
+                                <div class="icon icon-shape bg-gradient-primary shadow-success text-center rounded-circle">
                                     <i class="ni ni-paper-diploma text-lg opacity-10" aria-hidden="true"></i>
                                 </div>
                             </div>
@@ -370,21 +370,21 @@
             </div>
             <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
                 <div class="card" id="box">
-                    <div class="card-body p-3" style="background: linear-gradient( to right, #025738, #64f5b8) !important ">
+                    <div class="card-body p-3" >
                         <div class="row">
                             <div class="col-8">
                                 <div class="numbers">
-                                    <p class="text-sm mb-0 text-uppercase font-weight-bold" style="color:white">Total Subject</p>
+                                    <p class="text-sm mb-0 text-uppercase font-weight-bold" style="color:black">Total Subject</p>
                                     <a href="javascript:void(0)" onclick="TeacherSubject(1);">
                                         @{if (Model.LSTDashBoardList != null && Model.LSTDashBoardList.Count > 0)
                                             {
-                                                <h5 class="font-weight-bolder" style="color: white; text-decoration: underline">
+                                                <h5 class="font-weight-bolder" style="color: #176ce2; text-decoration: underline">
                                                     @(Model.LSTDashBoardList[0].TotalTeacherSubject == 0 ? 0 : Model.LSTDashBoardList[0].TotalTeacherSubject)
                                                 </h5>
                                             }
                                             else
                                             {
-                                                <h5 class="font-weight-bolder" style="color: white; text-decoration: underline">0</h5>
+                                                <h5 class="font-weight-bolder" style="color: #176ce2; text-decoration: underline">0</h5>
                                             }}
                                         @*@(Model.LSTDashBoardList[0].TotalTeacherSubject == 0 ? 0 : Model.LSTDashBoardList[0].TotalTeacherSubject)*@
 
@@ -392,7 +392,7 @@
                                 </div>
                             </div>
                             <div class="col-4 text-end">
-                                <div class="icon icon-shape bg-gradient-dark shadow-dark text-center rounded-circle">
+                                <div class="icon icon-shape bg-gradient-danger shadow- text-center rounded-circle">
                                     <i class="fa fa-book text-lg opacity-10" aria-hidden="true"></i>
                                 </div>
                             </div>
@@ -402,27 +402,27 @@
             </div>
             <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
                 <div class="card" id="box">
-                    <div class="card-body p-3" style="background: linear-gradient( to right, #cf3c04, #f5df1d) ">
+                    <div class="card-body p-3" >
                         <div class="row">
                             <div class="col-8">
                                 <div class="numbers">
-                                    <p class="text-sm mb-0 text-uppercase font-weight-bold" style="color:white">Total Student</p>
+                                    <p class="text-sm mb-0 text-uppercase font-weight-bold" style="color:black">Total Student</p>
                                     <a href="javascript:void(0)" onclick="Student(1);">
                                         @{if (Model.LSTDashBoardList != null && Model.LSTDashBoardList.Count > 0)
                                             {
-                                                <h5 class="font-weight-bolder" style="color: white; text-decoration: underline">
+                                                <h5 class="font-weight-bolder" style="color: #176ce2; text-decoration: underline">
                                                     @(Model.LSTDashBoardList[0].TotalStudent == 0 ? 0 : Model.LSTDashBoardList[0].TotalStudent)
                                                 </h5>
                                             }
                                             else
                                             {
-                                                <h5 class="font-weight-bolder" style="color: white; text-decoration: underline">0</h5>
+                                                <h5 class="font-weight-bolder" style="color: #176ce2; text-decoration: underline">0</h5>
                                             }}
                                     </a>
                                 </div>
                             </div>
                             <div class="col-4 text-end">
-                                <div class="icon icon-shape bg-gradient-dark shadow-dark text-center rounded-circle">
+                                <div class="icon icon-shape bg-gradient-success shadow-dark text-center rounded-circle">
                                     <i class="fa fa-users text-lg opacity-10" aria-hidden="true"></i>
                                 </div>
                             </div>
@@ -432,28 +432,28 @@
             </div>
             <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
                 <div class="card" id="box">
-                    <div class="card-body p-3" style="background: linear-gradient(to right, #15282e, #4890b1) !important ">
+                    <div class="card-body p-3" >
                         <div class="row">
                             <div class="col-8">
                                 <div class="numbers">
-                                    <p class="text-sm mb-0 text-uppercase font-weight-bold" style="color:white">Total Attend</p>
+                                    <p class="text-sm mb-0 text-uppercase font-weight-bold" style="color:black">Total Attend</p>
                                     <a href="javascript:void(0)" onclick="TeacherAttendance(1);">
 
                                         @{if (Model.LSTDashBoardList != null && Model.LSTDashBoardList.Count > 0)
                                             {
-                                                <h6 class="font-weight-bolder" style="color: white; text-decoration: underline">
+                                                <h6 class="font-weight-bolder" style="color: #176ce2; text-decoration: underline">
                                                     @(Model.LSTDashBoardList[0].TotalAttendance == 0 ? 0 : Model.LSTDashBoardList[0].TotalAttendance)&nbsp;%
                                                 </h6>
                                             }
                                             else
                                             {
-                                                <h6 class="font-weight-bolder" style="color: white; text-decoration: underline">0</h6>
+                                                <h6 class="font-weight-bolder" style="color: #176ce2; text-decoration: underline">0</h6>
                                             }}
                                     </a>
                                 </div>
                             </div>
                             <div class="col-4 text-end">
-                                <div class="icon icon-shape bg-gradient-dark shadow-dark text-center rounded-circle">
+                                <div class="icon icon-shape bg-gradient-warning shadow-dark text-center rounded-circle">
                                     <i class="fa fa-users text-lg opacity-10" aria-hidden="true"></i>
                                 </div>
                             </div>

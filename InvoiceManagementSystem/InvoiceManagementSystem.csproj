@@ -124,6 +124,8 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\PrintController.cs" />
+    <Compile Include="Controllers\LeaveController.cs" />
     <Compile Include="Controllers\TimetableController.cs" />
     <Compile Include="Controllers\ClassRoomController.cs" />
     <Compile Include="Controllers\FeesController.cs" />
@@ -139,6 +141,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountModel.cs" />
+    <Compile Include="Models\LeaveModel.cs" />
     <Compile Include="Models\TimetableModel.cs" />
     <Compile Include="Models\ClassRoomModel.cs" />
     <Compile Include="Models\DashboardModel.cs" />
@@ -693,7 +696,6 @@
     <Content Include="Scripts\bootstrap-datetimepicker.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="Scripts\Chosen.js" />
     <Content Include="Scripts\Datepickermanual.js" />
     <Content Include="Scripts\i18n\af.js" />
     <Content Include="Scripts\i18n\ar.js" />
@@ -820,10 +822,15 @@
     <Content Include="Views\Home\Index1.cshtml" />
     <Content Include="Views\Timetable\_TimetableListPartial.cshtml" />
     <Content Include="Views\Timetable\Timetable.cshtml" />
+    <Content Include="Views\Print\PrintData.cshtml" />
+    <Content Include="Views\Print\_PrintData.cshtml" />
+    <Content Include="Views\Leave\_LeaveListPartial.cshtml" />
+    <Content Include="Views\Leave\Leave.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Data\Item\" />
+    <Folder Include="Data\ManageAttendance\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

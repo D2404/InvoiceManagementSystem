@@ -93,9 +93,9 @@ namespace InvoiceManagementSystem.Models
                     for (var i = 0; i < dt.Rows.Count; i++)
                     {
                         DashboardModel obj = new DashboardModel();
-                        //obj.ClassNo = dt.Rows[i]["ClassRoom"] == null || dt.Rows[i]["ClassRoom"].ToString().Trim() == "" ? null : dt.Rows[i]["ClassRoom"].ToString();
+                        obj.ClassNo = dt.Rows[i]["ClassNo"] == null || dt.Rows[i]["ClassNo"].ToString().Trim() == "" ? null : dt.Rows[i]["ClassNo"].ToString();
                         obj.TotalStudent = Convert.ToInt32(dt.Rows[i]["TotalStudent"] == null || dt.Rows[i]["TotalStudent"].ToString().Trim() == "" ? null : dt.Rows[i]["TotalStudent"].ToString());
-                        //obj.TotalTeacherSubject = Convert.ToInt32(dt.Rows[i]["TotalTeacherSubject"] == null || dt.Rows[i]["TotalTeacherSubject"].ToString().Trim() == "" ? null : dt.Rows[i]["TotalTeacherSubject"].ToString());
+                        obj.TotalTeacherSubject = Convert.ToInt32(dt.Rows[i]["TotalTeacherSubject"] == null || dt.Rows[i]["TotalTeacherSubject"].ToString().Trim() == "" ? null : dt.Rows[i]["TotalTeacherSubject"].ToString());
                         //obj.TotalAttendance = Convert.ToDecimal(dt.Rows[i]["PresentDays"] == null || dt.Rows[i]["PresentDays"].ToString().Trim() == "" ? null : dt.Rows[i]["PresentDays"]);
 
                         LSTList.Add(obj);

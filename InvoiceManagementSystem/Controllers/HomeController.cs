@@ -214,7 +214,7 @@ namespace InvoiceManagementSystem.Controllers
             }
             catch (Exception ex)
             {
-                    throw ex;
+                throw ex;
             }
         }
 
@@ -418,7 +418,7 @@ namespace InvoiceManagementSystem.Controllers
                 SqlCommand cmd = new SqlCommand("sp_StudentList", conn);
                 cmd.Parameters.AddWithValue("@PageSize", cls.PageSize);
                 cmd.Parameters.AddWithValue("@PageIndex", cls.PageIndex);
-                
+
                 //cmd.Parameters.AddWithValue("@UserId", objCommon.getUserIdFromSession());
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandTimeout = 0;
@@ -605,5 +605,34 @@ namespace InvoiceManagementSystem.Controllers
                 throw ex;
             }
         }
+
+
+        public ActionResult GetNotificationCount()
+        {
+            int notificationCount = 0;
+
+            SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString);
+            {
+                conn.Open();
+
+                using (SqlCommand command = new SqlCommand("GetLeaveNotificationCount", conn))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@TeacherId", objCommon.getTeacherIdFromSession());
+                    command.Parameters.AddWithValue("@UserId", objCommon.getUserIdFromSession());
+
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            notificationCount = Convert.ToInt32(reader["NotificationCount"]);
+                        }
+                    }
+                }
+            }
+
+            return Json(notificationCount, JsonRequestBehavior.AllowGet);
+        }
+
     }
 }

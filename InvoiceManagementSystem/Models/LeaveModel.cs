@@ -1,6 +1,6 @@
-﻿using InvoiceManagementSystem.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
@@ -10,60 +10,52 @@ using System.Web;
 
 namespace InvoiceManagementSystem.Models
 {
-    public class TimetableModel
+    public class LeaveModel
     {
         clsCommon objCommon = new clsCommon();
-
         SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString);
-        public int Id { get; set; }    
-        public int RoleId { get; set; }
-        public int UserId { get; set; }
-        public int TeacherId { get; set; }
-        public int SubjectId { get; set; }
-        public int ClassId { get; set; }
-        public int Days { get; set; }
-
-        public string SubjectName { get; set; }
+        public int Id { get; set; }
+        public decimal NoOfDays { get; set; }
+        public int LeaveType { get; set; }
+        public string Reason { get; set; }
         public string TeacherName { get; set; }
-        public string ClassNo { get; set; }
-        public string StartTime { get; set; }
-        public string EndTime { get; set; }
-
+        public int TeacherId { get; set; }
+        public int UserId { get; set; }
+        public int Status { get; set; }
+        public int intActive { get; set; }
+        
+        public string FromDate { get; set; }
+        public string ToDate { get; set; }
         public string Response { get; set; }
         public string SearchText { get; set; }
         public int? PageIndex { get; set; }
         public int? PageSize { get; set; }
         public int? TotalRecord { get; set; }
         public decimal? PageCount { get; set; }
-        public bool IsActive { get; set; }
-        public int intActive { get; set; }
         public long? ROWNUMBER { get; set; }
         public int TotalEntries { get; set; }
-        public string CreatedDate { get; set; }
         public int ShowingEntries { get; set; }
         public int fromEntries { get; set; }
-
         public Pager Pager { get; set; }
 
-
-        public List<TimetableModel> LSTTimetableList { get; set; }
-
-        public TimetableModel addTimetable(TimetableModel cls)
+        public List<LeaveModel> LSTLeaveList { get; set; }
+        public LeaveModel addLeave(LeaveModel cls)
         {
             try
             {
                 conn.Open();
-                SqlCommand cmd = new SqlCommand("AddUpdateTimetable", conn);
+                SqlCommand cmd = new SqlCommand("AddUpdateTeacherLeave", conn);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add("@Id", SqlDbType.Int).Value = cls.Id;
-                cmd.Parameters.Add("@ClassId", SqlDbType.Int).Value = cls.ClassId;
-                cmd.Parameters.Add("@SubjectId", SqlDbType.Int).Value = cls.SubjectId;
-                cmd.Parameters.Add("@TeacherId", SqlDbType.Int).Value = cls.TeacherId;
-                cmd.Parameters.Add("@Day", SqlDbType.Int).Value = cls.Days;
-                cmd.Parameters.Add("@StartTime", SqlDbType.VarChar).Value = cls.StartTime;
-                cmd.Parameters.Add("@EndTime", SqlDbType.VarChar).Value = cls.EndTime;
+                cmd.Parameters.Add("@FromDate", SqlDbType.DateTime).Value = cls.FromDate;
+                cmd.Parameters.Add("@ToDate", SqlDbType.DateTime).Value = cls.ToDate;
+                cmd.Parameters.Add("@NoOfDays", SqlDbType.Decimal).Value = cls.NoOfDays;
+                cmd.Parameters.Add("@LeaveType", SqlDbType.NVarChar).Value = cls.LeaveType;
+                cmd.Parameters.Add("@Reason", SqlDbType.NVarChar).Value = cls.Reason;
+                cmd.Parameters.AddWithValue("@TeacherId", objCommon.getTeacherIdFromSession());
                 cmd.Parameters.AddWithValue("@UserId", objCommon.getUserIdFromSession());
-                
+
+
                 SqlDataAdapter da = new SqlDataAdapter(cmd);
                 cmd.CommandTimeout = 0;
                 da.ReturnProviderSpecificTypes = true;
@@ -97,55 +89,12 @@ namespace InvoiceManagementSystem.Models
 
             return cls;
         }
-
-        public TimetableModel GetTimetable(TimetableModel cls)
-        {
-            try
-            {
-                List<TimetableModel> LSTList = new List<TimetableModel>();
-                conn.Open();
-                SqlCommand cmd = new SqlCommand("sp_GetSingleTimetable", conn);
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("@Id", cls.Id);
-                SqlDataAdapter da = new SqlDataAdapter(cmd);
-                DataTable dt = new DataTable();
-                da.Fill(dt);
-                conn.Close();
-                if (dt != null && dt.Rows.Count > 0)
-                {
-                    for (var i = 0; i < dt.Rows.Count; i++)
-                    {
-                        TimetableModel obj = new TimetableModel();
-                        obj.Id = Convert.ToInt32(dt.Rows[i]["Id"] == null || dt.Rows[i]["Id"].ToString().Trim() == "" ? null : dt.Rows[i]["Id"].ToString());
-                        obj.ClassId = Convert.ToInt32(dt.Rows[i]["ClassId"] == null || dt.Rows[i]["ClassId"].ToString().Trim() == "" ? null : dt.Rows[i]["ClassId"].ToString());
-                        obj.SubjectId = Convert.ToInt32(dt.Rows[i]["SubjectId"] == null || dt.Rows[i]["SubjectId"].ToString().Trim() == "" ? null : dt.Rows[i]["SubjectId"].ToString());
-                        obj.TeacherId = Convert.ToInt32(dt.Rows[i]["TeacherId"] == null || dt.Rows[i]["TeacherId"].ToString().Trim() == "" ? null : dt.Rows[i]["TeacherId"].ToString());
-                        obj.Days = Convert.ToInt32(dt.Rows[i]["Days"] == null || dt.Rows[i]["Days"].ToString().Trim() == "" ? null : dt.Rows[i]["Days"].ToString());
-                        obj.StartTime = dt.Rows[i]["StartTime"] == null || dt.Rows[i]["StartTime"].ToString().Trim() == "" ? null : dt.Rows[i]["StartTime"].ToString();
-                        obj.EndTime = dt.Rows[i]["EndTime"] == null || dt.Rows[i]["EndTime"].ToString().Trim() == "" ? null : dt.Rows[i]["EndTime"].ToString();
-                        LSTList.Add(obj);
-                    }
-                }
-                cls.LSTTimetableList = LSTList;
-                return cls;
-            }
-            catch (Exception ex)
-            {
-                if (conn.State == ConnectionState.Open)
-                {
-                    conn.Close();
-                }
-                throw ex;
-            }
-        }
-
-
-        public TimetableModel deleteTimetable(TimetableModel cls)
+        public LeaveModel deleteLeave(LeaveModel cls)
         {
             try
             {
                 conn.Open();
-                SqlCommand cmd = new SqlCommand("sp_DeleteTimetable", conn);
+                SqlCommand cmd = new SqlCommand("sp_DeleteLeave", conn);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add("@Id", cls.Id);
                 SqlDataAdapter da = new SqlDataAdapter(cmd);
@@ -158,7 +107,7 @@ namespace InvoiceManagementSystem.Models
                 {
                     cls.Response = "Success";
                 }
-                else if (dt.Rows[0][0].ToString() == "-1")
+                else if (dt.Rows[0][0].ToString() == "2")
                 {
                     cls.Response = "dependency";
                 }
@@ -172,14 +121,42 @@ namespace InvoiceManagementSystem.Models
             }
             return cls;
         }
-        public string UpdateStatus(TimetableModel cls)
+
+        public string ApproveStatus(LeaveModel cls)
         {
             var Status = "";
             try
             {
                 SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString);
                 conn.Open();
-                SqlCommand cmd = new SqlCommand("[sp_UpdateTimetableStatus]", conn);
+                SqlCommand cmd = new SqlCommand("sp_ApproveLeaveStatus", conn);
+                cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@Id", cls.Id);
+                //cmd.Parameters.Add("@intLoginUser", SqlDbType.Int).Value = LoginUser;
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                cmd.CommandTimeout = 0;
+                da.ReturnProviderSpecificTypes = true;
+                System.Data.DataTable dt = new System.Data.DataTable();
+                da.Fill(dt);
+                conn.Close();
+                Status = dt.Rows[0][0].ToString();
+            }
+            catch (Exception ex)
+            {
+                //throw ex;
+                Status = "error";
+            }
+            return Status;
+        }
+
+        public string RejectStatus(LeaveModel cls)
+        {
+            var Status = "";
+            try
+            {
+                SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString);
+                conn.Open();
+                SqlCommand cmd = new SqlCommand("sp_RejectLeaveStatus", conn);
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@Id", cls.Id);
                 //cmd.Parameters.Add("@intLoginUser", SqlDbType.Int).Value = LoginUser;

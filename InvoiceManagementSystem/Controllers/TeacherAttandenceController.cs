@@ -327,13 +327,13 @@ namespace InvoiceManagementSystem.Controllers
         {
             try
             {
-                if (objCommon.getComapanyUserIdFromSession() != 0)
+                if (objCommon.getUserIdFromSession() != 0)
                 {
                     string filePath = string.Empty;
                     //clsClient cls = new clsClient();
                     if (cls.file != null)
                     {
-                        string path = Server.MapPath("ManageClient/Data/BulkClient/");
+                        string path = Server.MapPath("Data/ManageAttendace/");
                         if (!Directory.Exists(path))
                         {
                             Directory.CreateDirectory(path);
@@ -370,7 +370,7 @@ namespace InvoiceManagementSystem.Controllers
                                     connExcel.Open();
                                     DataTable dtExcelSchema;
                                     dtExcelSchema = connExcel.GetOleDbSchemaTable(OleDbSchemaGuid.Tables, null);
-                                    string sheetName = dtExcelSchema.Rows[0]["TABLE_NAME"].ToString();
+                                    string sheetName = dtExcelSchema.Rows[0]["dbo.TeacherAttandenceMaster"].ToString();
                                     connExcel.Close();
 
                                     //Read Data from First Sheet.
@@ -381,7 +381,7 @@ namespace InvoiceManagementSystem.Controllers
                                     cls.LSTTeacherAttandenceList = validateData(dt);
                                     if (cls.LSTTeacherAttandenceList[0].strerrorMessage == "")
                                     {
-                                        cls.LSTTeacherAttandenceList[0].strerrorMessage = "Client Uploaded Successfully";
+                                        cls.LSTTeacherAttandenceList[0].strerrorMessage = "Attendance Uploaded Successfully";
                                         InsertBulkIntoDatabase(dt);
                                     }
                                     else

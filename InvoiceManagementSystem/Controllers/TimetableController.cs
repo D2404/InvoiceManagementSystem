@@ -90,7 +90,14 @@ namespace InvoiceManagementSystem.Controllers
                 cmd.Parameters.AddWithValue("@PageIndex", cls.PageIndex);
                 cmd.Parameters.AddWithValue("@UserId", objCommon.getUserIdFromSession());
                 cmd.Parameters.AddWithValue("@Days", cls.Days);
-                cmd.Parameters.AddWithValue("@TeacherId", cls.TeacherId);
+                if (objCommon.getUserIdFromSession() == 1 && objCommon.getTeacherIdFromSession() == 0 ||  objCommon.getTeacherIdFromSession() == null)
+                {
+                    cmd.Parameters.AddWithValue("@TeacherId", cls.TeacherId);
+                }
+                else
+                {
+                    cmd.Parameters.AddWithValue("@TeacherId", objCommon.getTeacherIdFromSession());
+                }
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.CommandTimeout = 0;
                 SqlDataAdapter da = new SqlDataAdapter(cmd);
