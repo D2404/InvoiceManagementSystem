@@ -6,9 +6,12 @@
             <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Sr No.</th>
             <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Class No</th>
             <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Subject</th>
+            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Student</th>
             <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Roll No</th>
+            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Grade</th>
             <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Out Of Marks</th>
             <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Total Marks</th>
+            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Performance</th>
             <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Action</th>
 
         </tr>
@@ -47,7 +50,23 @@
         <td>
             <div class="d-flex px-2 py-1">
                 <div class="d-flex flex-column justify-content-center">
+                    <h5 class="text-xs font-weight-bold mb-0" style="text-align: left;">@item.StudentName</h5>
+                </div>
+            </div>
+
+        </td>
+        <td>
+            <div class="d-flex px-2 py-1">
+                <div class="d-flex flex-column justify-content-center">
                     <h5 class="text-xs font-weight-bold mb-0" style="text-align: left;">@item.RollNo</h5>
+                </div>
+            </div>
+
+        </td>
+        <td>
+            <div class="d-flex px-2 py-1">
+                <div class="d-flex flex-column justify-content-center">
+                    <h5 class="text-xs font-weight-bold mb-0" style="text-align: left;">@item.Grade</h5>
                 </div>
             </div>
 
@@ -67,6 +86,30 @@
                 </div>
             </div>
 
+        </td>
+        <td >
+            @if (item.Grade == "A+")
+            {
+
+            <h5 class="text-sm font-weight-bold mb-0" style="text-align: left;color:gold"><i class="fa fa-check" aria-hidden="true"></i>&nbsp;<b>Outstanding</b></h5>}
+            else if (item.Grade == "A")
+            {
+            <h5 class="text-sm font-weight-bold mb-0" style="text-align: left;color:forestgreen"><i class="fa fa-check" aria-hidden="true"></i>&nbsp;<b>Excellent</b></h5>}
+            else if (item.Grade == "B")
+            {
+            <h5 class="text-sm font-weight-bold mb-0" style="text-align: left;color:darkgoldenrod"><i class="fa fa-check" aria-hidden="true"></i>&nbsp;<b>Good</b></h5>}
+            else if (item.Grade == "C")
+            {
+            <h5 class="text-sm font-weight-bold mb-0" style="text-align: left;color:dodgerblue"><i class="fa fa-check" aria-hidden="true"></i>&nbsp;<b>Average</b></h5>}
+            else if (item.Grade == "D")
+            {
+            <h5 class="text-sm font-weight-bold mb-0" style="text-align: left;color:orange"><i class="fa fa-check" aria-hidden="true"></i>&nbsp;<b>Below Average</b></h5>}
+            else if (item.Grade == "E")
+            {
+            <h5 class="text-sm font-weight-bold mb-0" style="text-align: left;color:yellowgreen"><i class="fa fa-check" aria-hidden="true"></i>&nbsp;<b>Poor</b></h5>}
+            else if (item.Grade == "F")
+            {
+            <h5 class="text-sm font-weight-bold mb-0" style="text-align: left;color:red"><i class="fa fa-close" aria-hidden="true"></i>&nbsp;<b>Fail</b></h5>}
         </td>
         <td class="align-middle text-center">
             <div class="dropdown">

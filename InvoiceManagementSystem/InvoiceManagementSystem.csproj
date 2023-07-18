@@ -819,13 +819,14 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\_TeacherByClassRoomList.cshtml" />
     <Content Include="Views\Home\_StudentByTeacherList.cshtml" />
-    <Content Include="Views\Home\Index1.cshtml" />
     <Content Include="Views\Timetable\_TimetableListPartial.cshtml" />
     <Content Include="Views\Timetable\Timetable.cshtml" />
     <Content Include="Views\Print\PrintData.cshtml" />
     <Content Include="Views\Print\_PrintData.cshtml" />
     <Content Include="Views\Leave\_LeaveListPartial.cshtml" />
     <Content Include="Views\Leave\Leave.cshtml" />
+    <Content Include="Views\Home\Index1.cshtml" />
+    <Content Include="Views\Home\_LeaveDataPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

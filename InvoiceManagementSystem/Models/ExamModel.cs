@@ -14,8 +14,13 @@ namespace InvoiceManagementSystem.Models
         clsCommon objCommon = new clsCommon();
         SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString);
         public int Id { get; set; }
+
+        public int StudentId { get; set; }
+        public string StudentName { get; set; }
+        public string Performance { get; set; }
         public int SubjectId { get; set; }
         public string SubjectName { get; set; }
+        public string Grade { get; set; }
         public int RollNo { get; set; }
         public int TotalMarks { get; set; }
         public int OutOfMarks { get; set; }
@@ -49,6 +54,7 @@ namespace InvoiceManagementSystem.Models
                 cmd.Parameters.Add("@Id", SqlDbType.Int).Value = cls.Id;
                 cmd.Parameters.AddWithValue("@ClassId", cls.ClassId);
                 cmd.Parameters.AddWithValue("@SubjectId", cls.SubjectId);
+                cmd.Parameters.AddWithValue("@StudentId", cls.StudentId);
                 cmd.Parameters.AddWithValue("@TotalMarks", cls.TotalMarks);
                 cmd.Parameters.AddWithValue("@OutOfMarks", cls.OutOfMarks);
                 cmd.Parameters.AddWithValue("@RollNo", cls.RollNo);
@@ -107,7 +113,13 @@ namespace InvoiceManagementSystem.Models
                         ExamModel obj = new ExamModel();
                         obj.Id = Convert.ToInt32(dt.Rows[i]["Id"] == null || dt.Rows[i]["Id"].ToString().Trim() == "" ? null : dt.Rows[i]["Id"].ToString());
                         obj.ClassId = Convert.ToInt32(dt.Rows[i]["ClassId"] == null || dt.Rows[i]["ClassId"].ToString().Trim() == "" ? null : dt.Rows[i]["ClassId"].ToString());
+                        obj.IsActive = Convert.ToBoolean(dt.Rows[i]["IsActive"] == null || dt.Rows[i]["IsActive"].ToString().Trim() == "" ? null : dt.Rows[i]["IsActive"].ToString());
                         obj.SubjectId = Convert.ToInt32(dt.Rows[i]["SubjectId"] == null || dt.Rows[i]["SubjectId"].ToString().Trim() == "" ? null : dt.Rows[i]["SubjectId"].ToString());
+                        obj.StudentId = Convert.ToInt32(dt.Rows[i]["StudentId"] == null || dt.Rows[i]["StudentId"].ToString().Trim() == "" ? null : dt.Rows[i]["StudentId"].ToString());
+                        obj.StudentName = dt.Rows[i]["StudentName"] == null || dt.Rows[i]["StudentName"].ToString().Trim() == "" ? null : dt.Rows[i]["StudentName"].ToString();
+                        obj.SubjectName = dt.Rows[i]["SubjectName"] == null || dt.Rows[i]["SubjectName"].ToString().Trim() == "" ? null : dt.Rows[i]["SubjectName"].ToString();
+                        obj.Grade = dt.Rows[i]["Grade"] == null || dt.Rows[i]["Grade"].ToString().Trim() == "" ? null : dt.Rows[i]["Grade"].ToString();
+                        obj.ClassNo = dt.Rows[i]["ClassNo"] == null || dt.Rows[i]["ClassNo"].ToString().Trim() == "" ? null : dt.Rows[i]["ClassNo"].ToString();
                         obj.RollNo = Convert.ToInt32(dt.Rows[i]["RollNo"] == null || dt.Rows[i]["RollNo"].ToString().Trim() == "" ? null : dt.Rows[i]["RollNo"].ToString());
                         obj.TotalMarks = Convert.ToInt32(dt.Rows[i]["TotalMarks"] == null || dt.Rows[i]["TotalMarks"].ToString().Trim() == "" ? null : dt.Rows[i]["TotalMarks"].ToString());
                         obj.OutOfMarks = Convert.ToInt32(dt.Rows[i]["OutOfMarks"] == null || dt.Rows[i]["OutOfMarks"].ToString().Trim() == "" ? null : dt.Rows[i]["OutOfMarks"].ToString());

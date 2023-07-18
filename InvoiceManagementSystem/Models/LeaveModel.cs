@@ -18,7 +18,10 @@ namespace InvoiceManagementSystem.Models
         public decimal NoOfDays { get; set; }
         public int LeaveType { get; set; }
         public string Reason { get; set; }
+        public string Time { get; set; }
+        public string ClassNo { get; set; }
         public string TeacherName { get; set; }
+        public string Profile { get; set; }
         public int TeacherId { get; set; }
         public int UserId { get; set; }
         public int Status { get; set; }
@@ -39,6 +42,50 @@ namespace InvoiceManagementSystem.Models
         public Pager Pager { get; set; }
 
         public List<LeaveModel> LSTLeaveList { get; set; }
+
+
+
+        public LeaveModel GetClassRoom(LeaveModel cls)
+        {
+            try
+            {
+                List<LeaveModel> LSTList = new List<LeaveModel>();
+                conn.Open();
+                SqlCommand cmd = new SqlCommand("GetSingleLeave", conn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@Id", cls.Id);
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                DataTable dt = new DataTable();
+                da.Fill(dt);
+                conn.Close();
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    for (var i = 0; i < dt.Rows.Count; i++)
+                    {
+                        LeaveModel obj = new LeaveModel();
+                        obj.Id = Convert.ToInt32(dt.Rows[i]["Id"] == null || dt.Rows[i]["Id"].ToString().Trim() == "" ? null : dt.Rows[i]["Id"].ToString());
+                        obj.Status = Convert.ToInt32(dt.Rows[i]["Status"] == null || dt.Rows[i]["Status"].ToString().Trim() == "" ? null : dt.Rows[i]["Status"].ToString());
+                        obj.NoOfDays = Convert.ToDecimal(dt.Rows[i]["NoOfDays"] == null || dt.Rows[i]["NoOfDays"].ToString().Trim() == "" ? null : dt.Rows[i]["NoOfDays"].ToString());
+                        obj.TeacherName = dt.Rows[i]["TeacherName"] == null || dt.Rows[i]["TeacherName"].ToString().Trim() == "" ? null : dt.Rows[i]["TeacherName"].ToString();
+                        obj.FromDate = dt.Rows[i]["FromDate"] == null || dt.Rows[i]["FromDate"].ToString().Trim() == "" ? null : Convert.ToDateTime(dt.Rows[i]["FromDate"]).ToString("dd/MM/yyyy");
+                        obj.ToDate = dt.Rows[i]["ToDate"] == null || dt.Rows[i]["ToDate"].ToString().Trim() == "" ? null : Convert.ToDateTime(dt.Rows[i]["ToDate"]).ToString("dd/MM/yyyy");
+                        obj.LeaveType = Convert.ToInt32(dt.Rows[i]["LeaveType"] == null || dt.Rows[i]["LeaveType"].ToString().Trim() == "" ? null : dt.Rows[i]["LeaveType"].ToString());
+                        obj.Reason = dt.Rows[i]["Reason"] == null || dt.Rows[i]["Reason"].ToString().Trim() == "" ? null : dt.Rows[i]["Reason"].ToString();
+                        LSTList.Add(obj);
+                    }
+                }
+                cls.LSTLeaveList = LSTList;
+                return cls;
+            }
+            catch (Exception ex)
+            {
+                if (conn.State == ConnectionState.Open)
+                {
+                    conn.Close();
+                }
+                throw ex;
+            }
+        }
         public LeaveModel addLeave(LeaveModel cls)
         {
             try
@@ -174,6 +221,47 @@ namespace InvoiceManagementSystem.Models
                 Status = "error";
             }
             return Status;
+        }
+
+        public LeaveModel LeaveData(LeaveModel cls)
+        {
+            try
+            {
+                List<LeaveModel> LSTList = new List<LeaveModel>();
+                conn.Open();
+                SqlCommand cmd = new SqlCommand("GetLeaveData", conn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@Id", cls.Id);
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                DataTable dt = new DataTable();
+                da.Fill(dt);
+                conn.Close();
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    for (var i = 0; i < dt.Rows.Count; i++)
+                    {
+                        LeaveModel obj = new LeaveModel();
+                        obj.Id = Convert.ToInt32(dt.Rows[i]["Id"] == null || dt.Rows[i]["Id"].ToString().Trim() == "" ? null : dt.Rows[i]["Id"].ToString());
+                        obj.NoOfDays = Convert.ToInt32(dt.Rows[i]["NoOfDays"] == null || dt.Rows[i]["NoOfDays"].ToString().Trim() == "" ? null : dt.Rows[i]["NoOfDays"].ToString());
+                        obj.LeaveType = Convert.ToInt32(dt.Rows[i]["LeaveType"] == null || dt.Rows[i]["LeaveType"].ToString().Trim() == "" ? null : dt.Rows[i]["LeaveType"].ToString());
+                        obj.ClassNo = dt.Rows[i]["ClassNo"] == null || dt.Rows[i]["ClassNo"].ToString().Trim() == "" ? null : dt.Rows[i]["ClassNo"].ToString();
+                        obj.TeacherName = dt.Rows[i]["TeacherName"] == null || dt.Rows[i]["TeacherName"].ToString().Trim() == "" ? null : dt.Rows[i]["TeacherName"].ToString();
+                        obj.Profile = dt.Rows[i]["Profile"] == null || dt.Rows[i]["Profile"].ToString().Trim() == "" ? null : dt.Rows[i]["Profile"].ToString();
+                        obj.Reason = dt.Rows[i]["Reason"] == null || dt.Rows[i]["Reason"].ToString().Trim() == "" ? null : dt.Rows[i]["Reason"].ToString();
+                        LSTList.Add(obj);
+                    }
+                }
+                cls.LSTLeaveList = LSTList;
+                return cls;
+            }
+            catch (Exception ex)
+            {
+                if (conn.State == ConnectionState.Open)
+                {
+                    conn.Close();
+                }
+                throw ex;
+            }
         }
     }
 }

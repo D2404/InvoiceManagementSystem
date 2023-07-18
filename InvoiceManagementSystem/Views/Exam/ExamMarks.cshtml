@@ -84,7 +84,7 @@
     <div style="margin-left:878px">
         <a href="#" class="btn bg-gradient-dark" onclick="ShowFilter()" title="Filter"><i class="fa fa-filter"></i></a>
         @*<a href="#" class="btn bg-gradient-dark" onclick="ShowFilter()" style="margin-left: 843px; margin-bottom: -64px;"><i class="fa fa-filter"></i></a>*@
-    <a class="btn bg-gradient-info" title="Add Exam" data-bs-toggle="modal" data-bs-target="#Exam" onclick="Clear()">Add Exam</a>
+    <a class="btn bg-gradient-info" title="Add Marks" data-bs-toggle="modal" data-bs-target="#Exam" onclick="Clear()">Add Marks</a>
     </div>
 </div>
 
@@ -124,7 +124,7 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" style="margin-left:173px"><span id="PopupTitle">Add Exam</span></h5>
+                <h5 class="modal-title" style="margin-left:173px"><span id="PopupTitle">Add Exam Marks</span></h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true" style="color:black">&times;</span>
                 </button>
@@ -134,7 +134,7 @@
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label for="basicinput"><b>Class Room</b></label>
-                            <select class="form-control" id="ClassId" onchange="onClass();">
+                            <select class="form-control form-control-alternative" id="ClassId" onchange="onClass();">
                                 <option value="0">Select here..</option>
                             </select>
                         </div>
@@ -142,16 +142,24 @@
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label for="basicinput"><b>Subject</b></label>
-                            <select class="form-control  form-control-alternative js-example-basic-single" id="SubjectId">
+                            <select class="form-control  form-control-alternative" id="SubjectId">
                                 <option value="0">Select here..</option>
                             </select>
                         </div>
                     </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="basicinput"><b>Student</b></label>
+                            <select class="form-control form-control-alternative" id="StudentId" onchange="onStudent();">
+                                <option value="0">Select here..</option>
+                            </select>
+                            <span id="errStudent" class="text-xs font-weight-bold mb-0" style="color:red"></span>
+                        </div>
+                    </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="example-text-input" class="form-control-label">Roll No <span class="text-danger">*</span></label>
-                            <input class="form-control  form-control-alternative" type="text" id="RollNo" placeholder="Enter Roll no">
-                            <span id="errRollNo" class="text-xs font-weight-bold mb-0" style="color:red"></span>
+                            <label for="example-text-input" class="form-control-label">Roll No </label><br />
+                            <span class="form-control form-control-alternative" id="RollNo" name="RollNo"></span>
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -247,13 +255,11 @@
         var val = true;
         var Id = $('#hdnintId').val();
         var ClassId = $('#ClassId').val();
+        var StudentId = $('#StudentId').val();
         var SubjectId = $('#SubjectId').val();
         var SearchText = $('#SearchText').val();
-        var RollNo = $('#RollNo').val();
-        if (RollNo == "" || /\S/.test(RollNo) == false) {
-            $("#errRollNo").html("Please enter Roll no.");
-            val = false;
-        }
+        var RollNo = $('#RollNo').text();
+       
         var Outofmarks = $('#Outofmarks').val();
         if (Outofmarks == "" || /\S/.test(Outofmarks) == false) {
             $("#errOutofmarks").html("Please enter marks.");
@@ -271,6 +277,7 @@
 
         formData.append('Id', Id);
         formData.append('ClassId', ClassId);
+        formData.append('StudentId', StudentId);
         formData.append('SubjectId', SubjectId);
         formData.append('RollNo', RollNo);
         formData.append('Outofmarks', Outofmarks);
@@ -316,7 +323,7 @@
         var cls = {
         }
         $.ajax({
-            url: '/Exam/GetClassRoom',
+            url: '/Student/GetClassRoom',
             contentType: "application/json; charset=utf-8",
             type: "GET",
             data: JSON.stringify({
@@ -341,16 +348,68 @@
         var ClassId = $('#ClassId').val();
         $.ajax({
             type: "GET",
-            url: '/Exam/LoadSubject?ClassId=' + ClassId,
+            url: '/Exam/LoadClassWiseSubject?ClassId=' + ClassId,
+            async: false,
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (data) {
+                debugger
+                $('#SubjectId').empty();
+                $("#SubjectId").append($("<option     />").val("0").text("Select subject name.."));
+                $.each(data, function (i, v) {
+                    $("#SubjectId").append($("<option     />").val(v.SubjectId).text(v.SubjectName));
+                });
+                onClasswiseStudent();
+                HideWait();
+            },
+            failure: function () {
+                HideWait();
+                alert("Failed!");
+            }
+        });
+         
+    }
+
+    function onClasswiseStudent() {
+        var ClassId = $('#ClassId').val();
+        $.ajax({
+            type: "GET",
+            url: '/Exam/LoadClassWiseStudent?ClassId=' + ClassId,
             async: false,
             contentType: "application/json; charset=utf-8",
             dataType: "json",
             success: function (data) {
 
-                $('#SubjectId').empty();
-                $("#SubjectId").append($("<option     />").val("0").text("Select subject name.."));
+                
+                $('#StudentId').empty();
+                $("#StudentId").append($("<option     />").val("0").text("Select student name.."));
                 $.each(data, function (i, v) {
-                    $("#SubjectId").append($("<option     />").val(v.SubjectId).text(v.SubjectName));
+                    $("#StudentId").append($("<option     />").val(v.StudentId).text(v.StudentName));
+                });
+                HideWait();
+            },
+            failure: function () {
+                HideWait();
+                alert("Failed!");
+            }
+        });
+
+    }
+
+    function onStudent() {
+        var StudentId = $('#StudentId').val();
+        $.ajax({
+            type: "GET",
+            url: '/Fees/LoadRollNo?StudentId=' + StudentId,
+            async: false,
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (data) {
+
+                $('#RollNo').empty();
+                $("#RollNo").append();
+                $.each(data, function (i, v) {
+                    $("#RollNo").append($("<option     />").val(v.RollNo).text(v.RollNo));
                 });
                 HideWait();
             },
@@ -360,7 +419,6 @@
             }
         });
     }
-
 
     function GetExamList(page) {
 
@@ -410,7 +468,7 @@
         debugger
         document.getElementById('btnAdd').innerHTML = "Update";
         $("#btnAdd").attr('title', 'Update');
-        document.getElementById('PopupTitle').innerHTML = "Update Exam";
+        document.getElementById('PopupTitle').innerHTML = "Update Exam Marks";
         var cls = {
             Id: id
         }
@@ -428,7 +486,8 @@
                     document.getElementById('hdnintId').value = data.LSTExamList[0].Id;
                     $('#ClassId').val(data.LSTExamList[0].ClassId).trigger("change");
                     $('#SubjectId').val(data.LSTExamList[0].SubjectId).trigger("change");
-                    document.getElementById('RollNo').value = data.LSTExamList[0].RollNo;
+                    $('#StudentId').val(data.LSTExamList[0].StudentId).trigger("change");
+                    document.getElementById('RollNo').text = data.LSTExamList[0].RollNo;
                     document.getElementById('Outofmarks').value = data.LSTExamList[0].OutOfMarks;
                     document.getElementById('Totalmarks').value = data.LSTExamList[0].TotalMarks;
                 }
@@ -490,7 +549,7 @@
         $("#SubjectId").val('0').trigger('change');
         document.getElementById('btnAdd').innerHTML = "Add";
         $("#btnAdd").attr('title', 'Upload');
-        document.getElementById('PopupTitle').innerHTML = "Add Exam";
+        document.getElementById('PopupTitle').innerHTML = "Add Exam Marks";
     }
 
     function ClearData(type) {
@@ -511,12 +570,12 @@
                 document.getElementById('hdnintId').value = "0";
                 document.getElementById('btnAdd').innerHTML = "Add";
                 $("#btnAdd").attr('title', 'Add');
-                document.getElementById('PopupTitle').innerHTML = "Add Exam";
+                document.getElementById('PopupTitle').innerHTML = "Add Exam Marks";
             }
             else {
                 document.getElementById('btnAdd').innerHTML = "Update";
                 $("#btnAdd").attr('title', 'Update');
-                document.getElementById('PopupTitle').innerHTML = "Update Exam";
+                document.getElementById('PopupTitle').innerHTML = "Update Exam Marks";
             }
         }
         else {

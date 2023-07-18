@@ -336,6 +336,7 @@
                 cls: cls
             }),
             success: function (data) {
+                debugger
                 $('#tblBody').empty();
                 $('#tblBody').append(data);
                 HideWait();
@@ -448,6 +449,7 @@
                 if (data == 'success') {
                     toastr.success('Leave approved successfully.');
                     document.getElementById('hdnintId').value = "0";
+                    updateNotificationBadge();
                     GetLeaveList(1);
                     $('#status').click();
                 }
@@ -483,6 +485,7 @@
                 if (data == 'success') {
                     toastr.success('Leave rejected successfully.');
                     document.getElementById('hdnintId').value = "0";
+                    updateNotificationBadge();
                     GetLeaveList(1);
                     $('#status').click();
                 }

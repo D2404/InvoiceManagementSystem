@@ -634,5 +634,51 @@ namespace InvoiceManagementSystem.Controllers
             return Json(notificationCount, JsonRequestBehavior.AllowGet);
         }
 
+
+        public ActionResult Leavedata(LeaveModel cls)
+        {
+            try
+            {
+                List<LeaveModel> lstLeaveList = new List<LeaveModel>();
+                SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString);
+                conn.Open();
+                SqlCommand cmd = new SqlCommand("GetLeaveData", conn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.CommandTimeout = 0;
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                System.Data.DataTable dt = new System.Data.DataTable();
+                da.Fill(dt);
+                conn.Close();
+
+
+                if (dt != null && dt.Rows.Count > 0)
+                {
+
+                    for (var i = 0; i < dt.Rows.Count; i++)
+                    {
+                        LeaveModel obj = new LeaveModel();
+                        obj.Id = Convert.ToInt32(dt.Rows[i]["Id"] == null || dt.Rows[i]["Id"].ToString().Trim() == "" ? null : dt.Rows[i]["Id"].ToString());
+                        obj.NoOfDays = Convert.ToInt32(dt.Rows[i]["NoOfDays"] == null || dt.Rows[i]["NoOfDays"].ToString().Trim() == "" ? null : dt.Rows[i]["NoOfDays"].ToString());
+                        obj.LeaveType = Convert.ToInt32(dt.Rows[i]["LeaveType"] == null || dt.Rows[i]["LeaveType"].ToString().Trim() == "" ? null : dt.Rows[i]["LeaveType"].ToString());
+                        obj.ClassNo = dt.Rows[i]["ClassNo"] == null || dt.Rows[i]["ClassNo"].ToString().Trim() == "" ? null : dt.Rows[i]["ClassNo"].ToString();
+                        obj.TeacherName = dt.Rows[i]["TeacherName"] == null || dt.Rows[i]["TeacherName"].ToString().Trim() == "" ? null : dt.Rows[i]["TeacherName"].ToString();
+                        obj.Profile = dt.Rows[i]["Profile"] == null || dt.Rows[i]["Profile"].ToString().Trim() == "" ? null : dt.Rows[i]["Profile"].ToString();
+                        obj.Reason = dt.Rows[i]["Reason"] == null || dt.Rows[i]["Reason"].ToString().Trim() == "" ? null : dt.Rows[i]["Reason"].ToString();
+                        obj.Time = dt.Rows[i]["Time"] == null || dt.Rows[i]["Time"].ToString().Trim() == "" ? null : dt.Rows[i]["Time"].ToString();
+                        lstLeaveList.Add(obj);
+                    }
+                }
+                cls.LSTLeaveList = lstLeaveList;
+
+
+                return PartialView("_LeaveDataPartial", cls);
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
     }
 }

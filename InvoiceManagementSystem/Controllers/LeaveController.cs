@@ -105,8 +105,66 @@ namespace InvoiceManagementSystem.Controllers
         }
 
 
+        public ActionResult GetSingleLeave(LeaveModel cls)
+        {
+            try
+            {
+                int TotalEntries = 0;
+                int showingEntries = 0;
+                int startentries = 0;
+                List<LeaveModel> lstLeaveList = new List<LeaveModel>();
+                SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString);
+                conn.Open();
+                SqlCommand cmd = new SqlCommand("GetSingleLeave", conn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@Id", cls.Id);
+                cmd.CommandTimeout = 0;
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                System.Data.DataTable dt = new System.Data.DataTable();
+                da.Fill(dt);
+                conn.Close();
 
-      public ActionResult deleteLeave(LeaveModel cls)
+
+                if (dt != null && dt.Rows.Count > 0)
+                {
+
+                    for (var i = 0; i < dt.Rows.Count; i++)
+                    {
+                        LeaveModel obj = new LeaveModel();
+                        obj.Id = Convert.ToInt32(dt.Rows[i]["Id"] == null || dt.Rows[i]["Id"].ToString().Trim() == "" ? null : dt.Rows[i]["Id"].ToString());
+                        obj.Status = Convert.ToInt32(dt.Rows[i]["Status"] == null || dt.Rows[i]["Status"].ToString().Trim() == "" ? null : dt.Rows[i]["Status"].ToString());
+                        obj.NoOfDays = Convert.ToDecimal(dt.Rows[i]["NoOfDays"] == null || dt.Rows[i]["NoOfDays"].ToString().Trim() == "" ? null : dt.Rows[i]["NoOfDays"].ToString());
+                        obj.TeacherName = dt.Rows[i]["TeacherName"] == null || dt.Rows[i]["TeacherName"].ToString().Trim() == "" ? null : dt.Rows[i]["TeacherName"].ToString();
+                        obj.FromDate = dt.Rows[i]["FromDate"] == null || dt.Rows[i]["FromDate"].ToString().Trim() == "" ? null : Convert.ToDateTime(dt.Rows[i]["FromDate"]).ToString("dd/MM/yyyy");
+                        obj.ToDate = dt.Rows[i]["ToDate"] == null || dt.Rows[i]["ToDate"].ToString().Trim() == "" ? null : Convert.ToDateTime(dt.Rows[i]["ToDate"]).ToString("dd/MM/yyyy");
+                        obj.LeaveType = Convert.ToInt32(dt.Rows[i]["LeaveType"] == null || dt.Rows[i]["LeaveType"].ToString().Trim() == "" ? null : dt.Rows[i]["LeaveType"].ToString());
+                        obj.Reason = dt.Rows[i]["Reason"] == null || dt.Rows[i]["Reason"].ToString().Trim() == "" ? null : dt.Rows[i]["Reason"].ToString();
+                       
+                        lstLeaveList.Add(obj);
+                    }
+                }
+                cls.LSTLeaveList = lstLeaveList;
+                //if (cls.LSTLeaveList.Count > 0)
+                //{
+                //    var pager = new Models.Pager((int)cls.LSTLeaveList[0].TotalRecord, cls.PageIndex, (int)cls.PageSize);
+
+                //    cls.Pager = pager;
+                //}
+                //cls.TotalEntries = TotalEntries;
+                //cls.ShowingEntries = showingEntries;
+                //cls.fromEntries = startentries;
+                //cls.LSTLeaveList = lstLeaveList;
+
+                return PartialView("_LeaveListPartial", cls);
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public ActionResult deleteLeave(LeaveModel cls)
         {
             try
             {
@@ -147,5 +205,7 @@ namespace InvoiceManagementSystem.Controllers
                 throw ex;
             }
         }
+
+        
     }
 }
