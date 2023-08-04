@@ -299,13 +299,12 @@
                         </a>
                     </div>
 
-
                     <ul class="navbar-nav  justify-content-end" style="margin-left:-53px">
                         <li class="nav-item dropdown pe-2 d-flex align-items-center">
 
                             <a href="javascript:;" class="nav-link text-white p-0">
-                               
-                                <span class="d-sm-inline d-none" style="color:white;margin-left: -241px"  id="datetime"></span>
+
+                                <span class="d-sm-inline d-none" style="color:white;margin-left: -241px" id="datetime"></span>
                             </a>
                         </li>
                         <li class="nav-item dropdown pe-2 d-flex align-items-center">
@@ -353,7 +352,11 @@
             </div>
         </nav>
         @RenderBody()
+        <div style="margin-left:820px;width:169px;max-height:120px">
+            <div id="google_translate_element" class="form-control"></div>
+        </div>
     </main>
+   
     <div class="fixed-plugin">
         <a class="fixed-plugin-button text-dark position-fixed px-3 py-2">
             <i class="fa fa-cog py-2"> </i>
@@ -419,6 +422,7 @@
     <script src="~/Data/assets/js/plugins/smooth-scrollbar.min.js"></script>
     <script src="~/Data/assets/js/plugins/chartjs.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.2/js/toastr.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
     <script src="~/Scripts/Login.js"></script>
@@ -437,14 +441,19 @@
                 year: 'numeric',
                 month: 'long',
                 day: 'numeric',
-                hour: 'numeric',
-                minute: 'numeric',
-                second: 'numeric'
+                //hour: 'numeric',
+                //minute: 'numeric',
+                //second: 'numeric'
             };
             var formattedDateTime = now.toLocaleString('en-US', options);
             $("#datetime").text(formattedDateTime);
         }
-
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+                pageLanguage: 'en',
+                includedLanguages: 'en,gu,hi' // Specify the languages you want to include here
+            }, 'google_translate_element');
+        }
         // Update the date and time every second
         setInterval(updateDateTime, 1000);
         function updateNotificationBadge() {
