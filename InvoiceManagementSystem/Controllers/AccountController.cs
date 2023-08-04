@@ -12,9 +12,16 @@ namespace InvoiceManagementSystem.Controllers
 
         public ActionResult MyProfile(AccountModel cls)
         {
-            cls.Id = objCommon.getUserIdFromSession();
-            cls = cls.MyProfile(cls);
-            return View(cls);
+            if (objCommon.getUserIdFromSession() != 0)
+            {
+                cls.Id = objCommon.getUserIdFromSession();
+                cls = cls.MyProfile(cls);
+                return View(cls);
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
         }
 
 
