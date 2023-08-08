@@ -55,12 +55,12 @@
 <div class="row" id="FilterDiv" style="margin-left:19px">
     <div class="col-sm-6 col-md-3">
         <div class="form-group form-focus">
-            <input type="text" class="form-control floating" id="SearchText" placeholder="Search" maxlength="50">
+            <select data-placeholder="Select here.." id="ddlClassId" onchange="onddlClass();" class="select2-single-placeholder form-control" style="width: 100%"></select>
         </div>
     </div>
     <div class="col-sm-6 col-md-3">
         <div class="form-group form-focus">
-            <select data-placeholder="Select here.." id="ddlClassId" class="select2-single-placeholder form-control" style="width: 100%"></select>
+            <select data-placeholder="Select here.." id="ddlStudentId"  class="select2-single-placeholder form-control" style="width: 100%"></select>
         </div>
     </div>
     <div class="col-sm-6 col-md-1">
@@ -193,7 +193,8 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" id="btnAdd" class="btn bg-gradient-info" onclick="InsertData()">Add</button>
+                <button type="button" id="btnAdd" class="btn bg-gradient-success" onclick="InsertandPayData()">Save & Pay</button>
+                <button type="button" id="btnAdd" class="btn bg-gradient-info" onclick="InsertData()">Save</button>
                 <button type="button" class="btn bg-gradient-dark" onclick="ClearData(1)">Clear</button>
                 <input type="hidden" id="hdnintId" value="0" />
             </div>
@@ -354,6 +355,92 @@
             }
         });
     }
+
+
+    function InsertandPayData() {
+
+        var val = true;
+        var Id = $('#hdnintId').val();
+        var ClassId = $('#ClassId').val();
+        if (ClassId == 0) {
+            $("#errClassNo").html("Please select classroom.");
+            val = false;
+        }
+        var StudentId = $('#StudentId').val();
+        if (StudentId == 0) {
+            $("#errStudent").html("Please select student.");
+            val = false;
+        }
+        var MonthId = $('#MonthId').val();
+        if (MonthId == 0) {
+            $("#errMonth").html("Please select month.");
+            val = false;
+        }
+        var YearId = $('#YearId').val();
+        if (YearId == 0) {
+            $("#errYear").html("Please select year.");
+            val = false;
+        }
+        var SearchText = $('#SearchText').val();
+        var Date = $('#Date').val();
+        if (Date == "" || /\S/.test(Date) == false) {
+            $("#errDate").html("Please select date.");
+            val = false;
+        }
+        var RollNo = $('#RollNo').text();
+        var FeesAmount = $('#FeesAmount').val();
+        if (FeesAmount == "" || /\S/.test(FeesAmount) == false) {
+            $("#errFeesAmount").html("Please enter fees amount.");
+            val = false;
+        }
+        var formData = new FormData();
+        if (val == false) {
+            return;
+        }
+        formData.append('Id', Id);
+        formData.append('ClassId', ClassId);
+        formData.append('StudentId', StudentId);
+        formData.append('MonthId', MonthId);
+        formData.append('YearId', YearId);
+        formData.append('RollNo', RollNo);
+        formData.append('Date', Date);
+        formData.append('FeesAmount', FeesAmount);
+        formData.append('SearchText', SearchText);
+        ShowWait();
+        $.ajax({
+            type: "POST",
+            url: '/Fees/InsertandPayFees',
+            contentType: "application/json; charset=utf-8",
+            contentType: false,
+            processData: false,
+            data: formData,
+            success: function (data) {
+                if (data != null) {
+                    if (data == 'Success' && Id == 0) {
+                        toastr.success('Fees inserted successfully');
+                        GetFeesList(1);
+                        $('#Fees').click();
+                        ClearData(1);
+                    }
+                    else if (data == 'Updated' && Id > 0) {
+                        toastr.success('Fees updated successfully');
+                        GetFeesList(1);
+                        $('#Fees').click();
+                        ClearData(1);
+                    }
+                    else if (data == 'Exists') {
+                        toastr.error('Fees already exists!');
+                        document.getElementById('Email').value = "";
+                    }
+                }
+                HideWait();
+            },
+            error: function (xyz) {
+                HideWait();
+                alert('errors');
+            }
+        });
+    }
     function GetClassRoom() {
         var cls = {
         }
@@ -479,12 +566,37 @@
             }
         });
     }
+
+    function onddlClass() {
+        debugger
+        var ClassId = $('#ddlClassId').val();
+        $.ajax({
+            type: "GET",
+            url: '/Fees/LoadDDlStudent?ClassId=' + ClassId,
+            async: false,
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (data) {
+
+                $('#ddlStudentId').empty();
+                $("#ddlStudentId").append($("<option     />").val("0").text("Select student name.."));
+                $.each(data, function (i, v) {
+                    $("#ddlStudentId").append($("<option     />").val(v.StudentId).text(v.StudentName));
+                });
+                HideWait();
+            },
+            failure: function () {
+                HideWait();
+                alert("Failed!");
+            }
+        });
+    }
     function GetFeesList(page) {
-        
+        debugger
         var Id = 0;
-        var SearchText = document.getElementById('SearchText').value;
-        //var ClassId = document.getElementById('ClassId').value;
-        //var StudentId = document.getElementById('StudentId').value;
+        //var SearchText = document.getElementById('SearchText').value;
+        var ClassId = document.getElementById('ddlClassId').value;
+        var StudentId = document.getElementById('ddlStudentId').value;
         if (document.getElementById('PageSize') != null) {
             PageSize = document.getElementById('PageSize').value;
         }
@@ -498,9 +610,9 @@
         PageIndex = page;
         var cls = {
             Id: Id,
-            SearchText: SearchText,
-            //ClassId: ClassId,
-            //StudentId: StudentId,
+            //SearchText: SearchText,
+            ClassId: ClassId,
+            StudentId: StudentId,
             PageSize: PageSize,
             PageIndex: PageIndex,
         }
@@ -634,7 +746,8 @@
             }
         }
         else {
-            document.getElementById('SearchText').value = "";
+            $("#ddlClassId").val('0').trigger('change');
+            $("#ddlStudentId").val('0').trigger('change');
             GetFeesList();
         }
     }

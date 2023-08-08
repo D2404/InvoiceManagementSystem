@@ -827,6 +827,8 @@
     <Content Include="Views\Leave\Leave.cshtml" />
     <Content Include="Views\Home\Index1.cshtml" />
     <Content Include="Views\Home\_LeaveDataPartial.cshtml" />
+    <Content Include="Views\Fees\FeesHistory.cshtml" />
+    <Content Include="Views\Fees\_FeesHistoryListPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

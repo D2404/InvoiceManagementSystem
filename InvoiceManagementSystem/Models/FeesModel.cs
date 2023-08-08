@@ -45,6 +45,7 @@ namespace InvoiceManagementSystem.Models
         public string CreatedDate { get; set; }
         public int ShowingEntries { get; set; }
         public int fromEntries { get; set; }
+        public int Status { get; set; }
 
         public Pager Pager { get; set; }
         public List<FeesModel> LSTFeesList { get; set; }
@@ -243,6 +244,57 @@ namespace InvoiceManagementSystem.Models
             return cls;
         }
 
+        public FeesModel addandPayFees(FeesModel cls)
+        {
+            try
+            {
+                conn.Open();
+                SqlCommand cmd = new SqlCommand("AddUpdateandPayFees", conn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@Id", SqlDbType.Int).Value = cls.Id;
+                cmd.Parameters.AddWithValue("@StudentId", cls.StudentId);
+                cmd.Parameters.AddWithValue("@ClassId", cls.ClassId);
+                cmd.Parameters.AddWithValue("@RollNo", cls.RollNo);
+                cmd.Parameters.AddWithValue("@FeesAmount", cls.FeesAmount);
+                cmd.Parameters.AddWithValue("@MonthId", cls.MonthId);
+                cmd.Parameters.AddWithValue("@Year", cls.YearId);
+                cmd.Parameters.AddWithValue("@Date", cls.Date);
+                cmd.Parameters.AddWithValue("@UserId", objCommon.getUserIdFromSession());
+
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                cmd.CommandTimeout = 0;
+                da.ReturnProviderSpecificTypes = true;
+                DataTable dt = new DataTable();
+                da.Fill(dt);
+                conn.Close();
+                if (dt.Rows.Count > 0)
+                {
+                    string intRefId = dt.Rows[0][0].ToString();
+                    if (intRefId == "1")
+                    {
+                        cls.Response = "Success";
+                    }
+                    else if (intRefId == "2")
+                    {
+                        cls.Response = "Updated";
+                    }
+                    else if (intRefId == "-1")
+                    {
+                        cls.Response = "Exists";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                if (conn.State == ConnectionState.Open)
+                {
+                    conn.Close();
+                }
+            }
+
+            return cls;
+        }
+
         public FeesModel GetFees(FeesModel cls)
         {
             try
@@ -298,6 +350,39 @@ namespace InvoiceManagementSystem.Models
             {
                 conn.Open();
                 SqlCommand cmd = new SqlCommand("sp_DeleteFees", conn);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@Id", cls.Id);
+                SqlDataAdapter da = new SqlDataAdapter(cmd);
+                cmd.CommandTimeout = 0;
+                da.ReturnProviderSpecificTypes = true;
+                DataTable dt = new DataTable();
+                da.Fill(dt);
+                conn.Close();
+                if (dt.Rows[0][0].ToString() == "1")
+                {
+                    cls.Response = "Success";
+                }
+                else if (dt.Rows[0][0].ToString() == "2")
+                {
+                    cls.Response = "dependency";
+                }
+            }
+            catch (Exception ex)
+            {
+                if (conn.State == ConnectionState.Open)
+                {
+                    conn.Close();
+                }
+            }
+            return cls;
+        }
+
+        public FeesModel deleteFeesHistory(FeesModel cls)
+        {
+            try
+            {
+                conn.Open();
+                SqlCommand cmd = new SqlCommand("sp_DeleteFeesCollectionHistoryy", conn);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add("@Id", cls.Id);
                 SqlDataAdapter da = new SqlDataAdapter(cmd);

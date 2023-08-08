@@ -352,9 +352,9 @@
             </div>
         </nav>
         @RenderBody()
-        <div style="margin-left:820px;width:169px;max-height:120px">
+        @*<div style="margin-left:820px;width:169px;max-height:120px">
             <div id="google_translate_element" class="form-control"></div>
-        </div>
+        </div>*@
     </main>
    
     <div class="fixed-plugin">
@@ -448,12 +448,12 @@
             var formattedDateTime = now.toLocaleString('en-US', options);
             $("#datetime").text(formattedDateTime);
         }
-        function googleTranslateElementInit() {
-            new google.translate.TranslateElement({
-                pageLanguage: 'en',
-                includedLanguages: 'en,gu,hi' // Specify the languages you want to include here
-            }, 'google_translate_element');
-        }
+        //function googleTranslateElementInit() {
+        //    new google.translate.TranslateElement({
+        //        pageLanguage: 'en',
+        //        includedLanguages: 'en,gu,hi' // Specify the languages you want to include here
+        //    }, 'google_translate_element');
+        //}
         // Update the date and time every second
         setInterval(updateDateTime, 1000);
         function updateNotificationBadge() {
