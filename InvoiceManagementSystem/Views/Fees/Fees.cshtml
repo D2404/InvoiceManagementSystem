@@ -193,10 +193,12 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" id="btnAdd" class="btn bg-gradient-success" onclick="InsertandPayData()">Save & Pay</button>
-                <button type="button" id="btnAdd" class="btn bg-gradient-info" onclick="InsertData()">Save</button>
-                <button type="button" class="btn bg-gradient-dark" onclick="ClearData(1)">Clear</button>
-                <input type="hidden" id="hdnintId" value="0" />
+                <div style="margin-left:120px">
+                    <button type="button" id="btnAdd1" class="btn bg-gradient-danger"  onclick="InsertandPayData()">Save & Pay</button>
+                    <button type="button" id="btnAdd" class="btn bg-gradient-info" onclick="InsertData()">Save</button>
+                    <button type="button" class="btn bg-gradient-dark" onclick="ClearData(1)">Clear</button>
+                    <input type="hidden" id="hdnintId" value="0" />
+                </div>
             </div>
         </div>
     </div>
@@ -430,7 +432,13 @@
                     }
                     else if (data == 'Exists') {
                         toastr.error('Fees already exists!');
-                        document.getElementById('Email').value = "";
+                        $("#MonthId").val('0').trigger('change');
+                    }
+                    else if (data == 'LastMonth') {
+                        toastr.success('LastMonth Fees inserted successfully!');
+                        GetFeesList(1);
+                        $('#Fees').click();
+                        ClearData(1);
                     }
                 }
                 HideWait();
@@ -636,9 +644,11 @@
         });
     }
     function GetSingleFeesData(id) {
-        
+        debugger
         document.getElementById('btnAdd').innerHTML = "Update";
         $("#btnAdd").attr('title', 'Update');
+        document.getElementById('btnAdd1').innerHTML = "Update & Pay";
+        $("#btnAdd1").attr('title', 'Update');
         document.getElementById('PopupTitle').innerHTML = "Update Fees";
         var cls = {
             Id: id
@@ -651,7 +661,7 @@
                 cls: cls
             }),
             success: function (data) {
-                
+                debugger
                 if (data != null) {
                     document.getElementById('hdnintId').value = data.LSTFeesList[0].Id;
                     $('#ClassId').val(data.LSTFeesList[0].ClassId).trigger("change");
@@ -659,9 +669,14 @@
                     $('#MonthId').val(data.LSTFeesList[0].MonthId).trigger("change");
                     $('#YearId').val(data.LSTFeesList[0].YearId).trigger("change");
                     document.getElementById('RollNo').value = data.LSTFeesList[0].RollNo;
+
+                    var inputDate = new Date(data.LSTFeesList[0].Date);
+                    var formattedDate = (inputDate.getMonth() + 1) + '-' + inputDate.getDate() + '-' + inputDate.getFullYear();
+
+                    $('#Date').val(formattedDate); // Set the value using jQuery
+
                     document.getElementById('FeesAmount').value = data.LSTFeesList[0].FeesAmount;
-                }
-                else {
+                } else {
                     alert('error');
                 }
             },
@@ -714,7 +729,8 @@
         $('#errDate').html("");
         document.getElementById('FeesAmount').value = "";
         $('#errFeesAmount').html("");
-        document.getElementById('btnAdd').innerHTML = "Add";
+        document.getElementById('btnAdd').innerHTML = "Save";
+        document.getElementById('btnAdd1').innerHTML = "Save & Pay";
         $("#btnAdd").attr('title', 'Upload');
         document.getElementById('PopupTitle').innerHTML = "Add Fees";
     }
@@ -735,13 +751,17 @@
             $('#errFeesAmount').html("");
             if (Id == "0") {
                 document.getElementById('hdnintId').value = "0";
-                document.getElementById('btnAdd').innerHTML = "Add";
+                document.getElementById('btnAdd').innerHTML = "Save";
                 $("#btnAdd").attr('title', 'Add');
+                document.getElementById('btnAdd1').innerHTML = "Save & Pay";
+                $("#btnAdd1").attr('title', 'Add');
                 document.getElementById('PopupTitle').innerHTML = "Add Fees";
             }
             else {
                 document.getElementById('btnAdd').innerHTML = "Update";
                 $("#btnAdd").attr('title', 'Update');
+                document.getElementById('btnAdd1').innerHTML = "Update & Pay";
+                $("#btnAdd1").attr('title', 'Update');
                 document.getElementById('PopupTitle').innerHTML = "Update Fees";
             }
         }

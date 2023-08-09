@@ -206,7 +206,7 @@ namespace InvoiceManagementSystem.Models
                 cmd.Parameters.AddWithValue("@RollNo", cls.RollNo);
                 cmd.Parameters.AddWithValue("@FeesAmount", cls.FeesAmount);
                 cmd.Parameters.AddWithValue("@MonthId", cls.MonthId);
-                cmd.Parameters.AddWithValue("@YearId", cls.YearId);
+                cmd.Parameters.AddWithValue("@Year", cls.YearId);
                 cmd.Parameters.AddWithValue("@Date", cls.Date);
                 cmd.Parameters.AddWithValue("@UserId", objCommon.getUserIdFromSession());
 
@@ -230,6 +230,10 @@ namespace InvoiceManagementSystem.Models
                     else if (intRefId == "-1")
                     {
                         cls.Response = "Exists";
+                    }
+                    else if (intRefId == "-2")
+                    {
+                        cls.Response = "LastMonth";
                     }
                 }
             }
@@ -281,6 +285,10 @@ namespace InvoiceManagementSystem.Models
                     else if (intRefId == "-1")
                     {
                         cls.Response = "Exists";
+                    }
+                    else if (intRefId == "-2")
+                    {
+                        cls.Response = "LastMonth";
                     }
                 }
             }
