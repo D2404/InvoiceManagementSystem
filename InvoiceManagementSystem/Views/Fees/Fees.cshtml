@@ -2,56 +2,15 @@
 @{
     ViewBag.Title = "Fees Collection";
 }
-<style>
-    .dropbtn {
-        background-color: #3498DB;
-        color: white;
-        padding: 16px;
-        font-size: 16px;
-        border: none;
-        cursor: pointer;
-    }
-        .dropbtn:hover, .dropbtn:focus {
-            background-color: #2980B9;
-        }
-    .dropdown {
-        position: relative;
-        display: inline-block;
-    }
-    .dropdown-content {
-        display: none;
-        position: absolute;
-        background-color: #f1f1f1;
-        min-width: 100px;
-        overflow: auto;
-        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-        z-index: 1;
-    }
-        .dropdown-content a {
-            color: black;
-            padding: 12px 16px;
-            text-decoration: none;
-            display: block;
-        }
-    .dropdown a:hover {
-        background-color: #ddd;
-    }
-    .show {
-        display: block;
-    }
-</style>
+
 <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl " id="navbarBlur" data-scroll="false">
     <div class="container-fluid py-1 px-3">
         <nav aria-label="breadcrumb">
             <h6 class="font-weight-bolder text-white mb-0">Fees List</h6>
         </nav>
     </div>
-
-
-
-    <!-- Modal -->
-
 </nav>
+
 <div class="row" id="FilterDiv" style="margin-left:19px">
     <div class="col-sm-6 col-md-3">
         <div class="form-group form-focus">
@@ -162,9 +121,9 @@
                     <div class="col-sm-6">
                         <div class="form-group">
                             <label for="basicinput"><b>Year</b></label>
-                            <select class="form-control" id="YearId">
-                                <option value="0">Select here..</option>
-                            </select>
+                            <select class="form-control" id="YearId"> 
+                            <option value="0" selected="">Select Year</option>
+                            <option value="2023">2023</option></select>
                             <span id="errYear" class="text-xs font-weight-bold mb-0" style="color:red"></span>
                         </div>
                     </div>
@@ -225,12 +184,9 @@
         </div>
     </div>
 </div>
-<script src="https://dreamguys.co.in/smarthr/blue/assets/js/jquery-3.2.1.min.js"></script>
-<link rel="stylesheet" href="https://dreamguys.co.in/smarthr/blue/assets/css/bootstrap-datetimepicker.min.css">
-<script src="https://dreamguys.co.in/smarthr/blue/assets/js/moment.min.js"></script>
-<script src="https://dreamguys.co.in/smarthr/blue/assets/js/bootstrap-datetimepicker.min.js"></script>
-<!--End of Datetime js/css-->
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
 <script>
     var type = 1
     function ShowFilter() {
@@ -248,7 +204,7 @@
     $(document).ready(function () {
         GetClassRoom();
         GetMonth();
-        GetYear();
+        //GetYear();
         GetFeesList(1);
     });
     function myFunction() {
@@ -347,6 +303,12 @@
                     else if (data == 'Exists') {
                         toastr.error('Fees already exists!');
                         document.getElementById('Email').value = "";
+                    }
+                    else if (data == 'LastMonth') {
+                        toastr.success('LastMonth Fees inserted successfully!');
+                        GetFeesList(1);
+                        $('#Fees').click();
+                        ClearData(1);
                     }
                 }
                 HideWait();
@@ -495,29 +457,29 @@
             }
         });
     }
-    function GetYear() {
-        var cls = {
-        }
-        $.ajax({
-            url: '/Fees/GetYear',
-            contentType: "application/json; charset=utf-8",
-            type: "GET",
-            data: JSON.stringify({
-                cls: cls
-            }),
-            success: function (data) {
-                var html = "";
-                html = html + ' <option value="0" selected>Select Year</option>';
-                for (var i = 0; i < data.LSTYearList.length; i++) {
-                    html = html + '<option value="' + data.LSTYearList[i].Id + '">' + data.LSTYearList[i].Year + '</option>';
-                    $("#YearId").empty();
-                    $("#YearId").append(html);
-                    //$("#ddlClassId").empty();
-                    //$("#ddlClassId").append(html);
-                }
-            }
-        });
-    }
+    //function GetYear() {
+    //    var cls = {
+    //    }
+    //    $.ajax({
+    //        url: '/Fees/GetYear',
+    //        contentType: "application/json; charset=utf-8",
+    //        type: "GET",
+    //        data: JSON.stringify({
+    //            cls: cls
+    //        }),
+    //        success: function (data) {
+    //            var html = "";
+    //            html = html + ' <option value="0" selected>Select Year</option>';
+    //            for (var i = 0; i < data.LSTYearList.length; i++) {
+    //                html = html + '<option value="' + data.LSTYearList[i].Id + '">' + data.LSTYearList[i].Year + '</option>';
+    //                $("#YearId").empty();
+    //                $("#YearId").append(html);
+    //                //$("#ddlClassId").empty();
+    //                //$("#ddlClassId").append(html);
+    //            }
+    //        }
+    //    });
+    //}
     function onClass() {
         var ClassId = $('#ClassId').val();
         $.ajax({
@@ -669,11 +631,11 @@
                     $('#MonthId').val(data.LSTFeesList[0].MonthId).trigger("change");
                     $('#YearId').val(data.LSTFeesList[0].YearId).trigger("change");
                     document.getElementById('RollNo').value = data.LSTFeesList[0].RollNo;
+                    $("#btnAdd1").hide();
+                    //var inputDate = new Date(data.LSTFeesList[0].Date);
+                    //var formattedDate = (inputDate.getMonth() + 1) + '-' + inputDate.getDate() + '-' + inputDate.getFullYear();
 
-                    var inputDate = new Date(data.LSTFeesList[0].Date);
-                    var formattedDate = (inputDate.getMonth() + 1) + '-' + inputDate.getDate() + '-' + inputDate.getFullYear();
-
-                    $('#Date').val(formattedDate); // Set the value using jQuery
+                    $('#Date').val(data.LSTFeesList[0].Date); // Set the value using jQuery
 
                     document.getElementById('FeesAmount').value = data.LSTFeesList[0].FeesAmount;
                 } else {

@@ -207,7 +207,7 @@ namespace InvoiceManagementSystem.Controllers
         public ActionResult FeesHistory()
         {
             int studentId = Convert.ToInt32(Request.QueryString["studentid"]); // Retrieve the studentid query string parameter
-            TempData["ValueToPass"] = studentId;
+            Session["ValueToPass"] = studentId;
             return View();
         }
 
@@ -305,7 +305,7 @@ namespace InvoiceManagementSystem.Controllers
         {
             try
             {
-                int parameterValue = (int)TempData["ValueToPass"];
+                int parameterValue = (int)Session["ValueToPass"];
                 // Retrieve the studentid query string parameter
                 int TotalEntries = 0;
                 int showingEntries = 0;

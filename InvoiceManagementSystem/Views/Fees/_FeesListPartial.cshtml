@@ -112,15 +112,21 @@
 
         </td>
         <td>
-            @if (item.Status == 1)
-            {
-                <span class="text-xs font-weight-bold mb-0"><i class="fa fa-check text-success"></i> <b style="color:forestgreen">Monthly Done</b></span> }
-            else if (item.Status == 0)
+            @if (item.Status == 0)
             {
                 <span class="text-xs font-weight-bold mb-0"><i class="fa fa-clock-o text-danger"></i> <b style="color:red">Pending</b> </span>}
-            else 
+            else if (item.Status == 1)
             {
-                <span class="text-xs font-weight-bold mb-0"><i class="fa fa-smile-o text-info"></i> <b style="color:red">Yearly Done</b> </span>}
+                <span class="text-xs font-weight-bold mb-0"><i class="fa fa-check text-success"></i> <b style="color:forestgreen">Success</b></span>
+            }
+            else if (item.Status == 3)
+            {
+                <span class="text-xs font-weight-bold mb-0"><i class="fa fa-check text-success"></i> <b style="color:dodgerblue">Current Month Pending</b></span>
+            }
+            else
+            {
+                <span class="text-xs font-weight-bold mb-0"><i class="fa fa-smile-o text-info"></i> <b style="color:dodgerblue">Yearly Done</b> </span>
+            }
         </td>
         <td class="align-middle text-center">
             <div class="dropdown">

@@ -163,7 +163,7 @@
             }),
             success: function (data) {
                 if (data.Response == 'Success' && Id > 0) {
-                    toastr.success('Fees deleted successfully');
+                    toastr.success('Fees History deleted successfully');
                     document.getElementById('hdnintId').value = "0";
                     GetFeesHistoryList(1);
                     $('#delete_FeesHistory').click();

@@ -17,6 +17,12 @@ namespace InvoiceManagementSystem.Models
         public int TotalClassRoom { get; set; }
         public int TotalStudent { get; set; }
         public int TotalTeacher { get; set; }
+        public int ThisMonthCollection { get; set; }
+        public int ThisMonthPendingCollection { get; set; }
+        public int TotalAmountForThisMonth { get; set; }
+        public int ThisYearCollection { get; set; }
+        public int TotalPendingThisYear { get; set; }
+        public int TotalAmountForThisYear { get; set; }
         public int TotalTeacherSubject { get; set; }
        
         public int TotalSubject { get; set; }
@@ -57,6 +63,12 @@ namespace InvoiceManagementSystem.Models
                         obj.TotalStudent = Convert.ToInt32(dt.Rows[i]["TotalStudent"] == null || dt.Rows[i]["TotalStudent"].ToString().Trim() == "" ? null : dt.Rows[i]["TotalStudent"].ToString());
                         obj.TotalTeacher = Convert.ToInt32(dt.Rows[i]["TotalTeacher"] == null || dt.Rows[i]["TotalTeacher"].ToString().Trim() == "" ? null : dt.Rows[i]["TotalTeacher"].ToString());
                         obj.TotalSubject = Convert.ToInt32(dt.Rows[i]["TotalSubject"] == null || dt.Rows[i]["TotalSubject"].ToString().Trim() == "" ? null : dt.Rows[i]["TotalSubject"].ToString());
+                        obj.ThisMonthCollection = Convert.ToInt32(dt.Rows[i]["ThisMonthCollection"] == null || dt.Rows[i]["ThisMonthCollection"].ToString().Trim() == "" ? null : dt.Rows[i]["ThisMonthCollection"].ToString());
+                        obj.ThisMonthPendingCollection = Convert.ToInt32(dt.Rows[i]["ThisMonthPendingCollection"] == null || dt.Rows[i]["ThisMonthPendingCollection"].ToString().Trim() == "" ? null : dt.Rows[i]["ThisMonthPendingCollection"].ToString());
+                        obj.TotalAmountForThisMonth = Convert.ToInt32(dt.Rows[i]["TotalAmountForthisMonth"] == null || dt.Rows[i]["TotalAmountForthisMonth"].ToString().Trim() == "" ? null : dt.Rows[i]["TotalAmountForthisMonth"].ToString());
+                        obj.ThisYearCollection = Convert.ToInt32(dt.Rows[i]["ThisYearCollection"] == null || dt.Rows[i]["ThisYearCollection"].ToString().Trim() == "" ? null : dt.Rows[i]["ThisYearCollection"].ToString());
+                        obj.TotalPendingThisYear = Convert.ToInt32(dt.Rows[i]["TotalPendingThisYear"] == null || dt.Rows[i]["TotalPendingThisYear"].ToString().Trim() == "" ? null : dt.Rows[i]["TotalPendingThisYear"].ToString());
+                        obj.TotalAmountForThisYear = Convert.ToInt32(dt.Rows[i]["TotalAmountForthisYear"] == null || dt.Rows[i]["TotalAmountForthisYear"].ToString().Trim() == "" ? null : dt.Rows[i]["TotalAmountForthisYear"].ToString());
 
                         LSTList.Add(obj);
                     }
