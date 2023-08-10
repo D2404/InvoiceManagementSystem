@@ -25,7 +25,7 @@ namespace InvoiceManagementSystem.Models
         public int LeaveType { get; set; }
         public string Reason { get; set; }
         public int TeacherId { get; set; }
-        public bool Status { get; set; }
+        public string Status { get; set; }
         public int intActive { get; set; }
         
         public string Date { get; set; }
@@ -51,11 +51,11 @@ namespace InvoiceManagementSystem.Models
                 SqlCommand cmd = new SqlCommand("AddUpdateTeacherAttandence", conn);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add("@Id", SqlDbType.Int).Value = cls.Id;
-                cmd.Parameters.Add("@MonthId", SqlDbType.Int).Value = cls.MonthId;
-                cmd.Parameters.Add("@YearId", SqlDbType.Int).Value = cls.YearId;
+                //cmd.Parameters.Add("@MonthId", SqlDbType.Int).Value = cls.MonthId;
+                //cmd.Parameters.Add("@YearId", SqlDbType.Int).Value = cls.YearId;
                 cmd.Parameters.AddWithValue("@TeacherId", cls.TeacherId);
                 cmd.Parameters.Add("@Date", SqlDbType.DateTime).Value = cls.Date;
-                cmd.Parameters.Add("@Status", SqlDbType.Bit).Value = cls.Status;
+                cmd.Parameters.Add("@Status", SqlDbType.NVarChar).Value = cls.Status;
                 cmd.Parameters.Add("@LeaveType", SqlDbType.NVarChar).Value = cls.LeaveType;
                 cmd.Parameters.Add("@Reason", SqlDbType.NVarChar).Value = cls.Reason;
                 cmd.Parameters.AddWithValue("@UserId", objCommon.getUserIdFromSession());
@@ -114,8 +114,8 @@ namespace InvoiceManagementSystem.Models
                         TeacherAttandenceModel obj = new TeacherAttandenceModel();
                         obj.Id = Convert.ToInt32(dt.Rows[i]["Id"] == null || dt.Rows[i]["Id"].ToString().Trim() == "" ? null : dt.Rows[i]["Id"].ToString());
                         obj.TeacherId = Convert.ToInt32(dt.Rows[i]["TeacherId"] == null || dt.Rows[i]["TeacherId"].ToString().Trim() == "" ? null : dt.Rows[i]["TeacherId"].ToString());
-                        obj.Status = Convert.ToBoolean(dt.Rows[i]["Status"] == null || dt.Rows[i]["Status"].ToString().Trim() == "" ? null : dt.Rows[i]["Status"].ToString());
-                        obj.Date = dt.Rows[i]["Date"] == null || dt.Rows[i]["Date"].ToString().Trim() == "" ? null : Convert.ToDateTime(dt.Rows[i]["Date"]).ToString("dd/MM/yyyy");
+                        obj.Status = dt.Rows[i]["Status"] == null || dt.Rows[i]["Status"].ToString().Trim() == "" ? null : dt.Rows[i]["Status"].ToString();
+                        obj.Date = dt.Rows[i]["Date"] == null || dt.Rows[i]["Date"].ToString().Trim() == "" ? null : Convert.ToDateTime(dt.Rows[i]["Date"]).ToString("yyyy/MM/dd");
                         obj.LeaveType = Convert.ToInt32(dt.Rows[i]["LeaveType"] == null || dt.Rows[i]["LeaveType"].ToString().Trim() == "" ? null : dt.Rows[i]["LeaveType"].ToString());
                         obj.Reason = dt.Rows[i]["Reason"] == null || dt.Rows[i]["Reason"].ToString().Trim() == "" ? null : dt.Rows[i]["Reason"].ToString();
                         LSTList.Add(obj);

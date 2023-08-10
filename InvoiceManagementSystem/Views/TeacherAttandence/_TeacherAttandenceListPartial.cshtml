@@ -43,7 +43,7 @@ else
 <td><p class="text-xs font-weight-bold mb-0" style="text-align: left;">Full-Day</p></td>}
 
 
-    @if (item.Status == true)
+    @if (item.Status == "Present")
     {
 <td><p class="text-xs font-weight-bold mb-0" style="text-align: left;">Present</p></td>
  }
@@ -64,7 +64,7 @@ else
         </a>
 
         <div class="dropdown-content" style="top: 6px; right: 8px;width:100px">
-            @if (item.Status == true)
+            @if (item.Status == "Present")
             {
 
 <a class="dropdown-item" style="font-size:14px;padding-top:6px;padding-right: 25px" data-bs-toggle="modal" data-bs-target="#status" onclick="openstatusModel(@item.Id)">&nbsp;&nbsp;<i class="fa fa-check" aria-hidden="true" style="color:black">&nbsp;&nbsp;Status</i></a> }
