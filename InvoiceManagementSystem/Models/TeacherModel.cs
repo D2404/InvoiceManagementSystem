@@ -53,29 +53,29 @@ namespace InvoiceManagementSystem.Models
         {
             try
             {
-                if (cls.Profile[0] != null  && cls.Profile.Length > 0)
-                {
-                    string Profile = ("Profile_" + cls.Id + "_" + DateTime.Now.Ticks).ToString();
-                    string strOriginalFile = cls.Profile[0].FileName;
-                    string ext = System.IO.Path.GetExtension(cls.Profile[0].FileName).ToLower();
-                    string fileLocation = HttpContext.Current.Server.MapPath("/Data/Profile/");
-                    if (!Directory.Exists(fileLocation))
-                    {
-                        Directory.CreateDirectory(fileLocation);
-                    }
-                    if (ext == ".jpeg" || ext == ".jpg" || ext == ".png")
-                    {
-                        Profile = Profile + ext;
-                        cls.Profile[0].SaveAs(fileLocation + Profile);
-                    }
-                    var strPath = fileLocation + cls.Profile;
-                    FileInfo file = new FileInfo(strPath);
-                    if (file.Exists)//check file exsit or not
-                    {
-                        file.Delete();
-                    }
-                    cls.ProfileImg = Profile;
-                }
+                //if (cls.Profile[0] != null  && cls.Profile.Length > 0)
+                //{
+                //    string Profile = ("Profile_" + cls.Id + "_" + DateTime.Now.Ticks).ToString();
+                //    string strOriginalFile = cls.Profile[0].FileName;
+                //    string ext = System.IO.Path.GetExtension(cls.Profile[0].FileName).ToLower();
+                //    string fileLocation = HttpContext.Current.Server.MapPath("/Data/Profile/");
+                //    if (!Directory.Exists(fileLocation))
+                //    {
+                //        Directory.CreateDirectory(fileLocation);
+                //    }
+                //    if (ext == ".jpeg" || ext == ".jpg" || ext == ".png")
+                //    {
+                //        Profile = Profile + ext;
+                //        cls.Profile[0].SaveAs(fileLocation + Profile);
+                //    }
+                //    var strPath = fileLocation + cls.Profile;
+                //    FileInfo file = new FileInfo(strPath);
+                //    if (file.Exists)//check file exsit or not
+                //    {
+                //        file.Delete();
+                //    }
+                //    cls.ProfileImg = Profile;
+                //}
                 var ddd = clsCommon.DecryptString("QU734hNlS/9lJ6Eof1tOcg==");
                 cls.Password = clsCommon.EncryptString(cls.Password);
                 conn.Open();
@@ -156,7 +156,7 @@ namespace InvoiceManagementSystem.Models
                         obj.Password = dt.Rows[i]["Password"] == null || dt.Rows[i]["Password"].ToString().Trim() == "" ? null : dt.Rows[i]["Password"].ToString();
                         obj.MobileNo = dt.Rows[i]["MobileNo"] == null || dt.Rows[i]["MobileNo"].ToString().Trim() == "" ? null : dt.Rows[i]["MobileNo"].ToString();
                         obj.Address = dt.Rows[i]["Address"] == null || dt.Rows[i]["Address"].ToString().Trim() == "" ? null : dt.Rows[i]["Address"].ToString();
-                        obj.Dob = dt.Rows[i]["Dob"] == null || dt.Rows[i]["Dob"].ToString().Trim() == "" ? null : Convert.ToDateTime(dt.Rows[i]["Dob"]).ToString("dd/MM/yyyy");
+                        obj.Dob = dt.Rows[i]["Dob"] == null || dt.Rows[i]["Dob"].ToString().Trim() == "" ? null : Convert.ToDateTime(dt.Rows[i]["Dob"]).ToString("yyyy/MM/dd");
                         obj.Education = dt.Rows[i]["Education"] == null || dt.Rows[i]["Education"].ToString().Trim() == "" ? null : dt.Rows[i]["Education"].ToString();
                         obj.Salary = dt.Rows[i]["Salary"] == null || dt.Rows[i]["Salary"].ToString().Trim() == "" ? null : dt.Rows[i]["Salary"].ToString();
                         obj.Gender = Convert.ToBoolean(dt.Rows[i]["Gender"] == null || dt.Rows[i]["Gender"].ToString().Trim() == "" ? null : dt.Rows[i]["Gender"].ToString());
